@@ -1,0 +1,115 @@
+
+/* Hide useless elements in print layouts... */
+@media print {
+    .tab_container {
+        display: none;
+    }
+}
+
+/* Skin */
+.tab_container {
+    font-family: "Trebuchet MS", Trebuchet, Verdana, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+.tab_container {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 4px;
+	border-bottom: 1px solid #97a5b0;
+}
+.tab_container:after { /* clearing without presentational markup, IE gets extra treatment */
+    display: block;
+    clear: both;
+    content: " ";
+}
+.tab_container ul {
+   list-style: none;
+}
+
+.tab_container img {
+   vertical-align:middle;
+}
+
+.tab_container li {
+    float: left;
+    margin: 0 0 0 1px;
+    min-width: 84px; /* be nice to Opera */
+}
+.tab_container a, .tab_container a span {
+    display: block;
+    padding: 0 10px;
+    background: url(../images/tab.png) no-repeat;
+}
+.tab_container a {
+    margin: 1px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
+    padding-left: 0;
+    color: #27537a;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap; /* required in IE 6 */    
+    outline: 0; /* prevent dotted border in Firefox */
+}
+.tab_container .tab_container-selected a {
+    position: relative;
+    top: 1px;
+    z-index: 2;
+    margin-top: 0;
+    color: #000;
+}
+.tab_container a span {
+    width: 64px; /* IE 6 treats width as min-width */
+    min-width: 64px;
+    height: 18px; /* IE 6 treats height as min-height */
+    min-height: 18px;
+    padding-top: 6px;
+    padding-right: 0;
+}
+*>.tab_container a span { /* hide from IE 6 */
+    width: auto;
+    height: auto;
+}
+.tab_container .tab_container-selected a span {
+    padding-bottom: 1px;
+}
+.tab_container .tab_container-selected a, .tab_container a:hover, .tab_container a:focus, .tab_container a:active {
+    background-position: 100% -150px;
+}
+.tab_container a, .tab_container .tab_container-disabled a:hover, .tab_container .tab_container-disabled a:focus, .tab_container .tab_container-disabled a:active {
+    background-position: 100% -100px;
+}
+.tab_container .tab_container-selected a span, .tab_container a:hover span, .tab_container a:focus span, .tab_container a:active span {
+    background-position: 0 -50px;
+}
+.tab_container a span, .tab_container .tab_container-disabled a:hover span, .tab_container .tab_container-disabled a:focus span, .tab_container .tab_container-disabled a:active span {
+    background-position: 0 0;
+}
+.tab_container .tab_container-selected a:link, .tab_container .tab_container-selected a:visited, .tab_container .tab_container-disabled a:link, .tab_container .tab_container-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+    cursor: text;
+}
+.tab_container a:hover, .tab_container a:focus, .tab_container a:active,
+.tab_container .tab_container-deselectable a:hover, .tab_container .tab_container-deselectable a:focus, .tab_container .tab_container-deselectable a:active { /* @ Opera, we need to be explicit again here now... */
+    cursor: pointer;
+}
+.tab_container-disabled {
+    opacity: .4;
+    filter: alpha(opacity=40);
+}
+.tab_container-panel {
+    border-top: 1px solid #97a5b0;
+    padding: 1em 8px;
+    background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
+}
+.tab_container-loading em {
+    padding: 0 0 0 20px;
+    background: url(../images/loading.gif) no-repeat 0 50%;
+}
+
+/* Additional IE specific bug fixes... */
+* html .tab_container { /* auto clear, @ IE 6 & IE 7 Quirks Mode */
+    display: inline-block;
+}
+*:first-child+html .tab_container  { /* @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
+    display: inline-block;
+}
+

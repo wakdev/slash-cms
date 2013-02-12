@@ -1,0 +1,101 @@
+/**
+* @package		SLASH-CMS
+* @version		contents.css - Version 12.2.12
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+
+.menu {
+	font-family: 'Lato', sans-serif;
+	font-size:18px;
+	font-weight:100;
+	color:#544E51;
+}
+
+.menu a{
+
+	color:#544E51;
+	text-decoration:none;
+}
+
+.menu ul{
+	list-style-type:none;
+}
+
+.menu li{
+	display:inline-block;
+	padding-left:20px;
+	padding-right:20px;
+	height:40px;
+	padding-top:120px;
+}
+
+.current {
+	position:relative;
+	top:0px;
+	height:160px;
+	background-color:#483F32;
+}
+
+.current a {
+	color:#FFF;
+}
+
+
+.pg_title{
+
+	float:left;
+	padding:10px;
+	background-color:#941e25;
+
+	
+	font-family: 'Lato', sans-serif;
+	font-size:18px;
+	font-weight:100;
+	text-transform:uppercase;
+	color:#FFF;
+	
+}
+
+.pg_content{
+	clear:both;
+
+	font-family: 'Lato', sans-serif;
+	font-size:14px;
+	font-weight:400;
+	color:#544E51;
+	padding:10px;
+}
+
+.footer { 
+	color: #FFF;
+	font-family: Arial;
+	font-size: 10px;
+	font-weight: normal;
+}
+
+.footer a, .footer a:visited {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.footer a:hover{
+  color: #FFF;
+  text-decoration: underline;
+}

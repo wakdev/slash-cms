@@ -1,0 +1,64 @@
+/**
+* @package		SLASH-CMS
+* @version		layout.css - Version 12.2.12
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+body {
+	margin:0;
+	padding:0;
+	
+	
+}
+
+.header {
+	
+}
+
+.logo {
+	width:160px;
+	height:160px;
+}
+
+.head {
+	padding:12px;
+}
+
+.menu {
+	padding:12px;
+	border-top:4px #544E51 dotted;
+	border-bottom:4px #544E51 dotted;
+}
+
+.content{
+	padding:12px;
+	/*width:990px;*/
+}
+
+.footer {
+  background: none repeat scroll 0 0 #FFD1D4;
+  bottom: 0;
+ 
+  padding: 5px;
+  position: fixed;
+  right: 0;
+  text-align: right;
+}
+
+

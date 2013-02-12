@@ -1,0 +1,94 @@
+/**
+* @package		SLASH-CMS
+* @subpackage	SLA_SECURE
+* @internal     DEFAUT SLA SECURE CSS
+* @version		sla_secure.css - Version 9.6.4
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+.login_text {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	color:#333333; 
+}
+
+.error_login_text {
+	
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:12px;
+	color:#63070A; 
+}
+
+.connexion_title {
+
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:26px;
+	font-weight:normal;
+	color:#333333; 
+}
+
+.sla_secure_container{
+	width:250px;
+	margin-left:auto;
+	margin-right:auto;
+	
+	text-align:right;
+}
+
+.sla_secure_box{
+	width: 250px;
+	/*margin: 0 auto 20px;*/
+	background-color: #eee;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.sla_secure_zn_title {
+	margin:10px;
+}
+
+
+.sla_secure_zn_input {
+	margin:15px;
+	text-align:right;
+}
+
+.sla_secure_zn_submit {
+	text-align:right;
+	padding-right:20px;
+	padding-bottom:15px;
+}
+
+.sla_secure_error{
+	width:255px;
+	height:25px;
+	margin-left:auto;
+	margin-right:auto;
+	
+	padding-top:5px;
+	text-align:center;
+	border:1px dotted #AF1321;
+	background:#FFD1D4;
+}
+

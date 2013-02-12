@@ -1,0 +1,25 @@
+SetEnv PHP_VER 5
+
+Options +FollowSymlinks
+Options -Indexes
+RewriteEngine on
+
+ErrorDocument 403 /index.php?mod=sl_error&id=403
+ErrorDocument 404 /index.php?mod=sl_error&id=404
+
+SetEnv SESSION_USE_TRANS_SID 0
+
+# Pages Module
+RewriteRule page-([0-9]+).* index.php?mod=sl_pages&id=$1 [L]
+
+# Articles Module
+RewriteRule article-([0-9]+).* index.php?mod=sl_articles&id=$1 [L]
+
+# DEBUG
+#php_flag display_startup_errors on
+#php_flag display_errors on
+#php_flag html_errors on
+#php_flag ignore_repeated_errors off
+#php_flag ignore_repeated_source off
+#php_flag magic_quotes_gpc on
+#php_value error_reporting 30719

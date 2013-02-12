@@ -1,0 +1,113 @@
+/**
+* @package		SLASH-CMS
+* @subpackage	SLA_DEFAUT_TEMPLATE
+* @internal     DEFAUT ADMIN CSS
+* @version		styles.css - Version 11.5.27
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+body{
+	margin:0px;
+	padding:0px;
+	background-color:#FFF;
+}
+
+p{
+	margin: 0px;	
+}
+
+.sl-container {
+	
+	/*
+	margin-left:auto;
+	margin-right:auto;
+	width:1024px;
+	*/
+	/*border: 1px solid #333333;*/
+	
+}
+
+.sl-header {
+	height:150px;
+	width:100%;
+	border-bottom:1px #222 solid;
+	text-align:left;
+	background-color:#FFF;
+}
+
+
+
+
+.sl-content{
+	
+	
+}
+
+.sl-footer {
+	padding: 5px 5px 5px 5px;
+	font-family: Arial;
+	font-size:10px;
+	font-weight:normal;
+	color:#333;
+	text-align:right;
+	
+	position:fixed;
+	bottom:0px;
+	right:0px;
+	background:#FFD1D4;
+}
+
+
+.sl-footer a, .footer a:visited{
+	color:#000;
+	text-decoration:none;	
+}
+
+.sl-footer a:hover {
+	color:#D51C1E;
+	text-decoration:underline;	
+}
+
+
+.text {
+	font-family: Arial;
+	font-size:11px;
+	font-weight:bold;
+	color:#333333;
+}
+
+.input_text {
+	font-family: Arial;
+	font-size:12px;
+	font-weight:normal;
+	color:#333333;
+}
+legend{
+	background-color: #333;
+	color: #FFFFFF;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size:12px;
+	padding : 5px;
+	text-transform:uppercase;
+}
+
+.adm_box{
+	border:1px #333 solid;
+	padding:5px;
+}

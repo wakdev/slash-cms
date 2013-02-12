@@ -1,0 +1,10 @@
+User-agent:*
+Crawl-delay: 10
+# Directories
+Disallow: /admin/
+Disallow: /core/
+Disallow: /modules/
+Disallow: /templates/
+Disallow: /tmp/
+# Files
+Disallow: /readme.txt

@@ -1,0 +1,283 @@
+/**
+* @package		SLASH-CMS
+* @subpackage	SLA_DEFAUT_TEMPLATE
+* @internal     DEFAUT ADMIN CSS
+* @version		assets.css - Version 9.10.13
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+
+a.add_button{
+	background:url('../images/assets/add.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.add_button:hover {
+	background:url('../images/assets/add_over.png') no-repeat 0 0;
+}
+
+a.del_button{
+	background:url('../images/assets/del.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.del_button:hover {
+	background:url('../images/assets/del_over.png') no-repeat 0 0;
+}
+
+a.apply_button{
+	background:url('../images/assets/apply.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.apply_button:hover {
+	background:url('../images/assets/apply_over.png') no-repeat 0 0;
+}
+
+a.undo_button{
+	background:url('../images/assets/undo.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.undo_button:hover {
+	background:url('../images/assets/undo_over.png') no-repeat 0 0;
+}
+
+a.edit_button{
+	background:url('../images/assets/edit.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.edit_button:hover {
+	background:url('../images/assets/edit_over.png') no-repeat 0 0;
+}
+
+a.delete_button{
+	background:url('../images/assets/del.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.delete_button:hover {
+	background:url('../images/assets/del_over.png') no-repeat 0 0;
+}
+
+a.publish_button{
+	background:url('../images/assets/publish.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.publish_button:hover {
+	background:url('../images/assets/publish_over.png') no-repeat 0 0;
+}
+
+a.unpublish_button{
+	background:url('../images/assets/unpublish.png') no-repeat 0 0;
+	width:48px; height:48px; display: block;
+}
+a.unpublish_button:hover {
+	background:url('../images/assets/unpublish_over.png') no-repeat 0 0;
+}
+
+a.print_button{
+	background:url('../images/assets/printer.png') no-repeat 0 0;
+	width:50px; height:25px; display: block;
+}
+a.print_button:hover {
+	background:url('../images/assets/printer_over.png') no-repeat 0 0;
+}
+
+a.switch_button{
+	background:url('../images/assets/switch.png') no-repeat 0 0;
+	width:50px; height:25px; display: block;
+}
+a.switch_button:hover {
+	background:url('../images/assets/switch_over.png') no-repeat 0 0;
+}
+
+a.back_list_button{
+	position:relative;
+	background:url('../images/assets/back.png') no-repeat 0 0;
+	width:24px; height:24px; display:inline-block;
+	vertical-align: text-bottom;
+}
+a.back_list_button:hover {
+	background:url('../images/assets/back_over.png') no-repeat 0 0;
+}
+
+a.next_list_button{
+	position:relative;
+	background:url('../images/assets/next.png') no-repeat 0 0;
+	width:24px; height:24px; display:inline-block;
+	vertical-align: text-bottom;
+}
+a.next_list_button:hover {
+	background:url('../images/assets/next_over.png') no-repeat 0 0;
+}
+
+a.list_edit_button{
+	background:url('../images/assets/edit_item.png') no-repeat 0 0;
+	width:16px; height:16px;  display:block; 
+}
+a.list_edit_button:hover {
+	background:url('../images/assets/edit_item_over.png') no-repeat 0 0;
+}
+
+a.list_delete_button{
+	background:url('../images/assets/delete.png') no-repeat 0 0;
+	width:16px; height:16px; display:block;
+}
+a.list_delete_button:hover {
+	background:url('../images/assets/delete_over.png') no-repeat 0 0;
+}
+
+a.list_print_button{
+	background:url('../images/assets/print.png') no-repeat 0 0;
+	width:16px; height:16px; display:block;
+}
+a.list_print_button:hover {
+	background:url('../images/assets/print_over.png') no-repeat 0 0;
+}
+
+a.list_show_item_button{
+	background:url('../images/assets/show_item.png') no-repeat 0 0;
+	width:16px; height:16px; display:block;
+}
+a.list_show_item_button:hover {
+	background:url('../images/assets/show_item_over.png') no-repeat 0 0;
+}
+
+a.search_button{
+	position:relative;
+	top:0px;
+	left:0px;
+	background:url('../images/assets/search.png') no-repeat 0 0;
+	width:22px; height:22px; display:inline-block; display:moz-inline-box; #display:block;
+	vertical-align: text-bottom;
+}
+a.search_button:hover {
+	background:url('../images/assets/search_over.png') no-repeat 0 0;
+}
+
+a.search_reset_button{
+	background:url('../images/assets/clear.png') no-repeat 0 0;
+	width:22px; height:22px; display:inline-block; display:moz-inline-box; #display:block;
+	vertical-align: text-bottom;
+}
+a.search_reset_button:hover {
+	background:url('../images/assets/clear_over.png') no-repeat 0 0;
+}
+
+a.sort_asc {
+	background:url('../images/assets/sort_asc.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block; display:moz-inline-box; #display:block;
+}
+
+a.sort_asc:hover{
+	background:url('../images/assets/sort_asc_over.png') no-repeat 0 0;
+}
+
+a.sort_asc_on {
+	background:url('../images/assets/sort_asc_over.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block; display:moz-inline-box; #display:block;
+}
+
+
+a.sort_desc {
+	background:url('../images/assets/sort_desc.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block; display:moz-inline-box; #display:block;
+}
+
+a.sort_desc:hover{
+	background:url('../images/assets/sort_desc_over.png') no-repeat 0 0;
+}
+
+a.sort_desc_on {
+	background:url('../images/assets/sort_desc_over.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block; display:moz-inline-box; #display:block;
+}
+
+a.item_enabled_on{
+	background:url('../images/assets/enabled_on.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block;
+}
+a.item_enabled_off {
+	background:url('../images/assets/enabled_off.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block;
+}
+
+a.item_down {
+	background:url('../images/assets/down.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block; display:moz-inline-box; #display:block;
+}
+
+a.item_down:hover{
+	background:url('../images/assets/down_over.png') no-repeat 0 0;
+}
+
+a.item_up {
+	background:url('../images/assets/up.png') no-repeat 0 0;
+	width:16px; height:16px; display:inline-block; display:moz-inline-box; #display:block;
+}
+
+a.item_up:hover{
+	background:url('../images/assets/up_over.png') no-repeat 0 0;
+}
+
+a.upload_list_del_button{
+	background:url('../images/assets/cross.png') no-repeat 0 0;
+	width:16px; height:16px;  display:inline-block; display:moz-inline-box; #display:block;
+	vertical-align: text-bottom;
+}
+
+a.upload_list_up_button{
+	background:url('../images/assets/sort_asc.png') no-repeat 0 0;
+	width:16px; height:16px;  display:inline-block; display:moz-inline-box; #display:block;
+	vertical-align: text-bottom;
+}
+a.upload_list_up_button:hover{
+	background:url('../images/assets/sort_asc_over.png') no-repeat 0 0;
+}
+
+a.upload_list_down_button{
+	background:url('../images/assets/sort_desc.png') no-repeat 0 0;
+	width:16px; height:16px;  display:inline-block; display:moz-inline-box; #display:block;
+	vertical-align: text-bottom;
+}
+a.upload_list_down_button:hover{
+	background:url('../images/assets/sort_desc_over.png') no-repeat 0 0;
+}
+
+.sl_mod_upload_loader{
+	background: url(../images/assets/loader.gif) 0 0;
+	height: 24px;	
+	width: 24px;
+	vertical-align: text-bottom;
+	display:inline-block; display:moz-inline-box; #display:block;
+}
+
+div.upload_button {
+	background: url(../images/assets/upload_button.png) no-repeat 0 0;
+	display:inline-block; display:moz-inline-box; #display:block;
+	height: 30px;	
+	width: 132px;
+	padding-top:8px;
+	font-family:Arial;
+	font-weight:bold;
+	font-size: 10px;
+	color: #FFF;
+	text-decoration:none;
+	text-align: center;
+}
+div.upload_button.hover {
+	background: url(../images/assets/upload_button_over.png) no-repeat 0 0;
+	color: #CCC;	
+}

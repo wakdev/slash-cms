@@ -1,0 +1,437 @@
+/**
+* @package		SLASH-CMS
+* @subpackage	SLA_DEFAUT_TEMPLATE
+* @internal     DEFAUT INTERFACE CSS
+* @version		interface.css - Version 9.11.23
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+
+
+
+/* ------------------- */
+/*  GLOBAL CSS  */
+/* ------------------- */
+a:focus {
+	outline:0;
+} 
+
+table{
+	border-collapse:inherit;
+}
+
+/* module title */
+.sl_mod_title {
+	padding: 10px 10px 10px 10px;
+	border-bottom: 1px solid #333333;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:18px;
+	font-weight:normal;
+	color:#444;
+	background-color:#eee;
+	height:70px;
+}
+
+/* Module undertitle for action */
+.sl_mod_undertitle {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	color:#222;
+	
+	text-transform:uppercase;
+}
+
+
+
+/* Alert style */
+.sl_mod_message{
+	background-color: #444444;
+	/*border: 1px solid #7686FF;*/
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	padding: 10px;
+	color: #EEE;
+	width: 600px;
+	
+}
+
+#message {
+	position:fixed;
+	overflow: visible; 
+	opacity: 100; 
+	display: block;  
+	right:0px; 
+	width:600px; 
+	top: 0px; 
+	/*margin-left:-250px;*/
+}
+
+.sl_adm_modtitle {
+	float:left;
+	padding-left:10px;
+	padding-top:10px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:18px;
+	font-weight:normal;
+	color:#444;
+	background-color:#eee;
+}
+
+
+
+.sl_adm_modundertitle {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#455F6C;
+}
+
+.sl_adm_modcontrols {
+	float:right;
+	padding-right:20px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+	
+	
+}
+
+/* module actions */
+.sl_mod_control {
+	padding: 10px 10px 10px 10px;
+	border-bottom: 1px solid #333333;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333;
+	background-color:#eee;
+}
+
+
+
+/* module listing style */
+.sl_mod_list {
+	padding: 10px 10px 10px 10px;
+}
+
+
+
+.sl_list_paging {
+	position:relative; 
+	width:100%; 
+	height:50px;
+}
+
+
+
+/* module select style */
+.sl_mod_select  {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+	color:#7686FF;
+}
+
+
+
+/* Title select */
+.sl_mod_select_title {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+
+
+
+
+/* Search Box style */
+.sl_searchbox {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+
+
+/* Search Title */
+.sl_searchbox_title {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+
+
+/* Listing Navigation style */
+.sl_mod_page_nav {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+	background-color: #FFF;	
+	padding:10px;
+}
+
+.sl_mod_page_nav a{
+	color: #333333;
+	text-decoration:none;		
+}
+
+.sl_mod_page_nav a:hover{
+	color: #DD0000;		
+}
+
+
+
+.sl_mod_page_nav a.highlight {
+	color: #DD0000;
+	font-weight: bold;
+	background-color:#eee;
+}
+
+
+/** NEW **/
+
+
+.sl_mod_page_nav a{
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	display: inline-block;
+	margin-bottom: 0;
+	margin-left: 0;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #FFFFFF;
+	border-color: #DDDDDD;
+	border-image: none;
+	border-style: solid;
+	border-width: 1px 1px 1px 0;
+	float: left;
+	line-height: 20px;
+	padding: 4px 12px;
+	text-decoration: none;
+}
+
+.back_list_button, .next_list_button {
+	border:0px !important;
+	padding: 0px !important;
+}
+
+
+
+/* Page titles styles */
+.sl_mod_page_title{
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #BBB;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+
+
+
+
+/* Listing styles */
+.sl_mod_page {
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #BBB;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+.sl_mod_page td {
+	padding: 5px 5px 5px 5px;
+}
+
+
+.sl_mod_page_ln1{
+	background-color:#FFFFFF;
+}
+
+
+.sl_mod_page_ln2{
+	background-color:#DDDDDD;
+}
+
+.sl_mod_page_ln1 a, .sl_mod_page_ln1 a:visited  {
+	color:#333333;
+	text-decoration:none;
+}
+
+.sl_mod_page_ln1 a:hover {
+	color:#7686FF;
+	text-decoration:none;
+}
+
+.sl_mod_page_ln2 a, .sl_mod_page_ln2 a:visited  {
+	color:#333333;
+	text-decoration:none;
+}
+
+.sl_mod_page_ln2 a:hover {
+	color:#7686FF;
+	text-decoration:none;
+}
+
+
+
+/* Field styles */
+.sl_mod_field_title {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+.sl_mod_field_error_msg {
+	padding-top:5px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#DD0000;
+}
+
+.sl_mod_field_input{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+.sl_mod_field_date{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#333333;
+}
+
+.sl_mod_delete_text {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	color:#DD0000;
+}
+
+.sl_mod_upload_list {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:13px;
+	color:#333333;
+	border:1px #333 solid;
+	padding:10px;
+}
+
+.sl_mod_upload_list a{
+	color:#333333;
+	text-decoration:none;
+}
+
+.sl_mod_upload_img {
+	border:1px #666 solid;
+	width:48px;
+	vertical-align:middle;
+	margin-right:10px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.sl_separation{
+	border-top:1px #ccc dashed;
+}
+
+.sl_line{
+	border-top:1px #000 solid;
+}
+
+.sl_mandatory {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:18px;
+	color:#FF0000;
+	font-weight:normal;
+}
+
+
+.sl_adm_form_top{
+	position:relative;
+	width:100%;
+	height:70px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom: 1px #333 solid;
+	
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:18px;
+	font-weight:normal;
+	color:#444;
+	background-color:#eee;
+}
+
+.sl_adm_form_lang{
+	position:relative;
+	width:100%;
+	height:50px;
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom: 1px #333 solid;
+}
+
+.sl_adm_form_main{
+	position:relative;
+	width:640px;
+	padding:10px;
+	margin-top:20px;
+	margin-left:20px;
+	
+	
+	background-color: #EEEEEE;
+	border: 1px solid #888;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+
+.sl_adm_tabs {
+/*
+	float:right; 
+	margin-right:2px;*/
+}
+
+
+.sl_adm_tabs img{
+	padding-left:5px; 
+	padding-right:5px;
+}
+
+.sl_adm_tabs-active img{
+	background-color:#4682B4;
+}
+

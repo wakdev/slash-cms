@@ -1,0 +1,148 @@
+/**
+* @package		SLASH-CMS
+* @subpackage	SLA_DEFAUT_TEMPLATE
+* @internal     DEFAUT MODULES CSS
+* @version		modules.css - Version 9.6.4
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+.mod_title {
+	
+	padding: 10px 10px 10px 10px;
+	border-bottom: 1px solid #333333;
+	font-family: Arial;
+	font-size:16px;
+	font-weight:bold;
+	color:#333333;
+}
+
+.mod_undertitle {
+	font-family: Arial;
+	font-size:14px;
+	font-weight:bold;
+	color:#455F6C;
+}
+
+.mod_field_title {
+	
+	font-family: Arial;
+	font-size:16px;
+	font-weight:bold;
+	color:#333333;
+}
+
+.mod_delete_text {
+	
+	font-family: Arial;
+	font-size:16px;
+	font-weight:bold;
+	color:#DD0000;
+	
+}
+
+.mod_control {
+	
+	padding: 10px 10px 10px 10px;
+	border-bottom: 1px solid #333333;
+	font-family: Arial;
+	font-size:11px;
+	font-weight:bold;
+	color:#333333;
+	
+}
+
+.mod_list {
+	
+	padding: 10px 10px 10px 10px;
+	font-family: Arial;
+	font-size:11px;
+	font-weight:bold;
+	color:#333333;
+	
+}
+
+.mod_list a, .mod_list a:visited  {
+	color:#333333;
+	text-decoration:none;
+}
+
+.mod_list a:hover {
+	color:#7686FF;
+	text-decoration:none;	
+}
+
+.mod_page_nav {
+	
+	background-color: #FFF;
+	/*border-top: 1px solid #ccc;*/
+	/*padding: 5px;*/
+	
+				
+}
+
+.mod_page_nav a{
+	color: #333333;
+	text-decoration:none;
+			
+}
+
+.mod_page_nav a:hover{
+
+	color: #DD0000;
+			
+}
+
+.mod_page_nav a.highlight {
+	color: #DD0000;
+	font-weight: bold;
+}	
+
+.mod_page {
+	
+	padding: 5px 5px 5px 5px;
+	border: 1px solid #333333;
+	font-family: Arial;
+	font-size:11px;
+	font-weight:bold;
+	color:#333333;
+	
+}
+.mod_page td {
+	
+	padding: 5px 5px 5px 5px;
+}
+
+.mod_page_ln1{
+	background-color:#FFFFFF;
+}
+
+.mod_page_ln2{
+	background-color:#DDDDDD;
+}
+
+.mod_message{
+	background-color: #444444;
+	/*border: 1px solid #7686FF;*/
+	font-family: Arial;
+	font-size:12px;
+	font-weight:normal;
+	padding: 5px;
+	color: #CCCCCC;
+	width: 500px;
+}
