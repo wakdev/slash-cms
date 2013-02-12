@@ -1,21 +1,33 @@
-[slash-cms](http://slash-cms.com/) - CMS Systems
+Slash CMS
 ================================================
+------------------
+Website : http://www.slash-cms.com
+
+Author : http://www.wakdev.com
 
 Installation guide
 ------------------
 
-1 - Copy the files to your hosting server
-2 - Import database from File: db_slashcms.sql
-3 - Set the configuration in file: /core/config/sl_config.php
-4 - Connect to the administration with the following identifier:
-  
-User: admin
-Password: admin
+1. Copy the files to your hosting server
 
-or the English version
+2. Import database from File: db_slashcms.sql
 
-User: admin-en
-Password: admin
+3. Set the configuration file: /core/config/sl_config.php
 
-5 - Discover!
+4. Connect to the administration with the following identifier:
 
+          User: admin
+          Password: admin
+
+    or the English version
+
+          User: admin-en
+          Password: admin
+
+5. Discover and share !
+
+Questions & Contact 
+-------------------
+Email : contact@slash-cms.com
+
+Twitter : https://twitter.com/slashcms
