@@ -1,3 +1,5 @@
+-- SQL Dump
+
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -151,7 +153,7 @@ INSERT INTO `sl_config` (`config_name`, `config_value`) VALUES
 ('slash_language', 'fr'),
 ('site_template_url', 'templates/slashcms/'),
 ('admin_template_url', 'templates/wd-admin/'),
-('admin_email', 'julien@wakdev.com'),
+('admin_email', 'weneedyou@slash-cms.com'),
 ('mobile_template_url', 'templates/default_mobile/'),
 ('mobile_detection', 'true');
 
@@ -357,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `sl_users` (
 
 INSERT INTO `sl_users` (`id`, `name`, `login`, `password`, `mail`, `language`, `grade`, `allowed_module`, `enabled`) VALUES
 (1, 'John Doe', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'weneedyou@slash-cms.com', 'fr', 0, '', 1),
-(17, 'John Doe', 'admin-en', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'julien@wakdev.com', 'en', 0, '', 1);
+(17, 'John Doe', 'admin-en', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'weneedyou@slash-cms.com', 'en', 0, '', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
