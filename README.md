@@ -14,7 +14,13 @@ Installation guide
 
 3. Set the configuration file: /core/config/sl_config.php
 
-4. Connect to the administration with the following identifier:
+4. Change permissions to 0775 of following folders and subfolder
+         
+          /cache
+          /medias
+          /tmp
+
+5. Connect to the administration with the following identifier:
 
           User: admin
           Password: admin
@@ -24,7 +30,7 @@ Installation guide
           User: admin-en
           Password: admin
 
-5. Discover and share !
+6. Discover and share !
 
 Questions & Contact 
 -------------------
