@@ -15,7 +15,7 @@ RewriteRule page-([0-9]+).* index.php?mod=sl_pages&id=$1 [L]
 # Articles Module
 RewriteRule article-([0-9]+).* index.php?mod=sl_articles&id=$1 [L]
 
-# DEBUG
+# FLAG DEBUG
 #php_flag display_startup_errors on
 #php_flag display_errors on
 #php_flag html_errors on
