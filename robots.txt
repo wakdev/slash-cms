@@ -8,3 +8,4 @@ Disallow: /templates/
 Disallow: /tmp/
 # Files
 Disallow: /readme.txt
+Disallow: /license.txt
