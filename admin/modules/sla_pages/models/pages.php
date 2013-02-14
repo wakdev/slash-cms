@@ -66,7 +66,7 @@ class pages extends slaModel implements iModel{
 			/* CONTENT */
 			$sl_txt = new sl_text();
 			$h2t_content = new html2text($row[2]);
-			$row[2] = $sl_txt->substring_word($h2t_content->get_text(),30,true);
+			$row[2] = $sl_txt->substring_word(utf8_encode($h2t_content->get_text()),30,true);
 		
 			array_push($objects,$row);
 		}
