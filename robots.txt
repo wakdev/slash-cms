@@ -9,3 +9,4 @@ Disallow: /tmp/
 # Files
 Disallow: /readme.txt
 Disallow: /license.txt
+Disallow: /README.md
