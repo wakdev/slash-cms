@@ -23,7 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //Module SLA_CONFIG
-define("CONFIG_TITLE", "Articles config");
-define("CONFIG_DELETE_CONFIRM", "Delete this article ?");
+define("CONFIG_TITLE", "Config");
+define("CONFIG_DELETE_CONFIRM", "Delete this config ?");
+
+define("CONFIG_TITLE_NAME", "Nom");
+define("CONFIG_TITLE_VALUE", "Valeur");
 
 ?>

@@ -1,13 +1,14 @@
--- SQL Dump
+-- phpMyAdmin SQL Dump
+-- version 3.5.1
+-- http://www.phpmyadmin.net
+--
+-- Client: localhost
+-- Généré le: Lun 25 Février 2013 à 18:41
+-- Version du serveur: 5.5.24-log
+-- Version de PHP: 5.4.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `db_slashcms`
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `sl_admmenu` (
   `action` text NOT NULL,
   `enabled` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Contenu de la table `sl_admmenu`
@@ -52,7 +53,8 @@ INSERT INTO `sl_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title
 (23, 'url_self', 2, 3, 'Gestion des modules BETA', 'Modules configuration', 'config2.png', 'index.php?mod=sla_modules', 1),
 (36, 'url_self', 10, 2, 'Gestion des pages', 'Pages', 'page.png', 'index.php?mod=sla_pages', 1),
 (38, 'url_self', 2, 4, 'Gestion des Pays', 'Country management', 'country.png', 'index.php?mod=sla_country', 1),
-(39, 'url_self', 2, 5, 'Gestion des Langues', 'Languages management', 'lang.png', 'index.php?mod=sla_lang', 1);
+(39, 'url_self', 2, 5, 'Gestion des Langues', 'Languages management', 'lang.png', 'index.php?mod=sla_lang', 1),
+(47, 'url_self', 2, 6, 'Editer la configuration', 'Config', 'config.png', 'index.php?mod=sla_config', 1);
 
 -- --------------------------------------------------------
 
@@ -137,25 +139,27 @@ INSERT INTO `sl_categories` (`id`, `id_user`, `title`, `description`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `config_name` text NOT NULL,
-  `config_value` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `config_value` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Contenu de la table `sl_config`
 --
 
-INSERT INTO `sl_config` (`config_name`, `config_value`) VALUES
-('site_name', 'slash cms'),
-('global_description', 'slash : le cms intuitif'),
-('global_keywords', 'cms, slash, slash-cms, siteweb'),
-('seo_enabled', 'true'),
-('slash_language', 'fr'),
-('site_template_url', 'templates/slashcms/'),
-('admin_template_url', 'templates/wd-admin/'),
-('admin_email', 'weneedyou@slash-cms.com'),
-('mobile_template_url', 'templates/default_mobile/'),
-('mobile_detection', 'true');
+INSERT INTO `sl_config` (`id`, `config_name`, `config_value`) VALUES
+(1, 'site_name', 'slash cms'),
+(2, 'global_description', 'slash : le cms intuitif'),
+(3, 'global_keywords', 'cms, slash, slash-cms, siteweb'),
+(4, 'seo_enabled', 'true'),
+(5, 'slash_language', 'fr'),
+(6, 'site_template_url', 'templates/slashcms/'),
+(7, 'admin_template_url', 'templates/wd-admin/'),
+(8, 'admin_email', 'weneedyou@slash-cms.com'),
+(9, 'mobile_template_url', 'templates/default_mobile/'),
+(10, 'mobile_detection', 'true');
 
 -- --------------------------------------------------------
 
@@ -255,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `sl_modules` (
   `initialize_order` int(11) NOT NULL,
   `enabled` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
 
 --
 -- Contenu de la table `sl_modules`
@@ -279,7 +283,8 @@ INSERT INTO `sl_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_ord
 (42, 'admin', 'sla_pages', 'modules/sla_pages/', '', 0, 1),
 (44, 'admin', 'sla_country', 'modules/sla_country/', '', 0, 1),
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
-(56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1);
+(56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
+(59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -360,7 +365,3 @@ CREATE TABLE IF NOT EXISTS `sl_users` (
 INSERT INTO `sl_users` (`id`, `name`, `login`, `password`, `mail`, `language`, `grade`, `allowed_module`, `enabled`) VALUES
 (1, 'John Doe', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'weneedyou@slash-cms.com', 'fr', 0, '', 1),
 (17, 'John Doe', 'admin-en', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'weneedyou@slash-cms.com', 'en', 0, '', 1);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

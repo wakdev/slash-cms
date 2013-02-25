@@ -2,7 +2,7 @@
 /**
 * @package		SLASH-CMS
 * @subpackage	SLA_CONFIG
-* @internal     Admin articles module
+* @internal     Admin config module
 * @version		controller.php - Version 11.3.25
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 * @defgroup sla_config sla_config
-* Administration modules articles
+* Administration modules config
 * @{
 
 

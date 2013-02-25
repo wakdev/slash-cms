@@ -129,7 +129,7 @@ class sla_config_view extends slaView implements iView{
 	}
 	
 	/**
-	 * Show article form
+	 * Show config form
 	 */
 	public function show_form ($id=0, $values=null, $errors=null) {
 	
@@ -148,12 +148,12 @@ class sla_config_view extends slaView implements iView{
 		
 		echo "<div class='sl_adm_form_main'>";
 			
-			sl_form::title($this->slash->trad_word("TITLE")." : ");
+			sl_form::title($this->slash->trad_word("CONFIG_TITLE_NAME")." : ");
 			sl_form::input($mn,1,array("value" => $values["config_name"]));
 			if ($errors[1]["message"]) { sl_form::error($errors[1]["message"]); }
 			sl_form::br(2);
 			
-			sl_form::title($this->slash->trad_word("TITLE")." : ");
+			sl_form::title($this->slash->trad_word("CONFIG_TITLE_VALUE")." : ");
 			sl_form::input($mn,2,array("value" => $values["config_value"]));
 			if ($errors[2]["message"]) { sl_form::error($errors[2]["message"]); }
 			sl_form::br(2);
@@ -169,7 +169,7 @@ class sla_config_view extends slaView implements iView{
 	
 
 	/**
-	 * Show article form
+	 * Show config form
 	 */
 	public function show_delete ($id_array) {
 		
@@ -219,11 +219,11 @@ class sla_config_view extends slaView implements iView{
 						$count=0;		
 						foreach ($id_array as $value) {
 								
-								$article = $this->controller->config->load_item($value);
+								$config = $this->controller->config->load_item($value);
 								
 								echo "<tr><td align='left' class='sl_mod_delete_text' width='50%'>
-										<input type='checkbox' id='".$this->controller->module_name."_checked[".$count."]' name='".$this->controller->module_name."_checked[".$count."]' value='".$article["id"]."' checked style='display:none;'  />
-										".$article["title"]."
+										<input type='checkbox' id='".$this->controller->module_name."_checked[".$count."]' name='".$this->controller->module_name."_checked[".$count."]' value='".$config["id"]."' checked style='display:none;'  />
+										".$config["config_name"]."
 										</td>
 									</tr>";
 								$count++;

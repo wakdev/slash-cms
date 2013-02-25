@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //Module SLA_CONFIG
 define("CONFIG_TITLE", "Gestion de la configuration");
-define("CONFIG_DELETE_CONFIRM", "Supprimer cet article ?");
+define("CONFIG_DELETE_CONFIRM", "Supprimer la/les valeur(s) suivante(s)  ?");
 
-define("CONFIG_BT_CATEGORIES_SELECTED_NONE", "Aucune");
-define("CONFIG_BT_CATEGORIES_SELECTED", "s&eacute;lectionn&eacute;es");
+define("CONFIG_TITLE_NAME", "Nom");
+define("CONFIG_TITLE_VALUE", "Valeur");
 ?>
