@@ -110,7 +110,7 @@ function resize_image ($source,$width="auto",$height="auto",$format="auto",$qual
  * 
  */
 function resize_image_or_cache ($source,$width="auto",$height="auto",$format="auto",$quality=100, $force = false) {
-		
+		global $sl_config;
 		$cache_root = $_SERVER['DOCUMENT_ROOT'].$sl_config->cache_path;
 		
 		$i_size = getimagesize($source);
