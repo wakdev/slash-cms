@@ -33,25 +33,23 @@ class sla_articles_view extends slaView implements iView{
 	 * Show global HTML Header
 	 */
 	public function header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 	} 
 	  
 	public function l_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
 	}
 	
 	public function f_header () {
 	
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/ui/js/ui.custom.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery/jquery.localisation.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/ui/js/ui.custom.js");
+		sl_interface::script("../core/plugins/jquery/jquery.localisation.js");
+		sl_interface::script("../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js");
+		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
+		sl_interface::script("../core/plugins/bootstrap_plugins/multiselect-master/js/bootstrap-multiselect.js");
 		
-		
-		echo "<script type='text/javascript' src='../core/plugins/ckeditor/ckeditor.js'></script> \n";
-		
-		echo "<script type='text/javascript' src='../core/plugins/bootstrap_plugins/multiselect-master/js/bootstrap-multiselect.js'></script> \n";
-		echo "<link rel='stylesheet' href='../core/plugins/bootstrap_plugins/multiselect-master/css/bootstrap-multiselect.css' type='text/css' /> \n";
+		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/multiselect-master/css/bootstrap-multiselect.css");
 	}
 	
 	/**

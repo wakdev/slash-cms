@@ -34,28 +34,26 @@ class sla_news_view extends slaView implements iView{
 	 * Show global HTML Header
 	 */
 	public function header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 	} 
 	  
 	public function l_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
 	}
 	
 	public function f_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js'></script> \n";
-		
+		sl_interface::script("../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js");
+		sl_interface::script("../core/plugins/bootstrap_plugins/datepicker/js/bootstrap-datepicker.js"); //date picker fr
+		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 		
 		/*
 		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/datepicker/js/datepicker.js'></script> \n"; //date picker
 		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/datepicker/js/datepicker-fr.js'></script> \n"; //date picker fr
 		echo "<link rel='stylesheet' type='text/css' media='screen' href='../core/plugins/jquery_plugins/ui/themes/roller/css/roller.css'>"; //Theme roller
 		*/
-		
-		echo "<script type='text/javascript' src='../core/plugins/bootstrap_plugins/datepicker/js/bootstrap-datepicker.js'></script> \n"; //date picker fr
-		echo "<link rel='stylesheet' type='text/css' media='screen' href='../core/plugins/bootstrap_plugins/datepicker/css/datepicker.css'>"; //Theme roller
-		
-		echo "<script type='text/javascript' src='../core/plugins/ckeditor/ckeditor.js'></script> \n";
+
+		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/datepicker/css/datepicker.css","screen"); //Theme roller
 	}
 	
 	

@@ -33,18 +33,18 @@ class sla_config_view extends slaView implements iView{
 	 * Show global HTML Header
 	 */
 	public function header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 	} 
 	  
 	public function l_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
 	}
 	
 	public function f_header () {
 	
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/ui/js/ui.custom.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery/jquery.localisation.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/ui/js/ui.custom.js");
+		sl_interface::script("../core/plugins/jquery/jquery.localisation.js");
 		
 	}
 	
@@ -73,7 +73,7 @@ class sla_config_view extends slaView implements iView{
 		echo "</td><td class='sl_mod_control'>";
 					
 		//control buttons
-		sl_interface::create_control_buttons($this->controller->module_name,array('add','edit','publish','unpublish','delete'));		
+		sl_interface::create_control_buttons($this->controller->module_name,array('edit'));		
 					
 		echo "</td></tr></table>";
 		echo "<table width='100%' cellspacing='0' cellpadding='0' border='0'><tr><td class='sl_mod_list'>";

@@ -33,18 +33,16 @@ class sla_categories_view extends slaView implements iView{
 	 * Show global HTML Header
 	 */
 	public function header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 	} 
 	  
 	public function l_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
 	}
 	
 	public function f_header () {
-		echo "<script type='text/javascript' src='../core/plugins/ckeditor/ckeditor.js'></script> \n";
-		//echo "<script type='text/javascript' src='../core/plugins/tiny_mce/jquery.tinymce.js'></script> \n";
-		//echo "<script type='text/javascript' src='../core/plugins/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php'></script> \n";
+		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 	}
 	
 	

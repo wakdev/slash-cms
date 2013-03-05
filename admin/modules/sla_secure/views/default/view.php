@@ -35,8 +35,8 @@ class sla_secure_view extends slaView implements iView {
 	 */
 	public function header () {
 		
-		echo "<link rel='stylesheet' type='text/css' href='modules/sla_secure/views/default/css/sla_secure.css' media='screen'>\n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::stylesheet("modules/sla_secure/views/default/css/sla_secure.css","screen");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 		echo "<meta http-equiv='Content-Type'  content='text/html; charset=utf-8' />\n";
 	}
 	

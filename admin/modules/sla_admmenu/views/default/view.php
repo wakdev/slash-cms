@@ -30,11 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class sla_admmenu_view extends slaView implements iView{
 	
 	public function header () {
-		
-		echo "<link rel='stylesheet' type='text/css' href='modules/sla_admmenu/views/default/css/sla_admmenu.css' media='screen'>";
-		//echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/superfish/js/hoverintent.js'></script> \n";
-		//echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/superfish/js/superfish.js'></script> \n";
-	
+		sl_interface::stylesheet("modules/sla_admmenu/views/default/css/sla_admmenu.css", "screen");
 	}
 	
 	

@@ -35,15 +35,9 @@ class sla_modules_view extends slaView implements iView{
 	 */
 	public function header () {
 		
-		//<link rel="stylesheet" type="text/css" href="css/superfish.css" media="screen">
-		//echo "<link rel='stylesheet' type='text/css' href='templates/system/css/sla_menu.css' media='screen'>";
-		//echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/superfish/js/hoverintent.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
-
-
-		echo "<script type='text/javascript' src='../core/functions/sl_javascript.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 
 	}
 	
