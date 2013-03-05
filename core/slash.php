@@ -454,23 +454,11 @@ class Slash {
 	public function sl_param($name,$method=null) {
 		$value=null;
 		if ($method) {
-			if ($method == "POST") {
-				if (array_key_exists($name, $this->post_params)) {
-				$value = $this->post_params[$name];
-				}	
-			}
-			if ($method == "GET") {
-				if (array_key_exists($name, $this->get_params)) {
-					$value = $this->get_params[$name];
-				}
-			}
+			if ($method == "POST" && array_key_exists($name, $this->post_params)) {$value = $this->post_params[$name];}
+			if ($method == "GET" && array_key_exists($name, $this->get_params)) {$value = $this->get_params[$name];}
 		} else {
-			if (array_key_exists($name, $this->get_params)) {
-				$value = $this->get_params[$name];
-			}
-			if (array_key_exists($name, $this->post_params)) {
-				$value = $this->post_params[$name];
-			}
+			if (array_key_exists($name, $this->get_params)) {$value = $this->get_params[$name];}
+			if (array_key_exists($name, $this->post_params)) {$value = $this->post_params[$name];}
 		}
 		return $value;
 	}
