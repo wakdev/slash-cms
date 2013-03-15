@@ -21,6 +21,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+Notes :
+2013-03-15 : Add singleton
+
 */
 
 class MySQLConnector {
@@ -31,6 +34,8 @@ class MySQLConnector {
 	private $db_password; //Database password
 	private $db_prefix; //Database prefix
 	
+	private static $instance;
+	
 	private $db_handle;
 	private $db_selected;
 	
@@ -39,8 +44,17 @@ class MySQLConnector {
 	private $db_result;
 	private $db_fetch;
 	
-	function __construct() {
-	
+	private function __construct() {}
+	private function __clone() {}
+
+	/**
+	 * Singleton
+	 */
+	public static function getInstance() {
+		if (!(self::$instance instanceof self)) {
+		  self::$instance = new self();
+		}
+		return self::$instance;
 	}
 	
 	public function connect($_db_host,$_db_name,$_db_user,$_db_password,$_db_prefix) {

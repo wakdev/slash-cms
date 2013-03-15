@@ -180,13 +180,13 @@ class Slash {
 			// MySQL
 			if ($this->properties["db_type"] == "MySQL") {
 				include ("common/class/db/mysql/connector.php");
-				$this->database = new MySQLConnector();
+				$this->database = MySQLConnector::getInstance();
 			}
 			
 			// PDO
 			if ($this->properties["db_type"] == "PDO") {
 				include ("common/class/db/pdo/connector.php");
-				$this->database = new PDOConnector();
+				$this->database = PDOConnector::getInstance();
 			}
 			
 		}
