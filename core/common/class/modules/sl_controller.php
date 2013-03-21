@@ -38,10 +38,10 @@ abstract class slController{
 	* Contructor
 	* @param core_class_ref Core class reference
 	*/
-	function __construct(&$core_class_ref,$module_id) {
+	function __construct(&$core_class_ref,$module_id,$module_params=null) {
        $this->slash = $core_class_ref;
        $this->module_id = $module_id;
-	   
+       $this->setParams($module_params);
 	   $this->sl_construct();
 	}
 	
@@ -52,6 +52,42 @@ abstract class slController{
 	public function load_footer(){} //Load footer function
 	public function load(){} //Load module function
 	public function execute(){} //Execute function
+	
+	/**
+	 * Set module params
+	 * @param array $params Parameter Array
+	 */
+	public function setParams($params=null){
+		if ($params!==null){
+			$my_params = array();
+			foreach (explode('&', $params) as $param) {
+				if ($param && strlen($param) > 0){
+					$item = explode('=', $param);
+					if(count($item)==2 && isset($item[0]) && isset($item[1])){
+						$my_params[$item[0]] = $item[1];
+					}
+				}
+			}
+			if (count($my_params) > 0) {
+				$this->params = array();
+				$this->params = $my_params;
+			}else{
+				$this->params = null;
+			}
+		}
+	}
+	
+	/**
+	 * Get module params
+	 * @param string $name Name
+	 */
+	public function getParams($name=null){
+		if ($name!==null && is_array($this->params) && array_key_exists($name, $this->params)){
+			return $this->params[$name];
+		}else{
+			return null;
+		}
+	}
 	
 }
 

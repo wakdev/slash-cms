@@ -63,6 +63,7 @@ class sla_articles_controller extends slaController implements iController{
 	 * Load header function
 	 */
 	public function load_header(){
+
 		$this->view->header(); //Global header
 		sl_interface::listing_sessions($this->module_name,array('title','content','date')); // session for listing
 		switch ($this->mode) {
