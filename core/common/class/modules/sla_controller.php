@@ -81,7 +81,7 @@ abstract class slaController{
 	 * Get module params
 	 * @param string $name Name
 	 */
-	public function getParams($name=null){
+	public function getParam($name=null){
 		if ($name!==null && is_array($this->params) && array_key_exists($name, $this->params)){
 			return $this->params[$name];
 		}else{
