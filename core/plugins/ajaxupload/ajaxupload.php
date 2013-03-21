@@ -21,6 +21,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+Notes : 
+2013-03-21 - Julien Veuillet [http://www.wakdev.com] : Error when the file already exists
+
 */
 
 /**************************************************/
@@ -64,6 +68,12 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 
 	$filename = $filestools->format_name($_FILES['sl_userfile']['name']);
 	$uploadfile = "../../../tmp/".$filename;
+	
+	// File already exists
+	if(file_exists($uploadfile)) {
+		echo "The file already exists";
+		exit();
+	}
 	
 	//Upload
 	if (move_uploaded_file($_FILES['sl_userfile']['tmp_name'], $uploadfile)) {
@@ -112,6 +122,12 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 		if (!mkdir("../../../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id, 0777)){
 			echo "Error : MKDIR "."../../../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id;
 		}*/
+	}
+	
+	// File already exists
+	if(file_exists($uploadfile)) {
+		echo "The file already exists";
+		exit();
 	}
 	
 	//Upload
