@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 25 Février 2013 à 19:06
+-- Généré le: Ven 22 Mars 2013 à 12:24
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.4.3
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `sl_admmenu` (
   `action` varchar(255) NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
 
 --
 -- Contenu de la table `sl_admmenu`
@@ -60,7 +60,8 @@ INSERT INTO `sl_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title
 (36, 'url_self', 10, 2, 'Gestion des pages', 'Pages', 'page.png', 'index.php?mod=sla_pages', 1),
 (38, 'url_self', 2, 4, 'Gestion des Pays', 'Country management', 'country.png', 'index.php?mod=sla_country', 1),
 (39, 'url_self', 2, 5, 'Gestion des Langues', 'Languages management', 'lang.png', 'index.php?mod=sla_lang', 1),
-(47, 'url_self', 2, 6, 'Editer la configuration', 'Config', 'config.png', 'index.php?mod=sla_config', 1);
+(47, 'url_self', 2, 6, 'Editer la configuration', 'Config', 'config.png', 'index.php?mod=sla_config', 1),
+(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1);
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `sl_attachments` (
   `position` int(11) unsigned NOT NULL,
   `state` tinyint(4) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -265,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `sl_modules` (
   `initialize_order` int(11) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
 
 --
 -- Contenu de la table `sl_modules`
@@ -281,7 +282,7 @@ INSERT INTO `sl_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_ord
 (7, 'admin', 'sla_categories', 'modules/sla_categories/', '', 0, 1),
 (10, 'site', 'sl_error', 'modules/sl_error/', '', 3, 1),
 (12, 'admin', 'sla_menu', 'modules/sla_menu/', '', 0, 1),
-(13, 'admin', 'sla_articles', 'modules/sla_articles/', '', 0, 1),
+(13, 'admin', 'sla_articles', 'modules/sla_articles/', 'param1=test&param2=test2', 0, 1),
 (14, 'admin', 'sla_users', 'modules/sla_users/', '', 0, 1),
 (22, 'admin', 'sla_modules', 'modules/sla_modules/', '', 0, 1),
 (27, 'admin', 'sla_news', 'modules/sla_news/', '', 0, 1),
@@ -290,7 +291,8 @@ INSERT INTO `sl_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_ord
 (44, 'admin', 'sla_country', 'modules/sla_country/', '', 0, 1),
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
 (56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
-(59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1);
+(59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1),
+(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1);
 
 -- --------------------------------------------------------
 

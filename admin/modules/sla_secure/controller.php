@@ -82,6 +82,7 @@ class sla_secure_controller extends slaController implements iController{
 					if ($row["login"] == $this->slash->post_params["sla_secure_login"]  && $row["password"] == sha1($this->slash->post_params["sla_secure_password"]) ) {
 						if ($row["enabled"]!= 0) {
 							$_SESSION["id_user"] = $row["id"];
+							$_SESSION['user_finder']['disabled'] = false;
 							$_SESSION["user_language"] = $row["language"];
 							$this->slash->get_params["mod"] = "sla_panel";
 						}else{
