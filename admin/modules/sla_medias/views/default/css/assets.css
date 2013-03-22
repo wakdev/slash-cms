@@ -22,27 +22,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-a.sla_media_myfiles_button{
-	background:url('../images/assets/files.png') no-repeat 0 0;
-	width:48px; height:48px; display: block; border:1px #FFF solid;
+a.sla_medias_myfiles_button{
+	background-image:url('../images/assets/files.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width:60px; height:60px; display: block;
 }
 
 
-a.sla_media_myimages_button{
-	background:url('../images/assets/images.png') no-repeat 0 0;
-	width:48px; height:48px; display: block; border:1px #FFF solid;
+a.sla_medias_myimages_button{
+	background-image:url('../images/assets/images.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width:60px; height:60px; display: block;
 	
 }
 
-a.sla_media_mymedias_button{
-	background:url('../images/assets/medias.png') no-repeat 0 0;
-	width:48px; height:48px; display: block; border:1px #FFF solid;
+a.sla_medias_mymedia_button{
+	background-image:url('../images/assets/medias.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width:60px; height:60px; display: block;
 }
 
 
-a.sla_media_myfiles_button:hover, 
-a.sla_media_myimages_button:hover, 
-a.sla_media_mymedias_button:hover {
-	border:1px #AF1321 dotted;
-	background-color:#EEEEEE;
+a.sla_medias_myfiles_button:hover, 
+a.sla_medias_myimages_button:hover, 
+a.sla_medias_mymedia_button:hover {
+	background-color:#C4B8AA;
+	border-radius:8px;
+}
+
+.sla_medias_current{
+	background-color:#C4B8AA;
+	border-radius:8px;
+}
+
+
+iframe{
+	border:0px;
+	width:100%;
+	height:450;
 }
