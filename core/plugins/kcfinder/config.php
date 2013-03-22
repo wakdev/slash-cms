@@ -2,7 +2,7 @@
 
 /** This file is part of KCFinder project
   *
-  *      @desc Base configuration file
+  *   @desc Base configuration file
   *   @package KCFinder
   *   @version 2.51
   *    @author Pavel Tzonkov <pavelc@users.sourceforge.net>
@@ -25,7 +25,7 @@ $_CONFIG = array(
 
     'theme' => "oxygen",
 
-    'uploadURL' => "../../medias",
+    'uploadURL' => "/medias",
     'uploadDir' => "../../../medias",
 
     'dirPerms' => 0755,
@@ -98,8 +98,8 @@ $_CONFIG = array(
     //'_sessionLifetime' => 30,
     //'_sessionDir' => "/full/directory/path",
 
-    //'_sessionDomain' => ".mysite.com",
-    //'_sessionPath' => "/my/path",
+    '_sessionDomain' => $_SERVER['HTTP_HOST'],
+    '_sessionPath' => $_SERVER['HTTP_HOST']."/medias",
 );
 
 ?>

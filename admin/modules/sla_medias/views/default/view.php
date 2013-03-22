@@ -66,6 +66,7 @@ class sla_medias_view extends slaView implements iView {
 		echo "</td></tr></table>";
 		
 		
+		
 		echo "<iframe id='sla_medias_frame' name='sla_medias_frame' src='../core/plugins/kcfinder/browse.php?type=files&lang=".$_SESSION["user_language"]."' width='100%' height='450'></iframe>";
 					
 		
