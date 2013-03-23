@@ -464,14 +464,14 @@ class sl_form {
 	public static function dateBS($module_name,$field_id,$options=null) {
 	
 		echo "<div class='well'>";
-		echo "<div class='input-append date' id='".$module_name."_obj".$field_id."' data-date='".$options["value"]."' data-date-format='dd-mm-yyyy'>";
-		echo "<input class='span2' size='16' type='text' value='".$options["value"]."'>";
+		echo "<div class='input-append date' id='".$module_name."_div".$field_id."' data-date='".$options["value"]."' data-date-format='dd-mm-yyyy'>";
+		echo "<input class='span2' id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' size='16' type='text' value='".$options["value"]."'>";
 		echo "<span class='add-on'><i class='icon-th'></i></span>";
 		echo "</div>";
 		
 		echo "	<script type='text/javascript'> 
 					$(document).ready(function(){ ";			
-		echo "$('#".$module_name."_obj".$field_id."').datepicker()";
+		echo "$('#".$module_name."_div".$field_id."').datepicker()";
 		echo "	});</script>";
 		
 		echo "</div>";
