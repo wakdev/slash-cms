@@ -42,7 +42,7 @@ class SLConfig {
 	public $cache_path = "/cache/";
 	
 	
-	public $error_level = SL_DEBUG; //SL_DEBUG (developpement) | SL_INFO | SL_ERROR (production)
+	public $error_level = SL_DEBUG; //SL_DEBUG (development) | SL_INFO | SL_ERROR (production)
 	/* 
 	@todo => Move var in database 
 	var $site_name = "SLASH CMS";

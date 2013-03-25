@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 */
 
-//Includes
-include ("common/constants/errors.php"); //Defines
+//Global includes
+include ("common/constants/sl_constants.php"); //Defines
 include ("config/sl_config.php"); // configuration file.
 include ("languages/sl_lang.php"); // System Language
 
@@ -167,7 +167,7 @@ class Slash {
 			$this->properties[$name] = $value;
 		}	
 		
-		//Rétro-compatibilité
+		//Retro-compatibility
 		$this->properties["database_prefix"] = $sl_config->db_prefix;
 	}
 	

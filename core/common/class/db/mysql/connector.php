@@ -57,6 +57,15 @@ class MySQLConnector {
 		return self::$instance;
 	}
 	
+	/**
+	 * Database connection
+	 * @param string $_db_host
+	 * @param string $_db_name
+	 * @param string $_db_user
+	 * @param string $_db_password
+	 * @param string $_db_prefix
+	 * @return boolean Success ?
+	 */
 	public function connect($_db_host,$_db_name,$_db_user,$_db_password,$_db_prefix) {
 		
 		$this->db_host = $_db_host;
@@ -65,42 +74,57 @@ class MySQLConnector {
 		$this->db_password = $_db_password;
 		$this->db_prefix = $_db_prefix;
 		
+		$this->db_handle = mysql_connect($this->db_host, $this->db_user, $this->db_password);
+		
+		if (!$this->db_handle) {
+			$this->db_error = mysql_error();
+			return false;
+		}
 		
 		
-		$this->db_handle = mysql_connect($this->db_host, $this->db_user, $this->db_password) or $this->show_fatal_error("CONNEXION_ERROR",mysql_error());
 		$this->db_selected = mysql_select_db($this->db_name, $this->db_handle);
 		
 		if (!$this->db_selected) {
 			$this->db_error = mysql_error();
 			return false;
-		}else{
-			return true;
 		}
 		
+		return true;
 	}
 	
+	/**
+	 * Disconnect database
+	 */
 	public function disconnect() {
 		mysql_close($this->db_handle);
 	}
 	
+	/**
+	 * Set Query
+	 * @param string $sql
+	 */
 	public function setQuery($sql){
 		$this->db_query = $sql;
 	}
 	
+	/**
+	 * Execute Query
+	 * @return boolean success ?
+	 */
 	public function execute(){
 		if (!$this->db_query){ 
 			$this->db_error = "No Query";
 			return false;
 		}
 		
-		$this->db_result = mysql_query($this->db_query,$this->db_handle) or $this->show_fatal_error("QUERY_ERROR",mysql_error());
+		$this->db_result = mysql_query($this->db_query,$this->db_handle);
 		
 		if (!$this->db_result) {
 			$this->db_error = mysql_error();
 			return false;
-		}else{
-			return true;
 		}
+			
+		return true;
 	}
 	
 	/**
@@ -109,25 +133,40 @@ class MySQLConnector {
 	* @param $code technical message error
 	*/
 	public function show_fatal_error ($message,$code) {	
-		echo "<br /><table style='border: 1px solid #FF0000;' align='center'><tr><td>";
-		echo "<font color='#FF0000' size='2'>".constant($message)." - ERROR CODE : ".$code."</font>";
-		echo "</td></tr></table>";
+		//Nothing
 		exit;
 	}
 	
+	/**
+	 * Last insert ID
+	 * @return number ID
+	 */
 	public function lastInsertId() {
 		return mysql_insert_id();
 	}
 	
+	/**
+	 * Row count
+	 * @return number NB row
+	 */
 	public function rowCount(){
 		return mysql_num_rows($this->db_result);
 	}
 	
+	/**
+	 * Fetch
+	 * @param string $mode
+	 * @return Array SQL Result
+	 */
 	public function fetch($mode="MYSQL_BOTH") {
-		
 		return mysql_fetch_array($this->db_result, $this->getFetchConstant($mode));
 	}
 	
+	/**
+	 * Fetch ALL
+	 * @param string $mode
+	 * @return Array SQL Result
+	 */
 	public function fetchAll($mode="MYSQL_BOTH") {
 		
 		$arr = array();
@@ -137,7 +176,10 @@ class MySQLConnector {
 		return $arr;
 	}
 	
-	
+	/**
+	 * Get SQL Error
+	 * @return string
+	 */
 	public function getError() {
 		return $this->db_error;
 	}
@@ -148,6 +190,11 @@ class MySQLConnector {
 		return $this->db_handle;
 	}
 	
+	/**
+	 * Constants
+	 * @param string $mode
+	 * @return constant
+	 */
 	private function getFetchConstant($mode){
 		switch ($mode) {
 			case "ASSOC":

@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /******** 		CONFIGURATION		********/
 /**************************************************/
 session_start();
+include ("../../common/constants/sl_constants.php");
 include ("../../config/sl_config.php");
 include ("../../common/class/functions/includes/sl_files.php");
 $config = new SLConfig();

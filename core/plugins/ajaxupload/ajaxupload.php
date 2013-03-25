@@ -31,6 +31,7 @@ Notes :
 /******** 		CONFIGURATION		********/
 /**************************************************/
 session_start();
+include ("../../common/constants/sl_constants.php");
 include ("../../config/sl_config.php");
 include ("../../common/class/functions/includes/sl_files.php");
 include ("../../common/class/functions/includes/sl_images.php");
