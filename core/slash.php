@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //Includes
+include ("common/constants/errors.php"); //Defines
 include ("config/sl_config.php"); // configuration file.
 include ("languages/sl_lang.php"); // System Language
 
@@ -380,11 +381,16 @@ class Slash {
 	* @param $message error message
 	* @param $code technical message error
 	*/
-	public function show_fatal_error ($message=null,$code=null) {	
-		echo "<br /><table style='border: 1px solid #FF0000;' align='center'><tr><td>";
-		echo "<font color='#FF0000' size='2'>".constant($message)." - ERROR CODE : ".$code."</font>";
-		echo "</td></tr></table>";
+	public function show_fatal_error ($message=null,$code=null) {
+		
+		if ($this->error_level > 0) {
+			echo "<br /><table style='border: 1px solid #FF0000;' align='center'><tr><td>";
+			echo "<font color='#FF0000' size='2'>".constant($message)." - ERROR CODE : ".$code."</font>";
+			echo "</td></tr></table>";
+		}
+		
 		exit;
+
 	}
 	
 	
