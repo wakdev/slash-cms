@@ -38,6 +38,15 @@ $database_name = $config->db_name;
 $database = mysql_connect($host, $login, $password) or die ("CONNEXION ERROR");	
 mysql_select_db($database_name, $database) or die ("DATABASE CONNEXION ERROR");
 
+//Check user
+if (isset($_SESSION["id_user"]) && $_SESSION["id_user"] != null) {
+	$result = mysql_query("SELECT * FROM ".$config->db_prefix."users WHERE id=".$_SESSION["id_user"],$database);
+	if (mysql_num_rows($result)==0) { exit; }
+}else{
+	exit;
+}
+		
+
 // Get post values
 $sl_mod_field_id;
 $sl_mod_upload_id;
