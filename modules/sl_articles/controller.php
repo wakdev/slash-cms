@@ -91,7 +91,7 @@ class sl_articles_controller extends slController implements iController{
 	*/
 	public function load() {
 		
-		$row_article = $this->articles->load_article($this->slash->sl_param("id","GET"));
+		$row_article = $this->articles->load_article(intval($this->slash->sl_param("id","GET")));
 		if (isset($row_article["title"])){
 			$this->view->show_article($row_article);
 		}else{
