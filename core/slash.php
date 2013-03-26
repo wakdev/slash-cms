@@ -268,12 +268,12 @@ class Slash {
 		
 		// GET params
 		foreach ( $_GET as $get => $val )  {           
-		$this->get_params[$get] = $val;
+		$this->get_params[$get] = mysql_real_escape_string($val);
 		}   
 		
 		// POST params
 		foreach ( $_POST as $post => $val )  {           
-		$this->post_params[$post] = $val;
+		$this->post_params[$post] = mysql_real_escape_string($val);
 		}   
 	}
 	
