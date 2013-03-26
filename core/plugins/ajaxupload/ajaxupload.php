@@ -65,6 +65,13 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 	$filename = $filestools->format_name($_FILES['sl_userfile']['name']);
 	$uploadfile = "../../../tmp/".$filename;
 	
+	// Check file type (to avoid malicious uploads)
+	if( $_FILES['sl_userfile']['type'] != "image/gif" && 
+		$_FILES['sl_userfile']['type'] != "image/jpg" && 
+		$_FILES['sl_userfile']['type'] != "image/jpeg" && 
+		$_FILES['sl_userfile']['type'] != "image/png" && 
+		$_FILES['sl_userfile']['type'] != "application/pdf") die("Only images and pdfs accepted");
+
 	//Upload
 	if (move_uploaded_file($_FILES['sl_userfile']['tmp_name'], $uploadfile)) {
 		if (!chmod ($uploadfile, 0777)) {
