@@ -33,6 +33,6 @@ CKEDITOR.editorConfig = function( config )
 		
 	];
 	
-	
+ 
 	 
 };

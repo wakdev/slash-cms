@@ -221,12 +221,34 @@ class sl_form {
 		if (!isset($options["style"])) {$options["style"]= "";} 
 		if (isset($options["css"])) { $css = $options["css"]; } else { $css = ""; }
 		if (isset($options["theme"])) { $theme = $options["theme"]; } else { $theme = "advanced"; }
+		if (isset($options["finder"])) { $finder = $options["finder"]; } else { $finder = "kcfinder"; }
 
 		
 		echo "<textarea id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' style='".$options["style"]."'>".$options["value"]."</textarea>";
 		
-		echo '<script type="text/javascript">
+		//default
+		if ($finder == "kcfinder"){
+			echo '<script type="text/javascript">
 			
+					CKEDITOR.replace( "'.$module_name.'_obj'.$field_id.'",
+						{
+							fullPage : false,
+							skin : "slashcms",
+							toolbar : "SlashCMSToolbar",
+							filebrowserBrowseUrl : "../core/plugins/kcfinder/browse.php?type=files",
+	 						filebrowserImageBrowseUrl : "../core/plugins/kcfinder/browse.php?type=images",
+						    filebrowserFlashBrowseUrl : "../core/plugins/kcfinder/browse.php?type=flash",
+						   	filebrowserUploadUrl : "../core/plugins/kcfinder/upload.php?type=files",
+						   	filebrowserImageUploadUrl : "../core/plugins/kcfinder/upload.php?type=images",
+						   	filebrowserFlashUploadUrl : "../core/plugins/kcfinder/upload.php?type=flash",
+						});
+				</script>';
+		}
+		
+		
+		if ($finder == "ckfinder"){
+				
+			echo '<script type="text/javascript">
 				CKEDITOR.replace( "'.$module_name.'_obj'.$field_id.'",
 					{
 						fullPage : false,
@@ -240,6 +262,7 @@ class sl_form {
 						filebrowserFlashUploadUrl : "../core/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash"
 					});
 			</script>';
+		}
 			
 	}
 	
@@ -441,14 +464,14 @@ class sl_form {
 	public static function dateBS($module_name,$field_id,$options=null) {
 	
 		echo "<div class='well'>";
-		echo "<div class='input-append date' id='".$module_name."_obj".$field_id."' data-date='".$options["value"]."' data-date-format='dd-mm-yyyy'>";
-		echo "<input class='span2' size='16' type='text' value='".$options["value"]."'>";
+		echo "<div class='input-append date' id='".$module_name."_div".$field_id."' data-date='".$options["value"]."' data-date-format='dd-mm-yyyy'>";
+		echo "<input class='span2' id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' size='16' type='text' value='".$options["value"]."'>";
 		echo "<span class='add-on'><i class='icon-th'></i></span>";
 		echo "</div>";
 		
 		echo "	<script type='text/javascript'> 
 					$(document).ready(function(){ ";			
-		echo "$('#".$module_name."_obj".$field_id."').datepicker()";
+		echo "$('#".$module_name."_div".$field_id."').datepicker()";
 		echo "	});</script>";
 		
 		echo "</div>";

@@ -34,19 +34,19 @@ class sla_pages_view extends slaView implements iView{
 	 * Show global HTML Header
 	 */
 	public function header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 	} 
 	  
 	public function l_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
-		echo "<link rel='stylesheet' type='text/css' href='../core/plugins/tabs/css/tabs.css'/> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
+		sl_interface::stylesheet("../core/plugins/tabs/css/tabs.css");
 
 	}
 	
 	public function f_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/ckeditor/ckeditor.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js");
+		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 		
 		//echo "<script type='text/javascript' src='../core/plugins/tiny_mce/jquery.tinymce.js'></script> \n";
 		//echo "<script type='text/javascript' src='../core/plugins/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php'></script> \n";

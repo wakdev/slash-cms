@@ -1267,84 +1267,21 @@ class sl_interface {
 								
 	}
 	
-	
-	/**
-	* Delete interface form /!\ dev in process...
-	* TODO : LOAD OBJECT 
-	*/
 	/*
-	public function create_delete_form(&$core_ref,$module_title,$header_title,$objects,$main_field){
-		$slashcore = $core_ref;
-		
-		echo "	<form name='".$module_title."_del_form' method=post action='index.php?mod=".$module_title."'>
-				<input type='hidden' id='".$module_title."_act' name='".$module_title."_act' value='delete'>
-				<input type='hidden' id='".$module_title."_valid' name='".$module_title."_valid' value='1'>
-				
-				<table width='100%' cellspacing='0' cellpadding='0' border='0'>
-				<tr>
-				<td>
-					<table width='100%' cellspacing='0' cellpadding='0' border='0'>
-					<tr>
-						<td class='sl_mod_title'><img src='".$slashcore->config["admin_template_url"]."images/logos/".$module_title.".png' align='absmiddle' /> ".$title."</td>
-					
-						<td class='sl_mod_control'>
-							<table align='right' width='200'>
-							<tr>
-								<td align='center' width='50%'>
-										
-									<a href='javascript:void(0);' class='del_button' onClick=\"javascript:submitForm('".$this->module_name."','del_apply');\"></a>
-									".$slashcore->trad_word("DELETE")."</td>
-									
-								<td align='center' width='50%'>			
-									<a href='index.php?mod=".$module_title."' class='undo_button'></a>
-									".$slashcore->trad_word("BACK")."				
-								</td>
-
-							</tr>
-							</table>	
-						</td>
-					</tr>
-					</table>
-					
-					<br />
-					<table width='600' cellspacing='0' cellpadding='10' border='0' align='center' style='border:1px solid #333333;'>
-					<tr>
-						<td align='left'>		
-							<table width='600' cellspacing='0' cellpadding='0' border='0' >
-							<tr>
-								<td align='left' class='sl_mod_field_title' width='50%'>".$slashcore->trad_word("DETOURS_TYPES_DELETE_CONFIRM")." 
-								<br /><br /></td>
-							</tr>";
-							
-					if (count ($objects) != 0) {
-						$count=0;		
-						foreach ($objects as $value) {
-								
-								$type = $this->load_type($value);
-								
-								echo "<tr><td align='left' class='sl_mod_delete_text' width='50%'>
-										<input type='checkbox' id='".$module_title."_checked[".$count."]' name='".$module_title."_checked[".$count."]' value='".$type["id"]."' checked style='display:none;'  />
-										 <ul style='margin:0px;'><li>".$type[$main_field]."</li></ul>
-										</td>
-									</tr>";
-								$count++;
-						}
-						
-					}
-						echo"	</table>
-						</td>
-					</tr>
-					
-					</table>	
-								
-			</td>
-			</tr></table></form>
-
-				";
-		
-		
+	* Declare JScript
+	* @param $url:string script URL
+	*/
+	public static function script($url){
+		echo "<script type='text/javascript' src='".$url."'></script> \n";
+	}
 	
-	}*/
+	/*
+	* Declare Stylesheet
+	* @param $url:string script URL
+	*/
+	public static function stylesheet($url,$media="all"){
+		echo "<link rel='stylesheet' href='".$url."' type='text/css' media='".$media."'/> \n";
+	}
 
 }
 

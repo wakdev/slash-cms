@@ -31,7 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 */
 
-//Includes
+//Global includes
+include ("common/constants/sl_constants.php"); //Defines
 include ("config/sl_config.php"); // configuration file.
 include ("languages/sl_lang.php"); // System Language
 
@@ -50,7 +51,7 @@ class Slash {
 	
 	public $database; //Slash Database
 	
-	private $properties = array(); //Properties in file configuration.php
+	private $properties = array(); //Properties in file sl_config.php
 	private $modules = array(); //module Array
 	private $request_module; //Request module
 	private $mode; //Mode (admin or site)
@@ -143,7 +144,7 @@ class Slash {
 			$this->show_fatal_error("SELECT_DB_ERROR",$this->database->getError());
 		}
 		
-		//retro-compatibilité
+		//retro-compatibility
 		$this->db_handle = $this->database->getHandle();
 	}
 
@@ -154,7 +155,6 @@ class Slash {
 		$this->database->disconnect();
 	}
 
-	
 	
 	/**
 	* Loading Slash properties in SLConfig class
@@ -167,7 +167,7 @@ class Slash {
 			$this->properties[$name] = $value;
 		}	
 		
-		//Rétro-compatibilité
+		//Retro-compatibility
 		$this->properties["database_prefix"] = $sl_config->db_prefix;
 	}
 	
@@ -180,13 +180,13 @@ class Slash {
 			// MySQL
 			if ($this->properties["db_type"] == "MySQL") {
 				include ("common/class/db/mysql/connector.php");
-				$this->database = new MySQLConnector();
+				$this->database = MySQLConnector::getInstance();
 			}
 			
 			// PDO
 			if ($this->properties["db_type"] == "PDO") {
 				include ("common/class/db/pdo/connector.php");
-				$this->database = new PDOConnector();
+				$this->database = PDOConnector::getInstance();
 			}
 			
 		}
@@ -251,8 +251,8 @@ class Slash {
 	* Load template
 	* @param $url url_template
 	*/
-	private function load_template($url) {
-		if (file_exists($url)){
+	private function load_template($url=null) {
+		if ($url!==null && file_exists($url)){
 		    include ($url);
 		}else{
 		    $this->show_fatal_error("UNKNOWN_TEMPLATE_ERROR","No such template '$url'");
@@ -267,13 +267,12 @@ class Slash {
 	private function load_params() {
 		
 		// GET params
-		foreach ( $_GET as $get => $val )  {
-		$this->get_params[$get] = $this->escape_params($val);
-		}   
+		foreach ( $_GET as $get => $val )  {$this->get_params[$get] = $this->escape_params($val);}   
 		// POST params
-		foreach ( $_POST as $post => $val ){
-		$this->post_params[$post] = $this->escape_params($val);
-		}   
+		foreach ( $_POST as $post => $val ){$this->post_params[$post] = $this->escape_params($val);}   
+
+
+
 	}
 
 	/**
@@ -293,9 +292,9 @@ class Slash {
 	/**
 	* Load module traduction
 	*/
-	private function load_module_language($module_url) {
+	private function load_module_language($module_url=null) {
 	
-		if ($this->mode == "admin") {
+		if ($module_url!== null && $this->mode == "admin") {
 		
 			if (isset($_SESSION["user_language"])) {
 				$url = $module_url."languages/".$_SESSION["user_language"].".php";
@@ -309,7 +308,7 @@ class Slash {
 		}
 		
 		/* @todo : Front mutli-language */
-		if ($this->mode == "site") { 
+		if ($module_url!== null && $this->mode == "site") { 
 		
 			if (isset($_SESSION["user_language"])) {
 				$url = $module_url."languages/".$_SESSION["user_language"].".php";
@@ -328,7 +327,6 @@ class Slash {
 	* Load Module interface
 	*/
 	private function load_common(){
-	
 		$this->load_implements();
 		$this->load_class();
 	}
@@ -402,11 +400,16 @@ class Slash {
 	* @param $message error message
 	* @param $code technical message error
 	*/
-	public function show_fatal_error ($message,$code) {	
-		echo "<br /><table style='border: 1px solid #FF0000;' align='center'><tr><td>";
-		echo "<font color='#FF0000' size='2'>".constant($message)." - ERROR CODE : ".$code."</font>";
-		echo "</td></tr></table>";
+	public function show_fatal_error ($message=null,$code=null) {
+		
+		if ($this->error_level > 0) {
+			echo "<br /><table style='border: 1px solid #FF0000;' align='center'><tr><td>";
+			echo "<font color='#FF0000' size='2'>".constant($message)." - ERROR CODE : ".$code."</font>";
+			echo "</td></tr></table>";
+		}
+		
 		exit;
+
 	}
 	
 	
@@ -447,10 +450,9 @@ class Slash {
 	* Word traduction
 	* @return $word:string Word traduction
 	*/
-	public function trad_word($message) {
-		$myword = $message;//."_".strtoupper($this->config["slash_language"]);
-		if (defined($myword)) {
-			return constant($myword); 
+	public function trad_word($message=null) {
+		if ($message!== null && defined($message)) {
+			return constant($message); 
 		}else{
 			return "- NO TRANSLATE -";
 		}
@@ -466,23 +468,11 @@ class Slash {
 	public function sl_param($name,$method=null) {
 		$value=null;
 		if ($method) {
-			if ($method == "POST") {
-				if (array_key_exists($name, $this->post_params)) {
-				$value = $this->post_params[$name];
-				}	
-			}
-			if ($method == "GET") {
-				if (array_key_exists($name, $this->get_params)) {
-					$value = $this->get_params[$name];
-				}
-			}
+			if ($method == "POST" && array_key_exists($name, $this->post_params)) {$value = $this->post_params[$name];}
+			if ($method == "GET" && array_key_exists($name, $this->get_params)) {$value = $this->get_params[$name];}
 		} else {
-			if (array_key_exists($name, $this->get_params)) {
-				$value = $this->get_params[$name];
-			}
-			if (array_key_exists($name, $this->post_params)) {
-				$value = $this->post_params[$name];
-			}
+			if (array_key_exists($name, $this->get_params)) {$value = $this->get_params[$name];}
+			if (array_key_exists($name, $this->post_params)) {$value = $this->post_params[$name];}
 		}
 		return $value;
 	}
@@ -552,9 +542,8 @@ class Slash {
 				}
 				
 				include ($module_url);
-				$this->modules[$row["name"]] = new $module_class($this,$row["id"]);
+				$this->modules[$row["name"]] = new $module_class($this,$row["id"],$row["params"]);
 				$this->modules[$row["id"]] = $this->modules[$row["name"]];
-				//$this->modules[$row["id"]]->params = explode (",",$row["params"]);
 				$this->modules[$row["name"]]->initialize();
 
 			}else{ //Current module
@@ -572,7 +561,7 @@ class Slash {
 					}
 					
 					include ($module_url);
-					$this->modules[$row["name"]] = new $module_class($this,$row["id"]);
+					$this->modules[$row["name"]] = new $module_class($this,$row["id"],$row["params"]);
 					$this->modules[$row["id"]] = $this->modules[$row["name"]];
 
 				}
@@ -638,12 +627,16 @@ class Slash {
 		} else {
 			$this->show_fatal_error("UNKNOWN_MODULE_ERROR","No such module '".$name."'");
 		}
+		
 	}
 
 
+<<<<<<< HEAD
 
 	
 
+=======
+>>>>>>> upstream/master
 }
 
 /** 

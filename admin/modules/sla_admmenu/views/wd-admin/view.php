@@ -32,7 +32,7 @@ class sla_admmenu_view extends slaView implements iView{
 	private $tmpMenu;
 	
 	public function header () {
-		echo "<link rel='stylesheet' type='text/css' href='modules/sla_admmenu/views/wd-admin/css/sla_admmenu.css' media='screen'>";
+		sl_interface::stylesheet("modules/sla_admmenu/views/wd-admin/css/sla_admmenu.css", "screen");
 	}
 	
 	

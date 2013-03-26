@@ -36,8 +36,8 @@ class sl_pages_view extends slModel implements iView{
 	public function header ($title) {
 		
 		echo "<title>".$title."</title>";
-		echo "<script type='text/javascript' src='core/plugins/jquery_plugins/lightbox/js/lightbox.js'></script> \n";
-		echo "<link rel='stylesheet' href='core/plugins/jquery_plugins/lightbox/css/lightbox.css' type='text/css' /> \n";
+		sl_interface::script("core/plugins/jquery_plugins/lightbox/js/lightbox.js");
+		sl_interface::stylesheet("core/plugins/jquery_plugins/lightbox/css/lightbox.css");
 		
 	}
 	

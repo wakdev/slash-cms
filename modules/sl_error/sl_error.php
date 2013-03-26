@@ -79,7 +79,7 @@ class sl_error extends sl_error_view implements iController{
 	*/
 	public function load() {
 		
-		$this->show_error($this->slash->sl_param("id","GET"));
+		$this->show_error(intval($this->slash->sl_param("id","GET")));
 		
 	}
 	

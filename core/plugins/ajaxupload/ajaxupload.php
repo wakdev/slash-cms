@@ -21,12 +21,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+Notes : 
+2013-03-21 - Julien Veuillet [http://www.wakdev.com] : Error when the file already exists
+
 */
 
 /**************************************************/
 /******** 		CONFIGURATION		********/
 /**************************************************/
 session_start();
+include ("../../common/constants/sl_constants.php");
 include ("../../config/sl_config.php");
 include ("../../common/class/functions/includes/sl_files.php");
 include ("../../common/class/functions/includes/sl_images.php");
@@ -40,6 +45,14 @@ $database_name = $config->db_name;
 
 $database = mysql_connect($host, $login, $password) or die ("CONNEXION ERROR");	
 mysql_select_db($database_name, $database) or die ("DATABASE CONNEXION ERROR");
+
+//Check user
+if (isset($_SESSION["id_user"]) && $_SESSION["id_user"] != null) {
+	$result = mysql_query("SELECT * FROM ".$config->db_prefix."users WHERE id=".$_SESSION["id_user"],$database);
+	if (mysql_num_rows($result)==0) { exit; }
+}else{
+	exit;
+}
 
 // Get post values
 $sl_mod_field_id = $_POST["sl_mod_field_id"];
@@ -72,6 +85,12 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 		$_FILES['sl_userfile']['type'] != "image/png" && 
 		$_FILES['sl_userfile']['type'] != "application/pdf") die("Only images and pdfs accepted");
 
+	// File already exists
+	if(file_exists($uploadfile)) {
+		echo "The file already exists";
+		exit();
+	}
+	
 	//Upload
 	if (move_uploaded_file($_FILES['sl_userfile']['tmp_name'], $uploadfile)) {
 		if (!chmod ($uploadfile, 0777)) {
@@ -119,6 +138,12 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 		if (!mkdir("../../../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id, 0777)){
 			echo "Error : MKDIR "."../../../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id;
 		}*/
+	}
+	
+	// File already exists
+	if(file_exists($uploadfile)) {
+		echo "The file already exists";
+		exit();
 	}
 	
 	//Upload

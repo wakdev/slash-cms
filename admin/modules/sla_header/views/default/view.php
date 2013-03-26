@@ -41,7 +41,7 @@ class sla_header_view extends slaView implements iView{
 	*/
 	public function metas () {
 	
-		echo "	<meta http-equiv='Content-Type'  content='text/html; charset=utf-8' />";
+		echo "<meta http-equiv='Content-Type'  content='text/html; charset=utf-8' />";
 	}
 	
 	

@@ -1,0 +1,67 @@
+/**
+* @package		SLASH-CMS
+* @subpackage	SLA_MEDIAS
+* @internal     Admin medias module
+* @version		assets.css
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+
+This program is free software : you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
+a.sla_medias_myfiles_button{
+	background-image:url('../images/assets/files.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width:60px; height:60px; display: block;
+}
+
+
+a.sla_medias_myimages_button{
+	background-image:url('../images/assets/images.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width:60px; height:60px; display: block;
+	
+}
+
+a.sla_medias_mymedia_button{
+	background-image:url('../images/assets/medias.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width:60px; height:60px; display: block;
+}
+
+
+a.sla_medias_myfiles_button:hover, 
+a.sla_medias_myimages_button:hover, 
+a.sla_medias_mymedia_button:hover {
+	background-color:#C4B8AA;
+	border-radius:8px;
+}
+
+.sla_medias_current{
+	background-color:#C4B8AA;
+	border-radius:8px;
+}
+
+
+iframe{
+	border:0px;
+	width:100%;
+	height:450;
+	z-index:1;
+}

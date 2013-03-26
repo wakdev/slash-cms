@@ -21,17 +21,17 @@ class sla_country_view implements iView{
 	 * Show global HTML Header
 	 */
 	protected function header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/preload/js/preloadCssImages.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/interface/js/interface.js");
+		sl_interface::script("../core/plugins/jquery_plugins/preload/js/preloadCssImages.js");
 	} 
 	  
 	protected function l_header () {
-		echo "<script type='text/javascript' src='../core/plugins/jquery_plugins/pager/js/pager.js'></script> \n";
+		sl_interface::script("../core/plugins/jquery_plugins/pager/js/pager.js");
 	}
 	
 	protected function f_header () {
-		echo "<script type='text/javascript' src='../core/plugins/tiny_mce/jquery.tinymce.js'></script> \n";
-		echo "<script type='text/javascript' src='../core/plugins/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php'></script> \n";
+		sl_interface::script("../core/plugins/tiny_mce/jquery.tinymce.js");
+		sl_interface::script("../core/plugins/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php");
 	}
 	
 	

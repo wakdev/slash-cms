@@ -62,7 +62,7 @@ class sl_header_view implements iView{
 	protected function scripts () {
 		
 		echo "<noscript>Slash use JavaScript. If you see this message, you should enable JavaScript on the preferences web browser ! </noscript> \n";	
-		echo "<script type='text/javascript' src='./core/plugins/jquery/jquery.js'></script> \n";
+		sl_interface::script("./core/plugins/jquery/jquery.js");
 
 		//echo "<script type='text/javascript' src='./core/plugins/jquery/jquery.bgiframe.js'></script> \n";
 		//echo "<script type='text/javascript' src='./core/plugins/jquery/jquery.dimensions.js'></script> \n";

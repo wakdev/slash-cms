@@ -36,7 +36,7 @@ class sl_articles_view extends slView implements iView{
 	 */
 	public function header () {
 		
-		echo "<script type='text/javascript' src='core/plugins/jquery_plugins/interface/js/interface.js'></script> \n";
+		sl_interface::script("core/plugins/jquery_plugins/interface/js/interface.js");
 
 	}
 	

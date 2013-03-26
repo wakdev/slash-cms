@@ -22,6 +22,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+Notes :
+2013-03-15 : Add singleton
+
 */
 
 class PDOConnector
@@ -34,6 +37,8 @@ class PDOConnector
 	private $_db_user;
 	private $_db_pass;
 	private $_db_prefix;
+	
+	private static $instance;
 	
 	private $_db_handle;
 	//private $_db_selected;
@@ -49,9 +54,17 @@ class PDOConnector
 	/*----------------------------------------------------------------------------------------------------
 	 > OVERLOADING
 	----------------------------------------------------------------------------------------------------*/
-	public function __construct()
-	{
-		
+	private function __construct() {}
+	private function __clone() {}
+	
+	/**
+	 * Singleton
+	 */
+	public static function getInstance() {
+		if (!(self::$instance instanceof self)) {
+		  self::$instance = new self();
+		}
+		return self::$instance;
 	}
 	
 	
