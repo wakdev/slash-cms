@@ -1,5 +1,7 @@
 <?php
 //Include config
+//Global includes
+include ("../../../../common/constants/sl_constants.php"); //Defines
 include "../../../../config/sl_config.php";
 $sl_config = new SLConfig;
 
