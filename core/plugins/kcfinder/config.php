@@ -99,7 +99,7 @@ $_CONFIG = array(
     //'_sessionDir' => "/full/directory/path",
 
     '_sessionDomain' => $_SERVER['HTTP_HOST'],
-    '_sessionPath' => $_SERVER['HTTP_HOST']."/medias",
+    '_sessionPath' => "/medias",
 );
 
 ?>

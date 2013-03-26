@@ -41,7 +41,7 @@ class SLConfig {
 	public $use_cache = true;
 	public $cache_path = "/cache/";
 	
-	public $site_path = "/";
+	public $site_path = "/"; //For exemple : "/slashcms/"
 	
 	public $error_level = SL_DEBUG; //SL_DEBUG (development) | SL_INFO | SL_ERROR (production)
 	/* 
