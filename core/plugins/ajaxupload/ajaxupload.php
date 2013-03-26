@@ -78,6 +78,13 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 	$filename = $filestools->format_name($_FILES['sl_userfile']['name']);
 	$uploadfile = "../../../tmp/".$filename;
 	
+	// Check file type (to avoid malicious uploads)
+	if( $_FILES['sl_userfile']['type'] != "image/gif" && 
+		$_FILES['sl_userfile']['type'] != "image/jpg" && 
+		$_FILES['sl_userfile']['type'] != "image/jpeg" && 
+		$_FILES['sl_userfile']['type'] != "image/png" && 
+		$_FILES['sl_userfile']['type'] != "application/pdf") die("Only images and pdfs accepted");
+
 	// File already exists
 	if(file_exists($uploadfile)) {
 		echo "The file already exists";

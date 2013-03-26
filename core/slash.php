@@ -265,10 +265,29 @@ class Slash {
 	* Load GET and POST params
 	*/
 	private function load_params() {
-		foreach ($_GET as $get => $val){$this->get_params[$get] = $val;}   
-		foreach ($_POST as $post => $val){$this->post_params[$post] = $val;}   
+		
+		// GET params
+		foreach ( $_GET as $get => $val )  {$this->get_params[$get] = $this->escape_params($val);}   
+		// POST params
+		foreach ( $_POST as $post => $val ){$this->post_params[$post] = $this->escape_params($val);}   
+
+
+
 	}
-	
+
+	/**
+	* Escape string to prevent SQL Injection
+	*/
+	private function escape_params($params){
+		if(is_array($params)) {
+			foreach ($params as $k => $param) {
+				$params[$k] = $this->escape_params($param);
+			}
+			return $params;
+		}else{
+			return mysqli::escape_string($params);
+		}
+	}
 	
 	/**
 	* Load module traduction
@@ -612,6 +631,12 @@ class Slash {
 	}
 
 
+<<<<<<< HEAD
+
+	
+
+=======
+>>>>>>> upstream/master
 }
 
 /** 
