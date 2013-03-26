@@ -35,7 +35,7 @@ class pages extends slModel implements iModel{
 	public function load_page($id){
 	
 		if ($id) {
-			$this->slash->database->setQuery("SELECT * FROM sl_pages WHERE enabled=1 AND id=".$id);
+			$this->slash->database->setQuery("SELECT * FROM sl_pages WHERE enabled=1 AND id=".intval($id));
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
