@@ -44,6 +44,10 @@ class SLConfig {
 	public $site_path = "/"; //For exemple : "/slashcms/"
 	
 	public $error_level = SL_DEBUG; //SL_DEBUG (development) | SL_INFO | SL_ERROR (production)
+	
+	//Logs
+	public $logs = true;
+	public $logs_rotation = "week"; //week, day, hour, month
 	/* 
 	@todo => Move var in database 
 	var $site_name = "SLASH CMS";

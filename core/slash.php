@@ -393,6 +393,81 @@ class Slash {
 
 	}
 	
+	/**
+	 * Log action
+	 * @param string $log_info information
+	 * @param string $log_title title
+	 * @param string $log_type type
+	 * @param boolean $clear Clear old logs ?
+	 */
+	public function log($log_info,$log_title=null,$log_type=SL_LOG_TYPE_INFO,$clear=true){
+		
+		if (isset($this->properties["logs"]) && $this->properties["logs"] == true) {
+		
+			$id_user = 0;
+			$log_url = $_SERVER["REQUEST_URI"];
+			$log_date = date("Y-m-d H:i:s",time());
+			
+			if (isset($_SESSION["id_user"])) {$id_user=$_SESSION["id_user"];}
+			if (!isset($log_info) || $log_info=="") {$log_info="none";}
+			if ($log_title!== null){$log_info = $log_title." : ".$log_info; }
+			
+			if ($clear) {$this->clear_log();}
+			
+			$this->database->setQuery("
+						INSERT INTO ".$this->db_prefix."logs
+						(id,log_type,log_url,log_info,id_user,log_date) value
+						('','".$log_type."','".$log_url."','".$log_info."','".$id_user."','".$log_date."')");
+			if (!$this->database->execute()) {
+				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
+			}
+		
+		}
+	
+	}
+	
+	/**
+	 * Clear Log : see config $logs_rotation
+	 */
+	public function clear_log(){
+		
+		if (isset($this->properties["logs_rotation"])) {
+			$log_rot = "-1 week";
+			switch ($this->properties["logs_rotation"]){
+				case "month":
+					$log_rot = "-1 month";
+					break;
+				case "week":
+					$log_rot = "-1 week";
+					break;
+				case "day":
+					$log_rot = "-1 day";
+					break;
+				case "hour":
+					$log_rot = "-1 hour";
+					break;
+			}
+			
+			$expired_date = date('Y-m-d H:i:s', strtotime($log_rot));
+			
+			$this->database->setQuery("SELECT * FROM ".$this->database_prefix."logs WHERE log_date<'".$expired_date."'");
+			if (!$this->database->execute()) {
+				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
+			}
+			
+			$n_expired = $this->database->rowCount();
+			
+			if( $n_expired  > 0 ) {
+				$this->database->setQuery("DELETE FROM ".$this->db_prefix."logs WHERE log_date<'".$expired_date."'");
+				if (!$this->database->execute()) {
+					$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
+				}else{
+					$this->log($n_expired." logs clear","SYSTEM",SL_LOG_TYPE_SYSTEM,false);
+				}
+			}
+			
+		}
+	}
 	
 	/**
 	 * User admin infos

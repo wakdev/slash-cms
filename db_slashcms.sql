@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 22 Mars 2013 à 12:24
+-- G�n�r� le: Mer 27 Mars 2013 � 11:59
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.4.3
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `db_slashcms`
+-- Base de donn�es: `db_slashcms`
 --
 
 -- --------------------------------------------------------
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `sl_articles` (
 --
 
 INSERT INTO `sl_articles` (`id`, `id_user`, `categories`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, '2', 'L''Ã©quipe', '<p>\r\n	Du contenu...</p>\r\n', '2013-01-29 13:17:43', 1),
+(1, 1, '2', 'L''équipe', '<p>\r\n	Du contenu...</p>\r\n', '2013-01-29 13:17:43', 1),
 (2, 1, '', 'Lorem ipsum', '<p>\r\n	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non felis et erat interdum lobortis et non quam. Nulla lectus magna, scelerisque eu facilisis vitae, tristique at metus. Cras lacinia consequat sapien, rutrum lacinia nunc sodales sed. Nullam pellentesque dictum dolor, nec varius orci gravida sit amet. Aenean vulputate, est eget porttitor congue, augue quam dapibus augue, et venenatis mauris arcu sed nunc. Praesent tristique porta augue a tempor. Nullam rhoncus justo in tellus condimentum tincidunt. Fusce nec quam mi. Nunc eu nibh orci, eget sagittis felis. Aenean cursus luctus est, non feugiat quam feugiat vel.</p>\r\n', '2013-02-01 12:31:01', 1),
 (3, 1, '2,1', 'Aliquam erat volutpat.', '<p>\r\n	Nunc ante augue, imperdiet a euismod at, pharetra et diam. Phasellus tempus urna vitae mauris congue at egestas nibh rutrum. Vestibulum in diam eget neque tincidunt adipiscing. Sed vel facilisis lectus. Phasellus vulputate arcu eget neque pharetra lobortis blandit ligula dapibus. Mauris auctor feugiat vehicula. Sed pulvinar convallis velit id rutrum. Cras magna metus, vehicula at ultrices non, semper euismod magna. Mauris mollis mollis interdum. Proin mattis neque et magna rhoncus posuere. Aenean nec ipsum non ipsum consectetur mollis a ac dolor.</p>\r\n', '2013-02-01 12:31:24', 1),
 (4, 1, '', 'Aliquam nec', '<p>\r\n	ulla laoreet nisl pellentesque commodo. Maecenas vitae velit tellus, et sagittis nulla. Nulla sollicitudin molestie posuere. Quisque in ligula augue, ut accumsan eros. Praesent nisl metus, aliquam non porttitor sed, euismod in lacus. Suspendisse vel arcu et lorem aliquet egestas. Phasellus vitae ante nec augue rhoncus lacinia. Donec pulvinar accumsan justo, eget volutpat velit elementum at. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam eleifend velit vel risus iaculis tempor. Morbi vel elit orci, sed vulputate elit.</p>\r\n', '2013-02-01 12:31:49', 1),
@@ -115,7 +115,14 @@ CREATE TABLE IF NOT EXISTS `sl_attachments` (
   `position` int(11) unsigned NOT NULL,
   `state` tinyint(4) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+
+--
+-- Contenu de la table `sl_attachments`
+--
+
+INSERT INTO `sl_attachments` (`id`, `id_user`, `id_module`, `id_element`, `id_field`, `filename`, `position`, `state`) VALUES
+(13, 0, 0, 0, '', 'git.txt', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -222,6 +229,22 @@ INSERT INTO `sl_lang` (`id`, `name`, `shortname`, `enabled`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `sl_logs`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_logs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `log_type` varchar(45) NOT NULL,
+  `log_url` varchar(255) NOT NULL,
+  `log_info` varchar(255) NOT NULL,
+  `id_user` int(10) unsigned NOT NULL,
+  `log_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `sl_menu`
 --
 
@@ -245,9 +268,9 @@ CREATE TABLE IF NOT EXISTS `sl_menu` (
 
 INSERT INTO `sl_menu` (`id`, `menu_id`, `pri_type`, `sec_type`, `parent`, `position`, `title`, `action`, `home`, `enabled`) VALUES
 (1, 0, 1, 'horizontal', 0, 0, 'Principal', '#', 0, 1),
-(2, 1, 2, 'url_self', 0, 0, 'PrÃ©sentation', 'index.php?mod=sl_pages&id=1', 1, 1),
-(3, 1, 2, 'url_self', 0, 1, 'ActualitÃ©s', 'index.php?mod=sl_pages&id=2', 0, 1),
-(5, 1, 2, 'url_self', 0, 2, 'TÃ©lÃ©chargement', 'index.php?mod=sl_pages&id=3', 0, 1),
+(2, 1, 2, 'url_self', 0, 0, 'Présentation', 'index.php?mod=sl_pages&id=1', 1, 1),
+(3, 1, 2, 'url_self', 0, 1, 'Actualités', 'index.php?mod=sl_pages&id=2', 0, 1),
+(5, 1, 2, 'url_self', 0, 2, 'Téléchargement', 'index.php?mod=sl_pages&id=3', 0, 1),
 (6, 1, 2, 'url_self', 0, 4, 'Contact', 'index.php?mod=sl_pages&id=4', 0, 1),
 (15, 1, 2, 'url_self', 0, 3, 'Documentation', 'index.php?mod=sl_pages&id=5', 0, 1);
 
@@ -341,9 +364,9 @@ CREATE TABLE IF NOT EXISTS `sl_pages` (
 --
 
 INSERT INTO `sl_pages` (`id`, `id_user`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, 'PrÃ©sentation', '<p>\r\n	Slash CMS, est une application web open source qui va vous permettre de cr&eacute;er<br />\r\n	et g&eacute;rer votre site internet tr&egrave;s simplement.<br />\r\n	<br />\r\n	Avec ce syst&egrave;me de gestion de contenu sur internet, vous allez pouvoir mettre a disposition des visiteurs toutes les informations dont vous avez besoin de communiquer.<br />\r\n	<br />\r\n	Allant de la simple page &agrave; la galerie photo, en passant par des news flash et bien d&#39;autres modules,<br />\r\n	vous pourrez afficher toutes vos donn&eacute;es sur votre site, sans avoir la moindre connaissance technique.</p>\r\n', '2013-01-29 13:08:34', 1),
-(2, 1, 'ActualitÃ©s', '<p>\r\n	A venir.</p>\r\n', '2013-01-29 13:08:52', 1),
-(3, 1, 'TÃ©lÃ©chargement', '<p>\r\n	A venir.</p>\r\n', '2013-01-29 13:09:06', 1),
+(1, 1, 'Présentation', '<p>\r\n	Slash CMS, est une application web open source qui va vous permettre de cr&eacute;er<br />\r\n	et g&eacute;rer votre site internet tr&egrave;s simplement.<br />\r\n	<br />\r\n	Avec ce syst&egrave;me de gestion de contenu sur internet, vous allez pouvoir mettre a disposition des visiteurs toutes les informations dont vous avez besoin de communiquer.<br />\r\n	<br />\r\n	Allant de la simple page &agrave; la galerie photo, en passant par des news flash et bien d&#39;autres modules,<br />\r\n	vous pourrez afficher toutes vos donn&eacute;es sur votre site, sans avoir la moindre connaissance technique.</p>\r\n', '2013-01-29 13:08:34', 1),
+(2, 1, 'Actualités', '<p>\r\n	A venir</p>\r\n', '2013-01-29 13:08:52', 1),
+(3, 1, 'Téléchargement', '<p>\r\n	A venir.</p>\r\n', '2013-01-29 13:09:06', 1),
 (4, 1, 'Contact', '<p>\r\n	Vous pouvez me contacter a cette adresse : weneedyou [arobase] slash-cms.com</p>\r\n', '2013-01-29 13:09:23', 1),
 (5, 1, 'Documentation', '<p>\r\n	A venir.</p>\r\n', '2013-01-29 22:56:12', 1);
 

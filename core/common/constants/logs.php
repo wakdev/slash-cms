@@ -2,8 +2,8 @@
 /**
  * @package		SLASH-CMS
  * @subpackage	Constants
- * @internal    Constants
- * @version		sl_constants.php
+ * @internal    Constants Logs
+ * @version		logs.php
  * @author		Julien Veuillet [http://www.wakdev.com]
  * @copyright	Copyright(C) 2009 - Today. All rights reserved.
  * @license		GNU/GPL
@@ -24,6 +24,8 @@
 
  */
 
-include ("errors.php");
-include ("logs.php");
+define("SL_LOG_TYPE_INFO", "INFO");
+define("SL_LOG_TYPE_ERROR", "ERROR");
+define("SL_LOG_TYPE_DEBUG", "DEBUG");
+define("SL_LOG_TYPE_SYSTEM", "SYSTEM");
 ?>
