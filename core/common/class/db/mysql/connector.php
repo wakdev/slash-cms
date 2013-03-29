@@ -158,7 +158,7 @@ class MySQLConnector {
 	 * @param string $mode
 	 * @return Array SQL Result
 	 */
-	public function fetch($mode="MYSQL_BOTH") {
+	public function fetch($mode="BOTH") {
 		return mysql_fetch_array($this->db_result, $this->getFetchConstant($mode));
 	}
 	
@@ -167,7 +167,7 @@ class MySQLConnector {
 	 * @param string $mode
 	 * @return Array SQL Result
 	 */
-	public function fetchAll($mode="MYSQL_BOTH") {
+	public function fetchAll($mode="BOTH") {
 		
 		$arr = array();
 		while ($row = mysql_fetch_array($this->db_result,$this->getFetchConstant($mode))) {
@@ -199,18 +199,14 @@ class MySQLConnector {
 		switch ($mode) {
 			case "ASSOC":
 			case "MYSQL_ASSOC":
-				return 1;
-			break;
+				return MYSQL_ASSOC;
 			case "NUM":
 			case "MYSQL_NUM":
-				return 2;
-			break;
+				return MYSQL_NUM;
 			case "BOTH":
 			case "MYSQL_BOTH":
-				return 3;
-			break;
 			default:
-				return 3;
+				return MYSQL_BOTH;
 		} 
 	}
 }
