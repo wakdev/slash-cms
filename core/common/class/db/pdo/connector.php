@@ -158,14 +158,14 @@ class PDOConnector
 	
 	/* FETCH */
 	//MODES : PDO::FETCH_ASSOC | PDO::FETCH_BOTH | PDO::FETCH_BOUND | PDO::FETCH_CLASS | PDO::FETCH_INTO | PDO::FETCH_LAZY | PDO::FETCH_NUM | PDO::FETCH_OBJ
-	public function fetch($mode = ""){
+	public function fetch($mode = "BOTH"){
 		return $this->_db_result->fetch($this->getFetchConstant($mode));
 	}
 	
 	/* FETCH ALL */
-	public function fetchAll($mode = ""){
+	public function fetchAll($mode = "BOTH"){
 		$this->execute();
-		return $this->_db_result->fetchAll();
+		return $this->_db_result->fetchAll($this->getFetchConstant($mode));
 	}
 	
 	/* RESULT CLOSE */
@@ -188,15 +188,11 @@ class PDOConnector
 			case "ASSOC":
 			case "MYSQL_ASSOC":
 				return PDO::FETCH_ASSOC;
-			break;
 			case "NUM":
 			case "MYSQL_NUM":
 				return PDO::FETCH_NUM;
-			break;
 			case "BOTH":
 			case "MYSQL_BOTH":
-				return PDO::FETCH_BOTH;
-			break;
 			default:
 				return PDO::FETCH_BOTH;
 		} 
