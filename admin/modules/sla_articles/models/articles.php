@@ -83,7 +83,7 @@ class articles extends slaModel implements iModel{
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
-			$row_user = $this->slash->database->fetch("MYSQL_ASSOC");
+			$row_user = $this->slash->database->fetch("ASSOC");
 			$row[4] = $row_user["name"];
 			
 			/* CATEGORIE */
