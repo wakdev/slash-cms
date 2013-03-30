@@ -263,83 +263,10 @@ class menus extends slaModel implements iModel{
 			}	
 					
 			$insert_id = $this->slash->database->lastInsertId();
-			/*		
-			$ret = $this->save_attachment("../medias/attachments/sl_articles",$insert_id);
 			
-			if (!$ret){
-				return $this->slash->trad_word("FILE_TRANFERT_FAIL");
-			}else{
-				return $this->slash->trad_word("SAVE_SUCCESS");
-			}	
-			*/
 			return $this->slash->trad_word("SAVE_SUCCESS");
 		}
 		
-	}
-	
-	/**
-	 * Save attachment 
-	 */
-	public function save_attachment($destination,$id_element){
-		
-		/*$result_files = mysql_query("SELECT * FROM ".$this->slash->database_prefix."attachments WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0' ORDER BY position",$this->slash->db_handle) 
-		or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());	*/
-		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."attachments WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0' ORDER BY position");
-		if (!$this->slash->database->execute()) {
-			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-		}
-		
-		if ($this->slash->database->rowCount() > 0) {
-		
-			$sl_files_sv = new sl_files();
-			
-			if (!$sl_files_sv->make_dir($destination."/".$id_element)){
-				return false;
-			}
-			
-			
-			
-			
-			foreach ($this->slash->database->fetchAll("BOTH") as $row) {
-				if (!$sl_files_sv->move_files("../tmp/".$row["filename"],$destination."/".$id_element."/".$row["filename"])){
-					return false;
-				}
-			}
-			
-			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."attachments set 
-					id_element='".$id_element."',
-					state='1'
-					WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0'
-					");
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}
-		
-			return true;
-		}else{
-			return true;
-		}
-	}
-	
-	/**
-	* Delete attachment
-	*/
-	public function delete_attachment($destination,$id_element){
-	
-		$sl_files_dl = new sl_files();
-		
-		if ($sl_files_dl->remove_dir($destination."/".$id_element)) {
-			
-			$this->slash->database->setQuery("DELETE FROM ".$this->slash->database_prefix."attachments WHERE id_module=".$this->controller->module_id." AND id_element='".$id_element."' and state=1");
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}		
-			
-			return true;
-		}else{
-			return false;
-		}
-				
 	}
 	
 	/**
