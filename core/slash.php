@@ -406,6 +406,7 @@ class Slash {
 		
 			$id_user = 0;
 			$log_url = $_SERVER["REQUEST_URI"];
+			$log_referer = $_SERVER["HTTP_REFERER"];
 			$log_date = date("Y-m-d H:i:s",time());
 			
 			if (isset($_SESSION["id_user"])) {$id_user=$_SESSION["id_user"];}
@@ -416,8 +417,8 @@ class Slash {
 			
 			$this->database->setQuery("
 						INSERT INTO ".$this->db_prefix."logs
-						(id,log_type,log_url,log_info,id_user,log_date) value
-						('','".$log_type."','".$log_url."','".$log_info."','".$id_user."','".$log_date."')");
+						(id,log_type,log_url,log_referer,log_info,id_user,log_date) value
+						('','".$log_type."','".$log_url."','".$log_referer."',\"".$log_info."\",'".$id_user."','".$log_date."')");
 			if (!$this->database->execute()) {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}

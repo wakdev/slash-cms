@@ -236,11 +236,12 @@ CREATE TABLE IF NOT EXISTS `sl_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `log_type` varchar(45) NOT NULL,
   `log_url` varchar(255) NOT NULL,
+  `log_referer` varchar(255) NOT NULL,
   `log_info` varchar(255) NOT NULL,
   `id_user` int(10) unsigned NOT NULL,
   `log_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
