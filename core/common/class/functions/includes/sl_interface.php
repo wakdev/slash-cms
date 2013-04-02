@@ -673,6 +673,7 @@ class sl_interface {
 	* @param $objects:array Object Array
 	* @param $controls:array Controls
 	* @param $fields_val_mess:array Fields value and messages fields_val_mess[0][value] = value, fields_val_mess[0][message]
+	* @deprecated
 	*/
 	public static function create_show_form($module_title,$header_title,$obj_id,$obj_fieds,$obj_titles,$obj_styles,$objects,$controls=null,$fields_val_mess=null,$code=null){
 		
@@ -1211,50 +1212,54 @@ class sl_interface {
 	
 		$slash = &$GLOBALS["slash"];
 	
-		echo "<div class='sl_adm_modcontrols'>";
-		echo "<table align='right'><tr>";
+		echo "<div class='sl_adm_modcontrols sl_pull-right'>";
+		//echo "<table align='right'><tr>";
 		
 		for ($i=0;$i<count($controls);$i++) {
+			
+			echo "<div class='sl_display-inline-block sl_padding5 sl_clear-padding-top sl_clear-padding-bottom'>";
+			
 			switch($controls[$i]) {
 				case "add":
-					echo "<td align='center' width='20%'><a href='javascript:void(0);' class='add_button'
-									onClick=\"javascript:submitForm('".$module_name."','add');\"></a>".$slash->trad_word("ADD")."</td>";
+					echo "<a href='javascript:void(0);' class='add_button'
+									onClick=\"javascript:submitForm('".$module_name."','add');\"></a>".$slash->trad_word("ADD");
 				break;
 				case "edit":
-					echo "<td align='center' width='20%'><a href='javascript:void(0);' class='edit_button'
-									onClick=\"javascript:submitForm('".$module_name."','edit');\"></a>".$slash->trad_word("EDIT")."</td>";	
+					echo "<a href='javascript:void(0);' class='edit_button'
+									onClick=\"javascript:submitForm('".$module_name."','edit');\"></a>".$slash->trad_word("EDIT");	
 				break;
 				case "publish":
-					echo "<td align='center' width='20%'><a href='javascript:void(0);' class='publish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_enabled');\"></a>".$slash->trad_word("ENABLED")."</td>";
+					echo "<a href='javascript:void(0);' class='publish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_enabled');\"></a>".$slash->trad_word("ENABLED");
 				break;
 				case "unpublish":
-					echo "<td align='center' width='20%'><a href='javascript:void(0);' class='unpublish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_disabled');\"></a>".$slash->trad_word("DISABLED")."</td>";
+					echo "<a href='javascript:void(0);' class='unpublish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_disabled');\"></a>".$slash->trad_word("DISABLED");
 				break;
 				case "del":
 				case "delete":
-					echo "<td align='center' width='20%'><a href='javascript:void(0);' class='delete_button'
-									onClick=\"javascript:submitForm('".$module_name."','delete');\"></a>".$slash->trad_word("DELETE")."</td>";
+					echo "<a href='javascript:void(0);' class='delete_button'
+									onClick=\"javascript:submitForm('".$module_name."','delete');\"></a>".$slash->trad_word("DELETE");
 				break;
 				case "save":
-					echo "<td align='center' width='20%'><a href='javascript:void(0);' class='apply_button' 
-									onClick=\"javascript:submitForm('".$module_name."','add_apply');\"></a>".$slash->trad_word("SAVE")."</td>";
+					echo "<a href='javascript:void(0);' class='apply_button' 
+									onClick=\"javascript:submitForm('".$module_name."','add_apply');\"></a>".$slash->trad_word("SAVE");
 				break;
 				case "back":
-					echo "<td align='center' width='20%'><a href='index.php?mod=".$module_name."' class='undo_button'></a>
-								".$slash->trad_word("BACK")."	</td>";
+					echo "<a href='index.php?mod=".$module_name."' class='undo_button'></a>
+								".$slash->trad_word("BACK");
 				break;
 				
 				
 				default:
-					echo "<td align='center' width='20%'>- NO CONTROL -</td>";
+					echo "- NO CONTROL -";
 			
 			}
+			
+			echo "</div>";
 		
 		}
 		
-		echo "</tr></table>";
 		echo "</div>";		
 								
 	}
