@@ -157,7 +157,7 @@ class sla_articles_view extends slaView implements iView{
 		$tab_ids[1]["id"] = "main_config";
 		
 		$current = 0;
-		sl_interface::create_slash_tabs($tab_ids,array("General","Configuration"),$current);
+		sl_interface::create_slash_tabs($tab_ids,array("<i class='icon-th-large'></i>&nbsp;General","<i class='icon-wrench'></i>&nbsp;Configuration"),$current);
 		
 		echo "<div class='sl_adm_form_main' id='main_general'>";
 

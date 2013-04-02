@@ -549,64 +549,62 @@ class sl_interface {
 	* @param $controls:Array List of control
 	*/
 	public static function create_control_buttons($module_name,$controls) {
-		
+	
 		$slash = &$GLOBALS["slash"];
 	
-		$size = floor(100 / count($controls));
+		echo "<div class='sl_pull-right'>";
 	
-		echo "<table align='right'><tr>";
-		
 		for ($i=0;$i<count($controls);$i++) {
+			
+			echo "<div class='sl_display-inline-block sl_padding5 sl_clear-padding-top sl_clear-padding-bottom'>";
+			
 			switch($controls[$i]) {
 				case "add":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='add_button'
-									onClick=\"javascript:submitForm('".$module_name."','add');\"></a>".$slash->trad_word("ADD")."</td>";
-				break;
+					echo "<a href='javascript:void(0);' class='add_button'
+									onClick=\"javascript:submitForm('".$module_name."','add');\"></a>".$slash->trad_word("ADD");
+					break;
 				case "edit":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='edit_button'
-									onClick=\"javascript:submitForm('".$module_name."','edit');\"></a>".$slash->trad_word("EDIT")."</td>";	
-				break;
+					echo "<a href='javascript:void(0);' class='edit_button'
+									onClick=\"javascript:submitForm('".$module_name."','edit');\"></a>".$slash->trad_word("EDIT");
+					break;
 				case "publish":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='publish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_enabled');\"></a>".$slash->trad_word("ENABLED")."</td>";
-				break;
+					echo "<a href='javascript:void(0);' class='publish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_enabled');\"></a>".$slash->trad_word("ENABLED");
+					break;
 				case "unpublish":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='unpublish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_disabled');\"></a>".$slash->trad_word("DISABLED")."</td>";
-				break;
+					echo "<a href='javascript:void(0);' class='unpublish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_disabled');\"></a>".$slash->trad_word("DISABLED");
+					break;
 				case "del":
 				case "delete":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='delete_button'
-									onClick=\"javascript:submitForm('".$module_name."','delete');\"></a>".$slash->trad_word("DELETE")."</td>";
-				break;
+					echo "<a href='javascript:void(0);' class='delete_button'
+									onClick=\"javascript:submitForm('".$module_name."','delete');\"></a>".$slash->trad_word("DELETE");
+					break;
 				case "save":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='apply_button' onClick=\"
+					echo "<a href='javascript:void(0);' class='apply_button' onClick=\"
 								if (check_fields()){
 									submitForm('".$module_name."','add_apply');
 								}else{
 									alert('".$slash->trad_word("FIELD_NEED")." ! ');
 								}\"></a>
-								".$slash->trad_word("SAVE")."</td>";
-				break;
+								".$slash->trad_word("SAVE");
+					break;
 				case "print":
-					echo "<td align='center' width='".$size."%'><a href='javascript:void(0);' class='print_button'
-									onClick=\"javascript:submitForm('".$module_name."','print');\"></a>".$slash->trad_word("PRINT")."</td>";
-				break;
+					echo "<a href='javascript:void(0);' class='print_button'
+									onClick=\"javascript:submitForm('".$module_name."','print');\"></a>".$slash->trad_word("PRINT");
+					break;
 				case "back":
-					echo "<td align='center' width='".$size."%'><a href='index.php?mod=".$module_name."' class='undo_button'></a>
-								".$slash->trad_word("BACK")."	</td>";
-				break;
-				
-				
+					echo "<a href='index.php?mod=".$module_name."' class='undo_button'></a>
+								".$slash->trad_word("BACK");
+					break;
 				default:
-					echo "<td align='center' width='".$size."%'>- NO CONTROL -</td>";
-			
+					echo "- NO CONTROL -";		
 			}
-		
+			echo "</div>";
 		}
-		
-		echo "</tr></table>";					
-								
+	
+		echo "</div>";
+	
 	}
 	
 	/*
