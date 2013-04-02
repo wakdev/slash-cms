@@ -166,9 +166,10 @@ class sla_articles_view extends slaView implements iView{
 				$row_cat_text[$i] = $row_categories[$i]["title"];
 			}
 		
-			$categories_selected = array();
-			$categories_selected = explode(",",$values["categories"]);
 			
+			$categories_selected = array();
+			$categories_selected = $this->controller->articles->linked_categories($id);
+						
 			sl_form::title($this->slash->trad_word("CATEGORIES")." : ");
 			sl_form::br(2);
 			sl_form::select_multiple($mn,2,array("selected" => $categories_selected, "values" => $row_cat_ids, "texts" => $row_cat_text, "class" => "multiselect" ));

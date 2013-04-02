@@ -45,25 +45,34 @@ class categories extends slaModel implements iModel{
 	/**
 	* Get categories titles
 	*/
-	public function get_categories_titles($ids) {
-		$cat_array = explode(",",$ids);
-		$ret = "";
+	public function get_categories_titles($id) {
 		
+		$id_mod1 = $this->controller->module_id;
+		$id_mod2 = $this->slash->sl_module_id("sla_categories");
+		$id1 = $id;
 		
-		for ($i=0;$i<count($cat_array);$i++) {
+		$this->slash->database->setQuery("SELECT id,title FROM sl_categories JOIN sl_joins
+				WHERE id_mod1='".$id_mod1."'
+				AND id_mod2='".$id_mod2."'
+				AND id1='".$id."'
+				AND id2=id");
 		
-			$this->slash->database->setQuery("SELECT id,title FROM ".$this->slash->db_prefix."categories WHERE id='".$cat_array[$i]."'");
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}
-			
-			$row_cat = $this->slash->database->fetch("ASSOC");
-			$ret .= $row_cat["title"];
-			
-			if ($i < count($cat_array) - 1 ) { $ret .= ", "; }
+		if (!$this->slash->database->execute()) {
+			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+			return false;
 		}
 		
-		if ($ret == "") { $ret = $this->slash->trad_word("NONE");} 
+		$ret = "";
+		
+		foreach ($this->slash->database->fetchAll("BOTH") as $row) {
+			$ret .= $row["title"].",";
+		}
+		
+		if ($ret == "") { 
+			$ret = $this->slash->trad_word("NONE");
+		}else{
+			$ret = substr($ret, 0, -1);
+		}
 		
 		return $ret;
 	}

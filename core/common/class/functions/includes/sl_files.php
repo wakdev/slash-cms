@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	FILES_FUNCTIONS
 * @internal     files functions
-* @version		files.php - Version 9.12.1
+* @version		sl_files.php
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
