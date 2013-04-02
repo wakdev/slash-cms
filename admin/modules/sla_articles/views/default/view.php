@@ -49,6 +49,8 @@ class sla_articles_view extends slaView implements iView{
 		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 		sl_interface::script("../core/plugins/bootstrap_plugins/multiselect-master/js/bootstrap-multiselect.js");
 		
+		sl_interface::script("../core/plugins/tabs/js/slash-tabs.js");
+		
 		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/multiselect-master/css/bootstrap-multiselect.css");
 	}
 	
@@ -150,8 +152,15 @@ class sla_articles_view extends slaView implements iView{
 			sl_interface::create_buttons($mn,array("save","back"));
 		echo "</div>";
 		
-		echo "<div class='sl_adm_form_main'>";
-			
+		$tab_ids = array();
+		$tab_ids[0]["id"] = "main_general";
+		$tab_ids[1]["id"] = "main_config";
+		
+		$current = 0;
+		sl_interface::create_slash_tabs($tab_ids,array("General","Configuration"),$current);
+		
+		echo "<div class='sl_adm_form_main' id='main_general'>";
+
 			sl_form::title($this->slash->trad_word("TITLE")." : ");
 			sl_form::input($mn,1,array("value" => $values["title"]));
 			if ($errors[1]["message"]) { sl_form::error($errors[1]["message"]); }
@@ -166,7 +175,6 @@ class sla_articles_view extends slaView implements iView{
 				$row_cat_text[$i] = $row_categories[$i]["title"];
 			}
 		
-			
 			$categories_selected = array();
 			$categories_selected = $this->controller->articles->linked_categories($id);
 						
@@ -191,9 +199,16 @@ class sla_articles_view extends slaView implements iView{
 			sl_form::title($this->slash->trad_word("ACTIVE")." : ");
 			sl_form::checkbox($mn,5,array("value" => $values["enabled"]));
 										
-							
+
+		echo "</div>";
+		
+		
+		echo "<div class='sl_adm_form_main' id='main_config' style='display:none;'>";
+			
+			echo "ARTICLE CONFIGURATION";
 			
 		echo "</div>";
+		
 		
 		sl_form::end();
 	

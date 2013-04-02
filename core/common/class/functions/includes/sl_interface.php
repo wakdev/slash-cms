@@ -509,14 +509,8 @@ class sl_interface {
 		echo "<div id='slash-tabs' class='sl_adm_tabs'>";
 		
 		for($i=0;$i<count($ids);$i++){
-		
-			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = ""; }
-			
-			echo "<a href='javascript:void();' 
-			onclick=\"
-				show_tab(".$ids[$i]["id"].");
-				$(this).addClass('sl_adm_tabs-active');
-			\" ".$class.">".$titles[$i]."</a>";
+			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = "class='sl_adm_tabs-inactive'"; }
+			echo "<a href='javascript:void(0);' onclick=\"javascript:show_tab('".$ids[$i]["id"]."',$(this));\" ".$class.">".$titles[$i]."</a>";
 		}
 		
 		echo "</div>";
@@ -534,7 +528,7 @@ class sl_interface {
 		
 		for($i=0;$i<count($lg);$i++){
 		
-			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = ""; }
+			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = "sl_adm_tabs-inactive"; }
 			
 			echo "<a href='javascript:void();' 
 			onclick=\"
