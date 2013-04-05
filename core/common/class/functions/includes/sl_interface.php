@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
-* @TODO : ProblÃ¨me lors de l'appel de la fct JS du tri si autre qu'un title ou description
-* @TODO : ProblÃ¨me de selection multiple, coche toutes les pages et non la page en cours
+* @TODO : Problème lors de l'appel de la fct JS du tri si autre qu'un title ou description
+* @TODO : Problème de selection multiple, coche toutes les pages et non la page en cours
 * @TODO : Faire la creation des controls en div et non en tableau
 * @TODO : 
 */
@@ -96,8 +96,8 @@ class sl_interface {
 			if ($_SESSION[$module_title."_search"] != "#") { echo $_SESSION[$module_title."_search"]; }
 				echo "' onchange=\"javascript:if(this.value.length == 0){this.value='#'}\"/>
 					 
-					<a href='javascript:void(0);' class='search_button' onClick=\"javascript:submitForm('".$module_title."','search');\"></a>
-					<a href='javascript:void(0);' class='search_reset_button' onClick=\"javascript:submitForm('".$module_title."','reset');\"></a>";
+					<a href='#' class='search_button' onClick=\"javascript:submitForm('".$module_title."','search'); return false;\"></a>
+					<a href='#' class='search_reset_button' onClick=\"javascript:submitForm('".$module_title."','reset'); return false;\"></a>";
 					
 					if ($_SESSION[$module_title."_search"] != "#") { 
 						echo "<br /><font class='sl_searchbox_title'>".$slashcore->trad_word("YOUR_SEARCH")." : ".count($objects)." ".$slashcore->trad_word("RESULT")."</font>"; 
@@ -109,12 +109,12 @@ class sl_interface {
 			
 			echo "<div style='position:absolute; right:50%'>";
 			echo "<p id='".$module_title."_nav_top' class='sl_mod_page_nav'>";
-				echo "<a href='javascript:void(0);' rel='prev' class='back_list_button' onClick=\"unCheckAll('".$module_title."');\"></a>
-					  <a href='javascript:void(0);' rel='1' class='highlight' onClick=\"unCheckAll('".$module_title."');\">&nbsp;1&nbsp;</a>";
+				echo "<a href='#' rel='prev' class='back_list_button' onClick=\"unCheckAll('".$module_title."');\"></a>
+					  <a href='#' rel='1' class='highlight' onClick=\"unCheckAll('".$module_title."');\">&nbsp;1&nbsp;</a>";
 							for ($i=2; $i<=$nb_page; $i++) {
-								echo "<a href='javascript:void(0);' rel='".$i."' onClick=\"unCheckAll('".$module_title."');\">&nbsp;".$i."&nbsp;</a>";
+								echo "<a href='#' rel='".$i."' onClick=\"unCheckAll('".$module_title."');\">&nbsp;".$i."&nbsp;</a>";
 							}
-				echo "<a href='javascript:void(0);' rel='next' class='next_list_button' onClick=\"unCheckAll('".$module_title."');\"></a>";
+				echo "<a href='#' rel='next' class='next_list_button' onClick=\"unCheckAll('".$module_title."');\"></a>";
 			echo "</p>";
 			
 			
@@ -152,8 +152,8 @@ class sl_interface {
 					if ($_SESSION[$module_title."_sort"] == "asc") {$class_asc = $class_asc."_on";}else{$class_desc = $class_desc."_on";} 	
 				}
 			
-				echo "<a href='javascript:void(0);' class='".$class_asc."' onClick=\"javascript:submitForm('".$module_title."','order_".$obj_ids[$i]."_asc');\"></a>
-					  <a href='javascript:void(0);' class='".$class_desc."' onClick=\"javascript:submitForm('".$module_title."','order_".$obj_ids[$i]."_desc');\"></a>";
+				echo "<a href='#' class='".$class_asc."' onClick=\"javascript:submitForm('".$module_title."','order_".$obj_ids[$i]."_asc'); return false;\"></a>
+					  <a href='#' class='".$class_desc."' onClick=\"javascript:submitForm('".$module_title."','order_".$obj_ids[$i]."_desc'); return false;\"></a>";
 			}
 			
 			echo "</td>";
@@ -221,31 +221,31 @@ class sl_interface {
 				
 					switch ($obj_actions[$j]) {
 						case "single_edit" :
-							echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='javascript:void(0);' 
-							onClick=\"javascript:submitForm('".$module_title."','single_edit','".$i."');\">".$objects[$i][$j]."</a></td>";
+							echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='#' 
+							onClick=\"javascript:submitForm('".$module_title."','single_edit','".$i."'); return false;\">".$objects[$i][$j]."</a></td>";
 						break;
 						
 						case "single_show":
-							echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='javascript:void(0);' 
-							onClick=\"javascript:submitForm('".$module_title."','single_show','".$i."');\">".$objects[$i][$j]."</a></td>";
+							echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='#' 
+							onClick=\"javascript:submitForm('".$module_title."','single_show','".$i."'); return false;\">".$objects[$i][$j]."</a></td>";
 						break;
 						
 						case "set_state" :
 							if ($objects[$i][$j] == 0 ){
-								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='javascript:void(0);' class='item_enabled_off'
-									onClick=\"javascript:submitForm('".$module_title."','single_set_enabled','".$i."');\"></a></td>";
+								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='#' class='item_enabled_off'
+									onClick=\"javascript:submitForm('".$module_title."','single_set_enabled','".$i."'); return false;\"></a></td>";
 							}else {
-								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='javascript:void(0);' class='item_enabled_on'
-									onClick=\"javascript:submitForm('".$module_title."','single_set_disabled','".$i."');\"></a></td>";	
+								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='#' class='item_enabled_on'
+									onClick=\"javascript:submitForm('".$module_title."','single_set_disabled','".$i."'); return false;\"></a></td>";	
 							}
 						break;
 						
 						case "set_home" :
 							if ($objects[$i][$j] == 0 ){
-								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='javascript:void(0);' class='item_home_off'
-									onClick=\"javascript:submitForm('".$module_title."','single_set_home','".$i."');\"></a></td>";
+								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='#' class='item_home_off'
+									onClick=\"javascript:submitForm('".$module_title."','single_set_home','".$i."'); return false;\"></a></td>";
 							}else {
-								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='javascript:void(0);' class='item_home_on'></a></td>";	
+								echo "<td width='".$obj_sizes[$j]."%' align='left' ><a href='#' class='item_home_on'></a></td>";	
 							}
 						break;
 						
@@ -270,38 +270,38 @@ class sl_interface {
 						switch ($controls[$c]) {
 							case "single_edit":
 								echo "<td>
-										<a href='javascript:void(0);' class='list_edit_button' onClick=\"javascript:submitForm('".$module_title."','single_edit','".$i."');\"></a>
+										<a href='#' class='list_edit_button' onClick=\"javascript:submitForm('".$module_title."','single_edit','".$i."'); return false;\"></a>
 									  </td>";
 							break;
 							
 							case "single_delete":
 								echo "<td>
-										<a href='javascript:void(0);' class='list_delete_button' onClick=\"javascript:submitForm('".$module_title."','single_delete','".$i."');\"></a>
+										<a href='#' class='list_delete_button' onClick=\"javascript:submitForm('".$module_title."','single_delete','".$i."'); return false;\"></a>
 									  </td>";
 							break;
 							
 							case "single_up" :
 							echo "<td>
-									<a href='javascript:void(0);' class='item_up' onClick=\"javascript:submitForm('".$module_title."','single_set_up','".$i."');\"></a>
+									<a href='#' class='item_up' onClick=\"javascript:submitForm('".$module_title."','single_set_up','".$i."'); return false;\"></a>
 								  </td>";
 							break;
 							
 							case "single_down" :
 								echo "<td>
-									<a href='javascript:void(0);' class='item_down' onClick=\"javascript:submitForm('".$module_title."','single_set_down','".$i."');\"></a>
+									<a href='#' class='item_down' onClick=\"javascript:submitForm('".$module_title."','single_set_down','".$i."'); return false;\"></a>
 								  </td>";
 								
 							break;
 							
 							case "single_print":
 								echo "<td>
-										<a href='javascript:void(0);' class='list_print_button' onClick=\"javascript:submitForm('".$module_title."','single_print','".$i."');\"></a>
+										<a href='#' class='list_print_button' onClick=\"javascript:submitForm('".$module_title."','single_print','".$i."'); return false;\"></a>
 									  </td>";
 							break;
 							
 							case "single_show":
 							echo "<td>
-									<a href='javascript:void(0);' class='list_show_item_button' onClick=\"javascript:submitForm('".$module_title."','single_show','".$i."');\"></a>
+									<a href='#' class='list_show_item_button' onClick=\"javascript:submitForm('".$module_title."','single_show','".$i."'); return false;\"></a>
 								  </td>";
 							break;
 							
@@ -333,12 +333,12 @@ class sl_interface {
 		
 			echo "<div style='position:absolute; right:50%'>";
 			echo "<p id='".$module_title."_nav_bottom' class='sl_mod_page_nav'>";
-				echo "<a href='javascript:void(0);' rel='prev' class='back_list_button' ></a>
-					  <a href='javascript:void(0);' rel='1' class='highlight'>&nbsp;1&nbsp;</a>";
+				echo "<a href='#' rel='prev' class='back_list_button' ></a>
+					  <a href='#' rel='1' class='highlight'>&nbsp;1&nbsp;</a>";
 							for ($i=2; $i<=$nb_page; $i++) {
-								echo "<a href='javascript:void(0);' rel='".$i."'>&nbsp;".$i."&nbsp;</a>";
+								echo "<a href='#' rel='".$i."'>&nbsp;".$i."&nbsp;</a>";
 							}
-				echo "<a href='javascript:void(0);' rel='next' class='next_list_button'></a>";
+				echo "<a href='#' rel='next' class='next_list_button'></a>";
 			echo "</p>";
 			
 			echo "</div>";
@@ -510,7 +510,7 @@ class sl_interface {
 		
 		for($i=0;$i<count($ids);$i++){
 			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = "class='sl_adm_tabs-inactive'"; }
-			echo "<a href='javascript:void(0);' onclick=\"javascript:show_tab('".$ids[$i]["id"]."',$(this));\" ".$class.">".$titles[$i]."</a>";
+			echo "<a href='#' onclick=\"javascript:show_tab('".$ids[$i]["id"]."',$(this)); return false;\" ".$class.">".$titles[$i]."</a>";
 		}
 		
 		echo "</div>";
@@ -530,10 +530,10 @@ class sl_interface {
 		
 			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = "sl_adm_tabs-inactive"; }
 			
-			echo "<a href='javascript:void();' 
+			echo "<a href='#' 
 			onclick=\"
 				show_tab(".$lg[$i]["id"].");
-				$(this).addClass('sl_adm_tabs-active');
+				$(this).addClass('sl_adm_tabs-active'); return false;
 			\" ".$class.">
 			<img src='templates/system/images/flags/".$lg[$i]["shortname"].".png' width='27' border='0' /></a>";
 		}
@@ -560,28 +560,28 @@ class sl_interface {
 			
 			switch($controls[$i]) {
 				case "add":
-					echo "<a href='javascript:void(0);' class='add_button'
-									onClick=\"javascript:submitForm('".$module_name."','add');\"></a>".$slash->trad_word("ADD");
+					echo "<a href='#' class='add_button'
+									onClick=\"javascript:submitForm('".$module_name."','add'); return false;\"></a>".$slash->trad_word("ADD");
 					break;
 				case "edit":
-					echo "<a href='javascript:void(0);' class='edit_button'
-									onClick=\"javascript:submitForm('".$module_name."','edit');\"></a>".$slash->trad_word("EDIT");
+					echo "<a href='#' class='edit_button'
+									onClick=\"javascript:submitForm('".$module_name."','edit'); return false;\"></a>".$slash->trad_word("EDIT");
 					break;
 				case "publish":
-					echo "<a href='javascript:void(0);' class='publish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_enabled');\"></a>".$slash->trad_word("ENABLED");
+					echo "<a href='#' class='publish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_enabled'); return false;\"></a>".$slash->trad_word("ENABLED");
 					break;
 				case "unpublish":
-					echo "<a href='javascript:void(0);' class='unpublish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_disabled');\"></a>".$slash->trad_word("DISABLED");
+					echo "<a href='#' class='unpublish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_disabled'); return false;\"></a>".$slash->trad_word("DISABLED");
 					break;
 				case "del":
 				case "delete":
-					echo "<a href='javascript:void(0);' class='delete_button'
-									onClick=\"javascript:submitForm('".$module_name."','delete');\"></a>".$slash->trad_word("DELETE");
+					echo "<a href='#' class='delete_button'
+									onClick=\"javascript:submitForm('".$module_name."','delete'); return false;\"></a>".$slash->trad_word("DELETE");
 					break;
 				case "save":
-					echo "<a href='javascript:void(0);' class='apply_button' onClick=\"
+					echo "<a href='#' class='apply_button' onClick=\"
 								if (check_fields()){
 									submitForm('".$module_name."','add_apply');
 								}else{
@@ -590,8 +590,8 @@ class sl_interface {
 								".$slash->trad_word("SAVE");
 					break;
 				case "print":
-					echo "<a href='javascript:void(0);' class='print_button'
-									onClick=\"javascript:submitForm('".$module_name."','print');\"></a>".$slash->trad_word("PRINT");
+					echo "<a href='#' class='print_button'
+									onClick=\"javascript:submitForm('".$module_name."','print'); return false;\"></a>".$slash->trad_word("PRINT");
 					break;
 				case "back":
 					echo "<a href='index.php?mod=".$module_name."' class='undo_button'></a>
@@ -693,7 +693,7 @@ class sl_interface {
 						<table align='right' width='200'>
 						<tr>
 							<td align='center' width='50%'>	
-								<a href='javascript:void(0);' class='apply_button' onClick=\"
+								<a href='#' class='apply_button' onClick=\"
 							
 								if (check_fields()){
 									submitForm('".$module_title."','add_apply');
@@ -1221,29 +1221,29 @@ class sl_interface {
 			
 			switch($controls[$i]) {
 				case "add":
-					echo "<a href='javascript:void(0);' class='add_button'
-									onClick=\"javascript:submitForm('".$module_name."','add');\"></a>".$slash->trad_word("ADD");
+					echo "<a href='#' class='add_button'
+									onClick=\"javascript:submitForm('".$module_name."','add'); return false;\"></a>".$slash->trad_word("ADD");
 				break;
 				case "edit":
-					echo "<a href='javascript:void(0);' class='edit_button'
-									onClick=\"javascript:submitForm('".$module_name."','edit');\"></a>".$slash->trad_word("EDIT");	
+					echo "<a href='#' class='edit_button'
+									onClick=\"javascript:submitForm('".$module_name."','edit'); return false;\"></a>".$slash->trad_word("EDIT");	
 				break;
 				case "publish":
-					echo "<a href='javascript:void(0);' class='publish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_enabled');\"></a>".$slash->trad_word("ENABLED");
+					echo "<a href='#' class='publish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_enabled'); return false;\"></a>".$slash->trad_word("ENABLED");
 				break;
 				case "unpublish":
-					echo "<a href='javascript:void(0);' class='unpublish_button'
-									onClick=\"javascript:submitForm('".$module_name."','set_disabled');\"></a>".$slash->trad_word("DISABLED");
+					echo "<a href='#' class='unpublish_button'
+									onClick=\"javascript:submitForm('".$module_name."','set_disabled'); return false;\"></a>".$slash->trad_word("DISABLED");
 				break;
 				case "del":
 				case "delete":
-					echo "<a href='javascript:void(0);' class='delete_button'
-									onClick=\"javascript:submitForm('".$module_name."','delete');\"></a>".$slash->trad_word("DELETE");
+					echo "<a href='#' class='delete_button'
+									onClick=\"javascript:submitForm('".$module_name."','delete'); return false;\"></a>".$slash->trad_word("DELETE");
 				break;
 				case "save":
-					echo "<a href='javascript:void(0);' class='apply_button' 
-									onClick=\"javascript:submitForm('".$module_name."','add_apply');\"></a>".$slash->trad_word("SAVE");
+					echo "<a href='#' class='apply_button' 
+									onClick=\"javascript:submitForm('".$module_name."','add_apply'); return false;\"></a>".$slash->trad_word("SAVE");
 				break;
 				case "back":
 					echo "<a href='index.php?mod=".$module_name."' class='undo_button'></a>

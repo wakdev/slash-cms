@@ -298,22 +298,29 @@ if (action.substr(0,5) == "order") {
 	}
 
 
+	
+	return false;
 }
 
 
-
-
-
-
+/**
+ * Uncheck
+ */
 function unCheckAll(module) {
 		
 		var elements = eval("document."+module+"_nav_form.getElementsByTagName('input')");
 		for ( var i=0; i < elements.length; i++){
                          elements[i].checked =  false;
            }
-        	
+	return false;    	
 }
- 				
+
+/**
+ * Check all
+ * @param module
+ * @param nbbypage
+ * @returns {Boolean}
+ */
 function checkAll(module,nbbypage) {
 		
 		var elements = eval("document."+module+"_nav_form.getElementsByTagName('input')");
@@ -326,6 +333,7 @@ function checkAll(module,nbbypage) {
 				document.getElementById(module+"_checked["+i+"]").checked = true;
 			}
 		}
+	return false;
 }
 
 

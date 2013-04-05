@@ -159,7 +159,7 @@ class sla_lang_view extends slaView implements iView{
 							<tr>
 								<td align='center' width='50%'>
 										
-									<a href='javascript:void(0);' class='del_button' onClick=\"javascript:submitForm('".$this->controller->module_name."','del_apply');\"></a>
+									<a href='#' class='del_button' onClick=\"javascript:submitForm('".$this->controller->module_name."','del_apply');\"></a>
 									".$this->slash->trad_word("DELETE")."</td>
 									
 								<td align='center' width='50%'>			

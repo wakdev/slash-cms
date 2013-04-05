@@ -12,4 +12,5 @@ function setFinder(type,lang){
 	
 	$("#sla_medias_frame").attr("src", "../core/plugins/kcfinder/browse.php?type="+type+"&lang="+lang);
 	
+	return false;
 }
