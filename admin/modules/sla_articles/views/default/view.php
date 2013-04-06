@@ -48,9 +48,9 @@ class sla_articles_view extends slaView implements iView{
 		sl_interface::script("../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js");
 		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 		sl_interface::script("../core/plugins/bootstrap_plugins/multiselect-master/js/bootstrap-multiselect.js");
-		
+
 		sl_interface::script("../core/plugins/tabs/js/slash-tabs.js");
-		
+	
 		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/multiselect-master/css/bootstrap-multiselect.css");
 	}
 	
@@ -155,10 +155,15 @@ class sla_articles_view extends slaView implements iView{
 		$tab_ids = array();
 		$tab_ids[0]["id"] = "main_general";
 		$tab_ids[1]["id"] = "main_config";
+		$tab_ids[2]["id"] = "main_ref";
 		
 		$current = 0;
-		sl_interface::create_slash_tabs($tab_ids,array("<i class='icon-th-large'></i>&nbsp;General","<i class='icon-wrench'></i>&nbsp;Configuration"),$current);
+		sl_interface::create_slash_tabs($tab_ids,
+		array(	"<i class='icon-th-large'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_GENERAL"),
+				"<i class='icon-wrench'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_CONFIG"),
+				"<i class='icon-search'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_REF")),$current);
 		
+		//General
 		echo "<div class='sl_adm_form_main' id='main_general'>";
 
 			sl_form::title($this->slash->trad_word("TITLE")." : ");
@@ -202,13 +207,31 @@ class sla_articles_view extends slaView implements iView{
 
 		echo "</div>";
 		
-		
+		//Configuration
 		echo "<div class='sl_adm_form_main' id='main_config' style='display:none;'>";
 			
-			echo "ARTICLE CONFIGURATION";
+			echo "
+				    date de création <br/>
+				    date de publication<br/>
+				    date de fin de publication<br/>
+				    auteur";
+			
 			
 		echo "</div>";
 		
+		//Search optimization
+		echo "<div class='sl_adm_form_main' id='main_ref' style='display:none;'>";
+		
+			echo "
+				    alias url (ré-écriture URL)<br/>
+				    méta description<br/>
+				    méta mots-clés<br/>
+				    autoriser l'indexation du fichier ou interdire l'indexation du fichier<br/>
+				    autoriser le robot à suivre les liens ou interdire de suivre les liens
+					";
+		
+			
+		echo "</div>";
 		
 		sl_form::end();
 	
