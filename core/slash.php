@@ -336,6 +336,7 @@ class Slash {
 	private function load_class(){
 		
 		include ("common/class/functions/sl_functions.php"); // load functions
+		include ("common/class/interfaces/sl_interfaces.php"); // load interfaces
 		
 		if ($this->mode == "site") { 
 			include ("common/class/modules/sl_model.php"); // load abstract class

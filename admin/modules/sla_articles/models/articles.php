@@ -60,7 +60,7 @@ class articles extends slaModel implements iModel{
 		}
 			
 		$this->slash->database->setQuery("
-			SELECT id,title,content,null,id_user,date,enabled 
+			SELECT id,title,content,null,id_user,created_date,enabled 
 			FROM ".$this->slash->db_prefix."articles ".$filter."
 			ORDER BY ".$_SESSION[$this->controller->module_name."_orderby"]." ".$_SESSION[$this->controller->module_name."_sort"]);
 		if (!$this->slash->database->execute()) {
@@ -68,7 +68,7 @@ class articles extends slaModel implements iModel{
 		}
 		
 		$objects = array();
-		$obj_ids = array("id","title","content","null","id_user","date","enabled");
+		$obj_ids = array("id","title","content","null","id_user","created_date","enabled");
 		$obj_titles = array("ID",
 						$this->slash->trad_word("TITLE"),
 						$this->slash->trad_word("CONTENT"),
@@ -172,7 +172,7 @@ class articles extends slaModel implements iModel{
 		
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."articles
-					(id,id_user,title,content,date,enabled) value
+					(id,id_user,title,content,created_date,enabled) value
 					('','".$_SESSION["id_user"]."','".$values["title"]."','".$values["content"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());

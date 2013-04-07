@@ -502,20 +502,33 @@ class sl_interface {
 	* Create slash tab
 	* @param $ids IDS tabs
 	* @param $titles:Array Tabs titles
-	* @param $current:int Current active tabs
+	* @param $current:int or string Current active tabs
 	*/
-	public static function create_slash_tabs($ids,$titles,$current=0) {
+	public static function create_slash_tabs($ids,$titles,$current=null) {
+		
+		$tabs = array();
 		
 		echo "<div id='slash-tabs' class='sl_adm_tabs'>";
 		
 		for($i=0;$i<count($ids);$i++){
-			if ($i==$current) { $class = "class='sl_adm_tabs-active'"; } else { $class = "class='sl_adm_tabs-inactive'"; }
+			
+			$tabs[$i] = "id='".$ids[$i]["id"]."'";
+			
+			if ($current!==null && $current==$ids[$i]["id"]) { 
+				$class = "class='sl_adm_tabs-active'"; 
+			} else { 
+				$class = "class='sl_adm_tabs-inactive'";
+				$tabs[$i] .= " style='display:none;'";
+			}
+			
 			echo "<a href='#' onclick=\"javascript:show_tab('".$ids[$i]["id"]."',$(this)); return false;\" ".$class.">".$titles[$i]."</a>";
 		}
 		
 		echo "</div>";
 	
+		return $tabs;
 	}
+	
 	
 	/*
 	* Create form lang tab

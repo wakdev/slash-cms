@@ -152,19 +152,33 @@ class sla_articles_view extends slaView implements iView{
 			sl_interface::create_buttons($mn,array("save","back"));
 		echo "</div>";
 		
+		
+		/* TODO
+		$myTabs = new sl_tabs();
+		$myTabs->addTab("main_general",$this->slash->trad_word("ARTICLES_TAB_GENERAL"),"<i class='icon-th-large'></i>");
+		$myTabs->addTab("main_config",$this->slash->trad_word("ARTICLES_TAB_CONFIG"),"<i class='icon-wrench'></i>");
+		$myTabs->addTab("main_ref",$this->slash->trad_word("ARTICLES_TAB_REF"),"<i class='icon-search'></i>");
+		$myTabs->setCurrent("main_general");
+		
+		$myTabs->render();
+		*/
+		
 		$tab_ids = array();
+		$tabs = array();
+		
 		$tab_ids[0]["id"] = "main_general";
 		$tab_ids[1]["id"] = "main_config";
 		$tab_ids[2]["id"] = "main_ref";
 		
-		$current = 0;
-		sl_interface::create_slash_tabs($tab_ids,
+		$current = "main_general";
+		
+		$tabs = sl_interface::create_slash_tabs($tab_ids,
 		array(	"<i class='icon-th-large'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_GENERAL"),
 				"<i class='icon-wrench'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_CONFIG"),
 				"<i class='icon-search'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_REF")),$current);
 		
 		//General
-		echo "<div class='sl_adm_form_main' id='main_general'>";
+		echo "<div class='sl_adm_form_main' ".$tabs[0].">";
 
 			sl_form::title($this->slash->trad_word("TITLE")." : ");
 			sl_form::input($mn,1,array("value" => $values["title"]));
@@ -208,7 +222,7 @@ class sla_articles_view extends slaView implements iView{
 		echo "</div>";
 		
 		//Configuration
-		echo "<div class='sl_adm_form_main' id='main_config' style='display:none;'>";
+		echo "<div class='sl_adm_form_main' ".$tabs[1].">";
 			
 			echo "
 				    date de création <br/>
@@ -220,7 +234,7 @@ class sla_articles_view extends slaView implements iView{
 		echo "</div>";
 		
 		//Search optimization
-		echo "<div class='sl_adm_form_main' id='main_ref' style='display:none;'>";
+		echo "<div class='sl_adm_form_main' ".$tabs[2].">";
 		
 			echo "
 				    alias url (ré-écriture URL)<br/>
