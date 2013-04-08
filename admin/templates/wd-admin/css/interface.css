@@ -476,3 +476,11 @@ table{
 	font-weight:bold;
 	color:#444;
 }
+
+.sl_adm_tabs-div-active{
+	display:block;
+}
+
+.sl_adm_tabs-div-inactive{
+	display:none;
+}

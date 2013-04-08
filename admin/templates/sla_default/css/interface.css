@@ -409,3 +409,28 @@ table{
 	background-color:#4682B4;
 }
 
+
+.sl_adm_tabs-active{
+	background-color: #CCC;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#444;
+	text-decoration:underline;
+}
+
+.sl_adm_tabs-inactive{
+	background-color: #EEE;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#444;
+}
+
+.sl_adm_tabs-div-active{
+	display:block;
+}
+
+.sl_adm_tabs-div-inactive{
+	display:none;
+}

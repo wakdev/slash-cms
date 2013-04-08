@@ -498,11 +498,12 @@ class sl_interface {
 	}
 	
 	
-	/*
+	/**
 	* Create slash tab
 	* @param $ids IDS tabs
 	* @param $titles:Array Tabs titles
 	* @param $current:int or string Current active tabs
+	* @deprecated
 	*/
 	public static function create_slash_tabs($ids,$titles,$current=null) {
 		
@@ -530,7 +531,7 @@ class sl_interface {
 	}
 	
 	
-	/*
+	/**
 	* Create form lang tab
 	* @param $lg:Array Lang
 	* @param $current:int Current active tabs

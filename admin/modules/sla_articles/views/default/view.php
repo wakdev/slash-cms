@@ -153,32 +153,16 @@ class sla_articles_view extends slaView implements iView{
 		echo "</div>";
 		
 		
-		/* TODO
+		
 		$myTabs = new sl_tabs();
 		$myTabs->addTab("main_general",$this->slash->trad_word("ARTICLES_TAB_GENERAL"),"<i class='icon-th-large'></i>");
 		$myTabs->addTab("main_config",$this->slash->trad_word("ARTICLES_TAB_CONFIG"),"<i class='icon-wrench'></i>");
 		$myTabs->addTab("main_ref",$this->slash->trad_word("ARTICLES_TAB_REF"),"<i class='icon-search'></i>");
 		$myTabs->setCurrent("main_general");
-		
 		$myTabs->render();
-		*/
-		
-		$tab_ids = array();
-		$tabs = array();
-		
-		$tab_ids[0]["id"] = "main_general";
-		$tab_ids[1]["id"] = "main_config";
-		$tab_ids[2]["id"] = "main_ref";
-		
-		$current = "main_general";
-		
-		$tabs = sl_interface::create_slash_tabs($tab_ids,
-		array(	"<i class='icon-th-large'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_GENERAL"),
-				"<i class='icon-wrench'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_CONFIG"),
-				"<i class='icon-search'></i>&nbsp;".$this->slash->trad_word("ARTICLES_TAB_REF")),$current);
 		
 		//General
-		echo "<div class='sl_adm_form_main' ".$tabs[0].">";
+		$myTabs->startTab("main_general");
 
 			sl_form::title($this->slash->trad_word("TITLE")." : ");
 			sl_form::input($mn,1,array("value" => $values["title"]));
@@ -219,10 +203,10 @@ class sla_articles_view extends slaView implements iView{
 			sl_form::checkbox($mn,5,array("value" => $values["enabled"]));
 										
 
-		echo "</div>";
+		$myTabs->endTab();
 		
 		//Configuration
-		echo "<div class='sl_adm_form_main' ".$tabs[1].">";
+		$myTabs->startTab("main_config");
 			
 			echo "
 				    date de création <br/>
@@ -231,10 +215,11 @@ class sla_articles_view extends slaView implements iView{
 				    auteur";
 			
 			
-		echo "</div>";
+		$myTabs->endTab();
 		
 		//Search optimization
-		echo "<div class='sl_adm_form_main' ".$tabs[2].">";
+		$myTabs->startTab("main_ref");
+		
 		
 			echo "
 				    alias url (ré-écriture URL)<br/>
@@ -245,7 +230,7 @@ class sla_articles_view extends slaView implements iView{
 					";
 		
 			
-		echo "</div>";
+		$myTabs->endTab();
 		
 		sl_form::end();
 	
