@@ -39,14 +39,14 @@ class articles extends slaModel implements iModel{
 		/* Order */
 		$filter = "";
 		if ($_SESSION[$this->controller->module_name."_categorie1"] != -1) {
-			$filter = "WHERE categories LIKE '%".$_SESSION[$this->controller->module_name."_categorie1"]."%' ";
+			$filter = "WHERE categories LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_categorie1"])."%' ";
 		}
 		
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR content LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR content LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter .= "AND title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 			

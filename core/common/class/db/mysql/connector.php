@@ -121,6 +121,7 @@ class MySQLConnector {
 		
 		if (!$this->db_result) {
 			$this->db_error = mysql_error();
+			debug_print_backtrace();
 			return false;
 		}
 			

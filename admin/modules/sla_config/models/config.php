@@ -42,9 +42,9 @@ class config extends slaModel implements iModel{
 		
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE config_name LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter = "WHERE config_name LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND config_name LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter .= "AND config_name LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 			

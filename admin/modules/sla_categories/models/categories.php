@@ -35,7 +35,7 @@ class categories extends slaModel implements iModel{
 		$search = "";
 			
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
-			$search = "WHERE title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR description LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+			$search = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR description LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 		}
 			
 		/*$result = mysql_query("SELECT id,title,description FROM ".$this->slash->database_prefix."categories ".$search."ORDER BY ".$_SESSION[$this->controller->module_name."_orderby"]." ".$_SESSION[$this->controller->module_name."_sort"],

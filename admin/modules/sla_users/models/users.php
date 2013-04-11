@@ -41,9 +41,9 @@ class users extends slaModel implements iModel {
 		}		
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE name LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR mail LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter = "WHERE name LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR mail LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND name LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR mail LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter .= "AND name LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR mail LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 			

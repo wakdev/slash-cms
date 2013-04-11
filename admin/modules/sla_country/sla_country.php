@@ -202,7 +202,7 @@ class sla_country extends sla_country_view implements iController{
 		$search = "";
 			
 		if ($_SESSION[$this->module_name."_search"] != "#") {
-			$search = "WHERE title LIKE '%".$_SESSION[$this->module_name."_search"]."%' OR shortname LIKE '%".$_SESSION[$this->module_name."_search"]."%' ";
+			$search = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->module_name."_search"])."%' OR shortname LIKE '%".$this->slash->database->escape($_SESSION[$this->module_name."_search"])."%' ";
 		}
 			
 		
