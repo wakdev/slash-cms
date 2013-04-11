@@ -268,8 +268,8 @@ class users extends slaModel implements iModel {
 		$mess = array();
 		
 		//Login verification
-		$values=$this->slash->database->escapeArray($values);
-		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."users WHERE login='".$values["login"]."' AND id !='".$values["id"]."'");
+		$sql_values=$this->slash->database->escapeArray($values);
+		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."users WHERE login='".$sql_values["login"]."' AND id !='".$sql_values["id"]."'");
 		if (!$this->slash->database->execute()) {
 			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 		}
@@ -282,24 +282,25 @@ class users extends slaModel implements iModel {
 			$mess[2]["message"] = $this->slash->trad_word("ERROR_FIELD_EMPTY");
 		}
 		
-		//Password verification
-		if ($values["_password"] != $values["_password2"]) {
-			$mess[3]["message"] = $this->slash->trad_word("USERS_ERROR_PWD_NOT_SIMIL");
-			$mess[4]["message"] = $this->slash->trad_word("USERS_ERROR_PWD_NOT_SIMIL");
+		//Password verification only if adding user or if password not empty
+		if($values['id']==0 || $values["_password"]!=''){
+			if ($values["_password"] != $values["_password2"]) {
+				$mess[3]["message"] = $this->slash->trad_word("USERS_ERROR_PWD_NOT_SIMIL");
+				$mess[4]["message"] = $this->slash->trad_word("USERS_ERROR_PWD_NOT_SIMIL");
+			}
+			if ($values["_password"] == "") {
+				$mess[3]["message"] = $this->slash->trad_word("ERROR_FIELD_EMPTY");
+			}
+			if ($values["_password2"] == "") {
+				$mess[4]["message"] = $this->slash->trad_word("ERROR_FIELD_EMPTY");
+			}
+			if (strlen($values["_password"]) < 3) {
+				$mess[3]["message"] = $this->slash->trad_word("ERROR_PWD_SHORT");
+			}
+			if (strlen($values["_password2"]) < 3) {
+				$mess[4]["message"] = $this->slash->trad_word("ERROR_PWD_SHORT");
+			}
 		}
-		if ($values["_password"] == "") {
-			$mess[3]["message"] = $this->slash->trad_word("ERROR_FIELD_EMPTY");
-		}
-		if ($values["_password2"] == "") {
-			$mess[4]["message"] = $this->slash->trad_word("ERROR_FIELD_EMPTY");
-		}
-		if (strlen($values["_password"]) < 3) {
-			$mess[3]["message"] = $this->slash->trad_word("ERROR_PWD_SHORT");
-		}
-		if (strlen($values["_password2"]) < 3) {
-			$mess[4]["message"] = $this->slash->trad_word("ERROR_PWD_SHORT");
-		}
-		
 		if (count($mess) > 0){ return $mess; } else { return null; }
 	
 	}

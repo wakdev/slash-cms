@@ -139,7 +139,7 @@ class articles extends slaModel implements iModel{
 	public function save_item($id,$values){
 		
 		if ($id != 0) {
-			
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					UPDATE ".$this->slash->db_prefix."articles set 
 					id_user='".$_SESSION["id_user"]."',
@@ -156,7 +156,7 @@ class articles extends slaModel implements iModel{
 			return $this->slash->trad_word("EDIT_SUCCESS");	
 			
 		} else {
-		
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."articles
 					(id,id_user,categories,title,content,date,enabled) value
