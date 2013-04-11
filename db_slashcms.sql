@@ -36,7 +36,9 @@ CREATE TABLE IF NOT EXISTS `sl_admmenu` (
   `icon` varchar(255) NOT NULL,
   `action` varchar(255) NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `enabled` (`enabled`),
+  KEY `position` (`position`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
 
 --
@@ -114,7 +116,11 @@ CREATE TABLE IF NOT EXISTS `sl_attachments` (
   `filename` varchar(255) NOT NULL,
   `position` int(11) unsigned NOT NULL,
   `state` tinyint(4) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `position` (`position`),
+  KEY `state` (`state`),
+  KEY `id_element` (`id_element`),
+  KEY `id_module` (`id_module`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
@@ -259,7 +265,12 @@ CREATE TABLE IF NOT EXISTS `sl_menu` (
   `action` varchar(50) NOT NULL,
   `home` tinyint(1) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `parent` (`parent`),
+  KEY `pri_type` (`pri_type`),
+  KEY `enabled` (`enabled`),
+  KEY `position` (`position`),
+  KEY `home` (`home`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
@@ -356,7 +367,8 @@ CREATE TABLE IF NOT EXISTS `sl_pages` (
   `content` text NOT NULL,
   `date` datetime NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `enabled` (`enabled`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
