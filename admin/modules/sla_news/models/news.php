@@ -150,6 +150,7 @@ class news extends slaModel implements iModel{
 		
 		if ($id != 0) {
 			
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."news set 
 					id_user='".$_SESSION["id_user"]."',
 					datein='".$values["datein"]." ".$values["timein"]."',
@@ -166,6 +167,7 @@ class news extends slaModel implements iModel{
 			
 		} else {
 		
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("INSERT INTO ".$this->slash->database_prefix."news
 						(id,id_user,datein,dateout,title,content,date,enabled) value
 						('','".$_SESSION["id_user"]."','".$values["datein"]." ".$values["timein"]."','".$values["dateout"]." ".$values["timeout"]."','".$values["title"]."','".$values["content"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");

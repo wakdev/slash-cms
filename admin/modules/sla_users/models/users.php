@@ -195,7 +195,8 @@ class users extends slaModel implements iModel {
 	public function save_item($id,$values){
 
 		if ($id != 0) {
-			
+
+			$values=$this->slash->database->escapeArray($values);			
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."users set 
 					name='".$values["name"]."',
 					login='".$values["login"]."',
@@ -212,6 +213,7 @@ class users extends slaModel implements iModel {
 					
 		} else {
 								
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("INSERT INTO ".$this->slash->database_prefix."users
 					(id,name,login,password,mail,language,grade,enabled) value
 					('','".$values["name"]."','".$values["login"]."','".sha1($values["_password"])."','".$values["mail"]."','".$values["lang"]."','".$values["grade"]."','".$values["enabled"]."')");
@@ -266,6 +268,7 @@ class users extends slaModel implements iModel {
 		$mess = array();
 		
 		//Login verification
+		$values=$this->slash->database->escapeArray($values);
 		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."users WHERE login='".$values["login"]."' AND id !='".$values["id"]."'");
 		if (!$this->slash->database->execute()) {
 			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());

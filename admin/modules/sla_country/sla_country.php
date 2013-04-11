@@ -278,7 +278,7 @@ class sla_country extends sla_country_view implements iController{
 					WHERE id='".$values["id"]."'
 					",$this->slash->db_handle) 
 					or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());*/
-					
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."country set 
 					name='".$values["name"]."',
 					shortname='".$values["shortname"]."', 
@@ -295,7 +295,7 @@ class sla_country extends sla_country_view implements iController{
 					(id,name,shortname,enabled) value
 					('','".$values["name"]."','".$values["shortname"]."','".$values["enabled"]."')",$this->slash->db_handle) 
 					or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());*/
-					
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("INSERT INTO ".$this->slash->database_prefix."country
 					(id,name,shortname,enabled) value
 					('','".$values["name"]."','".$values["shortname"]."','".$values["enabled"]."')");
@@ -347,7 +347,7 @@ class sla_country extends sla_country_view implements iController{
 		
 		$mess = array();
 		//Country verification
-		
+		$values=$this->slash->database->escapeArray($values);
 		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."country WHERE name='".$values["name"]."' AND id !='".$values["id"]."'");
 		if (!$this->slash->database->execute()) {
 			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());

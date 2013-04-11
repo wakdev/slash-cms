@@ -116,6 +116,7 @@ class lang extends slaModel implements iModel{
 	 */
 	public function delete_items($id_array) {
 			
+			$id_array=$this->slash->database->escapeArray($id_array);
 			foreach ($id_array as $value) {
 				$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."lang set 
 					enabled='0' 
@@ -134,7 +135,7 @@ class lang extends slaModel implements iModel{
 	public function save_item($id,$values){
 		
 		/*if ($id != 0) {*/
-		
+		$values=$this->slash->database->escapeArray($values);
 		$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."lang set  
 					enabled='".$values["enabled"]."' 
 					WHERE id='".$values["id"]."'

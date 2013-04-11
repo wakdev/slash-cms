@@ -237,7 +237,7 @@ class menus extends slaModel implements iModel{
 		
 		if ($id != 0) {
 			
-					
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."menu set 
 					menu_id='".$values["menu_id"]."',
 					title='".$values["title"]."',
@@ -253,8 +253,7 @@ class menus extends slaModel implements iModel{
 			
 		} else {
 		
-			
-					
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("INSERT INTO ".$this->slash->database_prefix."menu
 					(id,menu_id,pri_type,sec_type,parent,position,title,action,enabled) value
 					('','".$values["menu_id"]."','2','url_self','".$values["parent"]."','0','".$values["title"]."','".$values["action"]."','".$values["enabled"]."')");

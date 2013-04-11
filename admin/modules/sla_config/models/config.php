@@ -116,7 +116,7 @@ class config extends slaModel implements iModel{
 	public function save_item($id,$values){
 		
 		if ($id != 0) {
-			
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					UPDATE ".$this->slash->db_prefix."config set 
 					config_name='".$values["config_name"]."', 
@@ -130,7 +130,7 @@ class config extends slaModel implements iModel{
 			return $this->slash->trad_word("EDIT_SUCCESS");	
 			
 		} else {
-		
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."config
 					(id,config_name,config_value) value
