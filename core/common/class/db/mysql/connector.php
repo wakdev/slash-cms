@@ -213,7 +213,15 @@ class MySQLConnector {
 				return 3;
 		} 
 	}
-	
+	/**
+	 * Escape string and encloses it by simple quotes
+	 * @param $value the value to quote
+	 * @param bool $real_escape use the database escape method (safer, but may affect performances)
+	 * @return the quoted value
+	 */
+	public function quote($value,$real_escape=false){
+		return "'".$this->escape($value)."'";
+	}
 	/**
 	 * Escapes strings in order to be included in SQL queries
 	 * @param string $value the value to escape
