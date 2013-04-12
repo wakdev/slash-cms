@@ -44,9 +44,9 @@ class modules extends slaModel implements iModel{
 		}	
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE name LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter = "WHERE name LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND name LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter .= "AND name LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 
@@ -144,6 +144,7 @@ class modules extends slaModel implements iModel{
 					WHERE id='".$values["id"]."'
 					",$this->slash->db_handle) 
 					or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());*/
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."modules set 
 					type='".$values["type"]."',
 					name='".$values["name"]."',
@@ -157,7 +158,7 @@ class modules extends slaModel implements iModel{
 			}	
 			
 		} else {
-			
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("INSERT INTO ".$this->slash->database_prefix."modules
 					(id,type,name,url,initialize_order,enabled) value
 					('','".$values["type"]."','".$values["name"]."','".$values["url"]."','".$values["initialize_order"]."','".$values["enabled"]."')");

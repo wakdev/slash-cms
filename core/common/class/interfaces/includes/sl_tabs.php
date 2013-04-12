@@ -83,12 +83,12 @@ class sl_tabs {
 		
 		if (isset($this->tabs[$id])){
 			if (isset($this->tabs[$id]["current"]) && $this->tabs[$id]["current"] == true){
-				$class = "class='sl_adm_tabs-div-active'";
+				$class = "sl_adm_tabs-div-active";
 			}else{
-				$class = "class='sl_adm_tabs-div-inactive'";
+				$class = "sl_adm_tabs-div-inactive";
 			}
 			
-			echo "<div id='".$this->tabs[$id]["id"]."' class='sl_adm_form_main' ".$class.">";
+			echo "<div id='".$this->tabs[$id]["id"]."' class='sl_adm_form_main ".$class."' >";
 		}
 		
 	}

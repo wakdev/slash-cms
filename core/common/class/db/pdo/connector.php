@@ -197,5 +197,38 @@ class PDOConnector
 				return PDO::FETCH_BOTH;
 		} 
 	}
+	/**
+	 * Alias for $this->_db_handle->quote()
+	 * @param $value the value to quote
+	 * @return the quoted value
+	 * @todo add the $parameter_type to conform the PDO Connector at all.
+	 */
+	public function quote($value){
+		return $this->_db_handle->quote($value);
+	}
+	/**
+	 * Escapes strings in order to be included in SQL queries
+	 * @param string $value the value to escape
+	 * @return string the escaped string
+	 */
+	public function escape($value){
+		//quote the value with PDO::quote() function then
+		//remove enclosing quotes to conform "escape" protocol
+		return substr($this->_db_handle->quote($value),1,-1);
+	}
+	
+	/**
+	 * Escapes array of strings in order to be included in SQL queries
+	 * @uses PDOConnector::escape()
+	 * @param string $values the values to escape
+	 * @return string the escaped string
+	 */
+	public function escapeArray($values){
+		$return = array();
+		foreach($values as $key=>$value){
+			$return[$key]=$this->escape($value);
+		}
+		return $return;
+	}
 }
 ?>

@@ -37,9 +37,9 @@ class pages extends slaModel implements iModel{
 		
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR content LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR content LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter .= "AND title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 			
@@ -114,6 +114,7 @@ class pages extends slaModel implements iModel{
 		
 		if ($id != 0) {
 			
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."pages set 
 					id_user='".$_SESSION["id_user"]."',
 					title='".$values["title"]."',
@@ -128,6 +129,7 @@ class pages extends slaModel implements iModel{
 			
 		} else {
 					
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("INSERT INTO ".$this->slash->database_prefix."pages
 					(id,id_user,title,content,date,enabled) value
 					('','".$_SESSION["id_user"]."','".$values["title"]."','".$values["content"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");

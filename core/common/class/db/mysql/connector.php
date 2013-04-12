@@ -121,6 +121,7 @@ class MySQLConnector {
 		
 		if (!$this->db_result) {
 			$this->db_error = mysql_error();
+			debug_print_backtrace();
 			return false;
 		}
 			
@@ -208,6 +209,39 @@ class MySQLConnector {
 			default:
 				return MYSQL_BOTH;
 		} 
+	}
+	/**
+	 * Escape string and encloses it by simple quotes
+	 * @param $value the value to quote
+	 * @param bool $real_escape use the database escape method (safer, but may affect performances)
+	 * @return the quoted value
+	 */
+	public function quote($value,$real_escape=false){
+		return "'".$this->escape($value)."'";
+	}
+	/**
+	 * Escapes strings in order to be included in SQL queries
+	 * @param string $value the value to escape
+	 * @param bool $real_escape use the database escape method (safer, but may affect performances)
+	 * @return string the escaped string
+	 */
+	public function escape($value,$real_escape=false){
+		return $real_escape?mysql_real_escape_string($value,getHandle()):mysql_escape_string($value);
+	}
+	
+	/**
+	 * Escapes array of strings in order to be included in SQL queries
+	 * @uses MySQLConnector::escape()
+	 * @param string $values the values to escape
+	 * @param bool $real_escape use the database escape method (safer, but may affect performances)
+	 * @return string the escaped string
+	 */
+	public function escapeArray($values,$real_escape=false){
+		$return = array();
+		foreach($values as $key=>$value){
+			$return[$key]=$this->escape($value,$real_escape);
+		}
+		return $return;
 	}
 }
 ?>

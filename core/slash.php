@@ -552,14 +552,14 @@ class Slash {
 	
 		if ($type == 0) { 
 			
-			$this->database->setQuery("SELECT * FROM ".$this->db_prefix."modules WHERE name='".$name."'");
+			$this->database->setQuery("SELECT * FROM ".$this->db_prefix."modules WHERE name='".$this->database->escape($name)."'");
 			if (!$this->database->execute()) {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}
 			
 		}else{
 			
-			$this->database->setQuery("SELECT * FROM ".$this->db_prefix."modules WHERE name='".$name."' AND type='".$type."'");
+			$this->database->setQuery("SELECT * FROM ".$this->db_prefix."modules WHERE name='".$this->database->escape($name)."' AND type='".$this->database->escape($type)."'");
 			if (!$this->database->execute()) {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}
@@ -580,7 +580,7 @@ class Slash {
 	*/
 	public function initialize_modules() {
 		
-		$this->database->setQuery("SELECT *, IF(initialize_order = 0, '1', '0') AS prio FROM ".$this->db_prefix."modules WHERE enabled=1 AND type='".$this->mode."' ORDER by prio ASC, initialize_order ASC");
+		$this->database->setQuery("SELECT *, IF(initialize_order = 0, '1', '0') AS prio FROM ".$this->db_prefix."modules WHERE enabled=1 AND type='".$this->database->escape($this->mode)."' ORDER by prio ASC, initialize_order ASC");
 		if (!$this->database->execute()) {
 			$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 		}
@@ -652,7 +652,7 @@ class Slash {
 		}
 		
 		//Global module
-		$this->database->setQuery("SELECT * FROM ".$this->db_prefix."modules WHERE enabled=1 AND type='".$this->mode."' AND initialize_order > 0 ORDER by initialize_order ASC");
+		$this->database->setQuery("SELECT * FROM ".$this->db_prefix."modules WHERE enabled=1 AND type='".$this->database->escape($this->mode)."' AND initialize_order > 0 ORDER by initialize_order ASC");
 		if (!$this->database->execute()) {
 			$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 		}
