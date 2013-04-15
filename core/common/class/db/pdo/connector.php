@@ -226,7 +226,11 @@ class PDOConnector
 	public function escapeArray($values){
 		$return = array();
 		foreach($values as $key=>$value){
-			$return[$key]=$this->escape($value);
+			if (is_string($value)){			
+				$return[$key]=$this->escape($value);
+			}else{
+				$return[$key] = $value;
+			}
 		}
 		return $return;
 	}

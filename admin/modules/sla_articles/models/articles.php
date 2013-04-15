@@ -53,9 +53,11 @@ class articles extends slaModel implements iModel{
 		
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR content LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' 
+							OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND title LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' OR content LIKE '%".$_SESSION[$this->controller->module_name."_search"]."%' ";
+				$filter .= "AND title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' 
+							OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 			
@@ -151,7 +153,7 @@ class articles extends slaModel implements iModel{
 	public function save_item($id,$values){
 		
 		if ($id != 0) {
-			
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					UPDATE ".$this->slash->db_prefix."articles set 
 					id_user='".$_SESSION["id_user"]."',
@@ -165,11 +167,11 @@ class articles extends slaModel implements iModel{
 			}
 			
 			$this->set_categories($id,$values["categories"]);
-			
+		
 			return $this->slash->trad_word("EDIT_SUCCESS");	
 			
 		} else {
-		
+			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."articles
 					(id,id_user,title,content,created_date,enabled) value
@@ -235,7 +237,7 @@ class articles extends slaModel implements iModel{
 	public function check_fields($values) {
 		
 		$mess = array();
-		
+		$values=$this->slash->database->escapeArray($values);
 		/*
 		$result = mysql_query("SELECT * FROM ".$this->slash->database_prefix."categories WHERE title='".$values["title"]."' AND id !='".$values["id"]."'",$this->slash->db_handle) or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());
 		if (mysql_num_rows($result)>0) {

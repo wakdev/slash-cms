@@ -239,7 +239,11 @@ class MySQLConnector {
 	public function escapeArray($values,$real_escape=false){
 		$return = array();
 		foreach($values as $key=>$value){
-			$return[$key]=$this->escape($value,$real_escape);
+			if (is_string($value)){
+				$return[$key]=$this->escape($value,$real_escape);
+			}else{
+				$return[$key] = $value;
+			}
 		}
 		return $return;
 	}
