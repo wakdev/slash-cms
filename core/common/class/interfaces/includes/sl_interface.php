@@ -93,7 +93,7 @@ class sl_interface {
 			echo "<font class='sl_searchbox_title'>".$slashcore->trad_word("SEARCH")." : </font>";
 			echo "<input class='sl_searchbox' type='text' name='".$module_title."_search' id='".$module_title."_search' value='";
 			
-			if ($_SESSION[$module_title."_search"] != "#") { echo htmlspecialchars($_SESSION[$module_title."_search"]); }
+			if ($_SESSION[$module_title."_search"] != "#") { echo htmlspecialchars($_SESSION[$module_title."_search"],ENT_QUOTES); }
 				echo "' onchange=\"javascript:if(this.value.length == 0){this.value='#'}\"/>
 					 
 					<a href='#' class='search_button' onClick=\"javascript:submitForm('".$module_title."','search'); return false;\"></a>
