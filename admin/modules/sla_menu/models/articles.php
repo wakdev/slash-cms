@@ -37,7 +37,7 @@ class articles extends slaModel implements iModel{
 	public function load_articles() {
 		
 		$this->slash->database->setQuery("
-			SELECT id,title,content,categories,id_user,date,enabled 
+			SELECT id,title,content,id_user,date,enabled 
 			FROM ".$this->slash->db_prefix."articles 
 			ORDER BY title");
 		if (!$this->slash->database->execute()) {

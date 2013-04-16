@@ -190,69 +190,6 @@ class news extends slaModel implements iModel{
 	}
 	
 	/**
-	 * Save attachment 
-	 */
-	public function save_attachment($destination,$id_element){
-		
-		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."attachments WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0' ORDER BY position");
-		if (!$this->slash->database->execute()) {
-			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-		}
-		
-		if ($this->slash->database->rowCount() > 0) {
-		
-			$sl_files_sv = new sl_files();
-			
-			if (!$sl_files_sv->make_dir($destination."/".$id_element)){
-				return false;
-			}
-			
-			
-			
-			foreach ($this->slash->database->fetchAll("BOTH") as $row) {
-				if (!$sl_files_sv->move_files("../tmp/".$row["filename"],$destination."/".$id_element."/".$row["filename"])){
-					return false;
-				}
-			}
-		
-			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."attachments set 
-					id_element='".$id_element."',
-					state='1'
-					WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0'
-					");
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}
-	
-		
-			return true;
-		}else{
-			return true;
-		}
-	}
-	
-	/**
-	* Delete attachment
-	*/
-	public function delete_attachment($destination,$id_element){
-	
-		$sl_files_dl = new sl_files();
-		
-		if ($sl_files_dl->remove_dir($destination."/".$id_element)) {
-			
-			$this->slash->database->setQuery("DELETE FROM ".$this->slash->database_prefix."attachments WHERE id_module=".$this->controller->module_id." AND id_element='".$id_element."' and state=1");
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}					
-									
-			return true;
-		}else{
-			return false;
-		}
-				
-	}
-	
-	/**
 	 * Set is enabled
 	 * @param $id article ID
 	 */

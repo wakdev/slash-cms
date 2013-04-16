@@ -48,7 +48,9 @@ class sla_articles_view extends slaView implements iView{
 		sl_interface::script("../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js");
 		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 		sl_interface::script("../core/plugins/bootstrap_plugins/multiselect-master/js/bootstrap-multiselect.js");
-		
+
+		sl_interface::script("../core/plugins/tabs/js/slash-tabs.js");
+	
 		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/multiselect-master/css/bootstrap-multiselect.css");
 	}
 	
@@ -150,8 +152,18 @@ class sla_articles_view extends slaView implements iView{
 			sl_interface::create_buttons($mn,array("save","back"));
 		echo "</div>";
 		
-		echo "<div class='sl_adm_form_main'>";
-			
+		
+		
+		$myTabs = new sl_tabs();
+		$myTabs->addTab("main_general",$this->slash->trad_word("ARTICLES_TAB_GENERAL"),"<i class='icon-th-large'></i>");
+		$myTabs->addTab("main_config",$this->slash->trad_word("ARTICLES_TAB_CONFIG"),"<i class='icon-wrench'></i>");
+		$myTabs->addTab("main_ref",$this->slash->trad_word("ARTICLES_TAB_REF"),"<i class='icon-search'></i>");
+		$myTabs->setCurrent("main_general");
+		$myTabs->render();
+		
+		//General
+		$myTabs->startTab("main_general");
+
 			sl_form::title($this->slash->trad_word("TITLE")." : ");
 			sl_form::input($mn,1,array("value" => $values["title"]));
 			if ($errors[1]["message"]) { sl_form::error($errors[1]["message"]); }
@@ -167,8 +179,8 @@ class sla_articles_view extends slaView implements iView{
 			}
 		
 			$categories_selected = array();
-			$categories_selected = explode(",",$values["categories"]);
-			
+			$categories_selected = $this->controller->articles->linked_categories($id);
+						
 			sl_form::title($this->slash->trad_word("CATEGORIES")." : ");
 			sl_form::br(2);
 			sl_form::select_multiple($mn,2,array("selected" => $categories_selected, "values" => $row_cat_ids, "texts" => $row_cat_text, "class" => "multiselect" ));
@@ -190,9 +202,35 @@ class sla_articles_view extends slaView implements iView{
 			sl_form::title($this->slash->trad_word("ACTIVE")." : ");
 			sl_form::checkbox($mn,5,array("value" => $values["enabled"]));
 										
-							
+
+		$myTabs->endTab();
+		
+		//Configuration
+		$myTabs->startTab("main_config");
 			
-		echo "</div>";
+			echo "
+				    date de création <br/>
+				    date de publication<br/>
+				    date de fin de publication<br/>
+				    auteur";
+			
+			
+		$myTabs->endTab();
+		
+		//Search optimization
+		$myTabs->startTab("main_ref");
+		
+		
+			echo "
+				    alias url (ré-écriture URL)<br/>
+				    méta description<br/>
+				    méta mots-clés<br/>
+				    autoriser l'indexation du fichier ou interdire l'indexation du fichier<br/>
+				    autoriser le robot à suivre les liens ou interdire de suivre les liens
+					";
+		
+			
+		$myTabs->endTab();
 		
 		sl_form::end();
 	
@@ -224,7 +262,7 @@ class sla_articles_view extends slaView implements iView{
 							<tr>
 								<td align='center' width='50%'>
 										
-									<a href='javascript:void(0);' class='del_button' onClick=\"javascript:submitForm('".$this->controller->module_name."','del_apply');\"></a>
+									<a href='#' class='del_button' onClick=\"javascript:submitForm('".$this->controller->module_name."','del_apply');\"></a>
 									".$this->slash->trad_word("DELETE")."</td>
 									
 								<td align='center' width='50%'>			

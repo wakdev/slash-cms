@@ -29,4 +29,16 @@ define("ARTICLES_DELETE_CONFIRM", "Supprimer cet article ?");
 
 define("ARTICLES_BT_CATEGORIES_SELECTED_NONE", "Aucune");
 define("ARTICLES_BT_CATEGORIES_SELECTED", "s&eacute;lectionn&eacute;es");
+
+define("ARTICLES_TAB_GENERAL", "G&eacute;n&eacute;ral");
+define("ARTICLES_TAB_CONFIG", "Configuration");
+define("ARTICLES_TAB_REF", "R&eacute;f&eacute;rencement");
+
+define("ARTICLES_IN_PROGRESS", "En cours");
+define("ARTICLES_PAST", "Expir&eacute;es");
+define("ARTICLES_PUBLISH_DATE", "Date de publication");
+define("ARTICLES_PUBLISH_TIME", "Heure de publication");
+define("ARTICLES_UNPUBLISH_DATE", "Date de d&eacute;publication");
+define("ARTICLES_UNPUBLISH_TIME", "Heure de d&eacute;publication");
+define("ARTICLES_PERMANENT", "Article permanent");
 ?>

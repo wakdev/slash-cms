@@ -202,7 +202,7 @@ class Slash {
 			$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 		}
 	
-		foreach ($this->database->fetchAll("MYSQL_ASSOC") as $value) {
+		foreach ($this->database->fetchAll("ASSOC") as $value) {
 			 $this->config[$value["config_name"]] = $value["config_value"];
 		}
 		
@@ -336,6 +336,7 @@ class Slash {
 	private function load_class(){
 		
 		include ("common/class/functions/sl_functions.php"); // load functions
+		include ("common/class/interfaces/sl_interfaces.php"); // load interfaces
 		
 		if ($this->mode == "site") { 
 			include ("common/class/modules/sl_model.php"); // load abstract class
@@ -406,6 +407,7 @@ class Slash {
 		
 			$id_user = 0;
 			$log_url = $_SERVER["REQUEST_URI"];
+			$log_referer = $_SERVER["HTTP_REFERER"];
 			$log_date = date("Y-m-d H:i:s",time());
 			
 			if (isset($_SESSION["id_user"])) {$id_user=$_SESSION["id_user"];}
@@ -416,8 +418,8 @@ class Slash {
 			
 			$this->database->setQuery("
 						INSERT INTO ".$this->db_prefix."logs
-						(id,log_type,log_url,log_info,id_user,log_date) value
-						('','".$log_type."','".$log_url."','".$log_info."','".$id_user."','".$log_date."')");
+						(id,log_type,log_url,log_referer,log_info,id_user,log_date) value
+						('','".$log_type."','".$log_url."','".$log_referer."',\"".$log_info."\",'".$id_user."','".$log_date."')");
 			if (!$this->database->execute()) {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}
@@ -481,7 +483,7 @@ class Slash {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}
 			
-			return $this->database->fetch("MYSQL_ASSOC");
+			return $this->database->fetch("ASSOC");
 			
 	    } else { return null; }
 	}
@@ -497,7 +499,7 @@ class Slash {
 			$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 		}
 	
-		return $this->database->fetchAll("MYSQL_ASSOC");
+		return $this->database->fetchAll("ASSOC");
 	
 	}
 	
@@ -565,7 +567,7 @@ class Slash {
 		}
 		
 		if ($this->database->rowCount() > 0) {
-			$row_module = $this->database->fetch("MYSQL_ASSOC");	
+			$row_module = $this->database->fetch("ASSOC");	
 			return $row_module["id"];
 		}else{
 			return false;
@@ -583,7 +585,7 @@ class Slash {
 			$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 		}
 		
-		foreach ($this->database->fetchAll("MYSQL_ASSOC") as $row) {
+		foreach ($this->database->fetchAll("ASSOC") as $row) {
 			if ($row["initialize_order"] != "0") { //Global module
 				$this->load_module_language($row["url"]);
 				
@@ -655,7 +657,7 @@ class Slash {
 			$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 		}
 
-		foreach ($this->database->fetchAll("MYSQL_ASSOC") as $value) {
+		foreach ($this->database->fetchAll("ASSOC") as $value) {
 			 $this->modules[$value["name"]]->execute();
 		}
 

@@ -30,7 +30,7 @@ abstract class slaModel{
 	public $controller; //Control Reference
 	
 	/**
-	* Contructeur
+	* Contructor
 	*/
 	function __construct(&$controller_class_ref) {
 		$this->slash = &$GLOBALS["slash"];
@@ -39,7 +39,95 @@ abstract class slaModel{
 		$this->sla_construct();
 	}
 	
-	public function sla_construct() {
+	/**
+	 * Module constructor
+	 */
+	public function sla_construct() {}
+	
+	
+	/**
+	 * Save attachment
+	 * @param string $destination Destination directory
+	 * @param int $id_element ID element
+	 * @param string/int $id_field ID field
+	 * @return boolean success ?
+	 */
+	public function save_attachment($destination,$id_element,$id_field=""){
+	
+		if ($id_field != ""){$id_field = "AND id_field='".$id_field."'";}
+	
+		$this->slash->database->setQuery("
+				SELECT * FROM ".$this->slash->db_prefix."attachments
+				WHERE id_user='".$_SESSION["id_user"]."' AND id_module='".$this->controller->module_id."' ".$id_field." AND state='0'
+				ORDER BY position");
+	
+		if (!$this->slash->database->execute()) {
+			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+		}
+	
+	
+		if ($this->slash->database->rowCount() > 0) {
+	
+			$sl_files_sv = new sl_files();
+	
+			if (!$sl_files_sv->make_dir($destination."/".$id_element)){
+				return false;
+			}
+	
+	
+			foreach ($this->slash->database->fetchAll("BOTH") as $row) {
+				if (!$sl_files_sv->move_files("../tmp/".$row["filename"],$destination."/".$id_element."/".$row["filename"])){
+					return false;
+				}
+			}
+	
+			unset($row);
+	
+	
+			$this->slash->database->setQuery("
+					UPDATE ".$this->slash->db_prefix."attachments set
+					id_element='".$id_element."',
+					state='1'
+					WHERE id_user='".$_SESSION["id_user"]."' AND id_module='".$this->controller->module_id."' ".$id_field." AND state='0'");
+	
+			if (!$this->slash->database->execute()) {
+				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+			}
+	
+			return true;
+		}else{
+			return true;
+		}
+	}
+	
+	
+	/**
+	 * Delete attachement
+	 * @param string $destination Destination directory
+	 * @param int $id_element ID element
+	 * @param string/int $id_field ID field
+	 * @return boolean success ?
+	 */
+	public function delete_attachment($destination,$id_element,$id_field=""){
+	
+		if ($id_field != ""){$id_field = "AND id_field='".$id_field."'";}
+	
+		$sl_files_dl = new sl_files();
+	
+		if ($sl_files_dl->remove_dir($destination."/".$id_element)) {
+	
+			$this->slash->database->setQuery("
+					DELETE FROM ".$this->slash->db_prefix."attachments
+					WHERE id_module=".$this->controller->module_id." AND id_element='".$id_element."' ".$id_field." AND state=1");
+	
+			if (!$this->slash->database->execute()) {
+				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+			}
+	
+			return true;
+		}else{
+			return false;
+		}
 	
 	}
 	

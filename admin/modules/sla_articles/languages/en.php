@@ -26,4 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 define("ARTICLES_TITLE", "Articles config");
 define("ARTICLES_DELETE_CONFIRM", "Delete this article ?");
 
+define("ARTICLES_BT_CATEGORIES_SELECTED_NONE", "None");
+define("ARTICLES_BT_CATEGORIES_SELECTED", "Selected");
+
+define("ARTICLES_TAB_GENERAL", "G&eacute;n&eacute;ral");
+define("ARTICLES_TAB_CONFIG", "Configuration");
+define("ARTICLES_TAB_REF", "Search optimization");
+define("ARTICLES_IN_PROGRESS", "In progress");
+define("ARTICLES_PAST", "Expire");
+define("ARTICLES_PUBLISH_DATE", "Publish date");
+define("ARTICLES_PUBLISH_TIME", "Publish time");
+define("ARTICLES_UNPUBLISH_DATE", "Unpublish date");
+define("ARTICLES_UNPUBLISH_TIME", "Unpublish time");
+define("ARTICLES_PERMANENT", "News permanent");
 ?>

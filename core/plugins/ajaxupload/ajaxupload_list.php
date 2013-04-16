@@ -224,7 +224,7 @@ if ($sl_mod_upload_id == 0) {
 			</td><td width="20" align="right">
 			<!-- UP BUTTON -->
 			<?php if ($numfields > 1) { ?>
-			<a href="javascript:void(0);" class="upload_list_up_button" onclick="
+			<a href="#" class="upload_list_up_button" onclick="
 			$('#sl_mod_upload_list_<?php echo $sl_mod_field_id; ?>').load('../core/plugins/ajaxupload/ajaxupload_list.php', { 
 				sl_mod_field_id: '<?php echo $sl_mod_field_id; ?>',
 				sl_mod_upload_id: '0',
@@ -237,12 +237,12 @@ if ($sl_mod_upload_id == 0) {
 				sl_mod_img_max_width: '<?php echo $sl_mod_img_max_width; ?>',
 				sl_mod_img_max_height: '<?php echo $sl_mod_img_max_height; ?>',				
 				sl_mod_upload_action: 'up'
-			});"></a>
+			}); return false;"></a>
 			<?php } ?>
 			</td><td width="20" align="right">
 			<!-- DOWN BUTTON -->
 			<?php if ($numfields > 1) { ?>
-			<a href="javascript:void(0);" class="upload_list_down_button" onclick="
+			<a href="#" class="upload_list_down_button" onclick="
 			$('#sl_mod_upload_list_<?php echo $sl_mod_field_id; ?>').load('../core/plugins/ajaxupload/ajaxupload_list.php', { 
 				sl_mod_field_id: '<?php echo $sl_mod_field_id; ?>',
 				sl_mod_upload_id: '0',
@@ -255,12 +255,12 @@ if ($sl_mod_upload_id == 0) {
 				sl_mod_img_max_width: '<?php echo $sl_mod_img_max_width; ?>',
 				sl_mod_img_max_height: '<?php echo $sl_mod_img_max_height; ?>',
 				sl_mod_upload_action: 'down'
-			});"></a>
+			}); return false;"></a>
 			<?php } ?>
 			</td>
 			<td width="20" align="right">
 			<!-- DELETE BUTTON -->
-			<a href="javascript:void(0);" class="upload_list_del_button" onclick="if(confirm('Delete <?php echo $row["filename"]; ?> ?')){ 
+			<a href="#" class="upload_list_del_button" onclick="if(confirm('Delete <?php echo $row["filename"]; ?> ?')){ 
 			
 			upload_count_<?php echo $sl_mod_field_id; ?>--;
 			
@@ -276,7 +276,7 @@ if ($sl_mod_upload_id == 0) {
 				sl_mod_img_max_height: '<?php echo $sl_mod_img_max_height; ?>',
 				sl_mod_upload_action: 'delete'
 			});
-			}
+			} return false;
 			"></a>
 			</td>
 			</tr></table>
@@ -330,7 +330,7 @@ if ($sl_mod_upload_id == 0) {
 			</td><td width="20" align="right">
 			<!-- UP BUTTON -->
 			<?php if ($numfields > 1) { ?>
-			<a href="javascript:void(0);" class="upload_list_up_button" onclick="
+			<a href="#" class="upload_list_up_button" onclick="
 			$('#sl_mod_upload_list_<?php echo $sl_mod_field_id; ?>').load('../core/plugins/ajaxupload/ajaxupload_list.php', { 
 				sl_mod_field_id: '<?php echo $sl_mod_field_id; ?>',
 				sl_mod_upload_id: '<?php echo $sl_mod_upload_id; ?>',
@@ -344,13 +344,13 @@ if ($sl_mod_upload_id == 0) {
 				sl_mod_img_max_height: '<?php echo $sl_mod_img_max_height; ?>',
 				sl_mod_upload_min: '<?php echo $sl_mod_upload_min; ?>',
 				sl_mod_upload_action: 'up'
-			});"></a>
+			}); return false;"></a>
 			<?php } ?>
 			
 			</td><td width="20" align="right">
 			<!-- DOWN BUTTON -->
 			<?php if ($numfields > 1) { ?>
-			<a href="javascript:void(0);" class="upload_list_down_button" onclick="
+			<a href="#;" class="upload_list_down_button" onclick="
 			$('#sl_mod_upload_list_<?php echo $sl_mod_field_id; ?>').load('../core/plugins/ajaxupload/ajaxupload_list.php', { 
 				sl_mod_field_id: '<?php echo $sl_mod_field_id; ?>',
 				sl_mod_upload_id: '<?php echo $sl_mod_upload_id; ?>',
@@ -364,7 +364,7 @@ if ($sl_mod_upload_id == 0) {
 				sl_mod_img_max_height: '<?php echo $sl_mod_img_max_height; ?>',
 				sl_mod_upload_min: '<?php echo $sl_mod_upload_min; ?>',				
 				sl_mod_upload_action: 'down'
-			});"></a>
+			}); return false;"></a>
 			<?php } ?>
 			
 			</td>
@@ -375,7 +375,7 @@ if ($sl_mod_upload_id == 0) {
 			if ($sl_mod_upload_min < $numfields) { // Minimum upload
 			?>
 			
-			<a href="javascript:void(0);" class="upload_list_del_button" onclick="if(confirm('Delete <?php echo $row["filename"]; ?> ?')){
+			<a href="#" class="upload_list_del_button" onclick="if(confirm('Delete <?php echo $row["filename"]; ?> ?')){
 			
 			upload_count_<?php echo $sl_mod_field_id; ?>--;
 			
@@ -392,7 +392,7 @@ if ($sl_mod_upload_id == 0) {
 				sl_mod_upload_min: '<?php echo $sl_mod_upload_min; ?>',
 				sl_mod_upload_action: 'delete'
 			});
-			}
+			} return false;
 			"></a>
 			
 			<?php 

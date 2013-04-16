@@ -159,6 +159,12 @@ class sla_articles_controller extends slaController implements iController{
 					$this->mode = "edit";
 				}else{
 					$this->message = $this->articles->save_item($this->datas["id"],$this->datas);
+					
+					//Log action
+					$log_info = "";
+					if ($this->datas["id"] == 0) {$log_info .= "add article";}else{$log_info .= "edit article [id=".$this->datas["id"]."].";}
+					$this->slash->log($log_info,$this->module_name);
+					
 					$this->mode = "show";
 				}
 			
@@ -166,7 +172,17 @@ class sla_articles_controller extends slaController implements iController{
 						
 			case "delete"://Delete
 				if ($this->slash->sl_param($this->module_name."_valid","POST")) {
-					$this->articles->delete_items($this->slash->sl_param($this->module_name."_checked","POST"));
+					
+					$id_array = $this->slash->sl_param($this->module_name."_checked","POST");
+					$this->articles->delete_items($id_array);
+
+					//Log action
+					$ids = "";
+					foreach ($id_array as $value) {$ids .= $value.",";}
+					$ids = substr($ids,0,-1);
+					$log_info = "delete article [id=".$ids."].";
+					$this->slash->log($log_info,$this->module_name);
+					
 					$this->mode = "show";
 					$this->message = $this->slash->trad_word("DELETE_SUCCESS"); 
 				}else {
@@ -182,7 +198,16 @@ class sla_articles_controller extends slaController implements iController{
 			case "set_enabled": //Set enabled
 				$values = $this->slash->sl_param($this->module_name."_checked","POST");
 				if (isset ($values) && count($values) > 0) {
-					$this->articles->set_items_enabled($this->slash->sl_param($this->module_name."_checked","POST"),1);
+					$id_array = $this->slash->sl_param($this->module_name."_checked","POST");
+					$this->articles->set_items_enabled($id_array,1);
+					
+					//Log action
+					$ids = "";
+					foreach ($id_array as $value) {$ids .= $value.",";}
+					$ids = substr($ids,0,-1);
+					$log_info = "enable article [id=".$ids."].";
+					$this->slash->log($log_info,$this->module_name);
+					
 					$this->mode = "show";
 					$this->message = $this->slash->trad_word("ITEM_ENABLE_SUCCESS");
 				}else{
@@ -193,7 +218,16 @@ class sla_articles_controller extends slaController implements iController{
 			case "set_disabled": //Set disabled
 				$values = $this->slash->sl_param($this->module_name."_checked","POST");
 				if (isset ($values) && count($values) > 0) {
-					$this->articles->set_items_enabled($this->slash->sl_param($this->module_name."_checked","POST"),0);
+					$id_array = $this->slash->sl_param($this->module_name."_checked","POST");
+					$this->articles->set_items_enabled($id_array,0);
+					
+					//Log action
+					$ids = "";
+					foreach ($id_array as $value) {$ids .= $value.",";}
+					$ids = substr($ids,0,-1);
+					$log_info = "disable article [id=".$ids."].";
+					$this->slash->log($log_info,$this->module_name);
+					
 					$this->mode = "show";
 					$this->message = $this->slash->trad_word("ITEM_DISABLE_SUCCESS");
 				}else{

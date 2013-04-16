@@ -57,8 +57,7 @@ class categories extends slaModel implements iModel{
 		$obj_controls = array("single_edit","single_delete");
 		
 
-		//while ($row = mysql_fetch_array($result, MYSQL_BOTH)) {
-		foreach ($this->slash->database->fetchAll("BOTH") as $row) {
+				foreach ($this->slash->database->fetchAll("BOTH") as $row) {
 		
 			/* CONTENT */
 			$sl_txt = new sl_text();
@@ -98,13 +97,20 @@ class categories extends slaModel implements iModel{
 	 * @param $id Categorie ID
 	 */
 	public function delete_items($id_array) {
-			
+				$id_mod1 = $this->slash->sl_module_id("sla_articles");
+		$id_mod2 = $this->controller->module_id;			
 			foreach ($id_array as $value) {
 				$this->slash->database->setQuery("DELETE FROM ".$this->slash->database_prefix."categories WHERE id=".$value);
 				if (!$this->slash->database->execute()) {
 					$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 				}
-
+				
+				//Delete linked categories
+				$this->slash->database->setQuery("DELETE FROM ".$this->slash->db_prefix."joins WHERE id_mod1='".$id_mod1."' AND id_mod2='".$id_mod2."' AND id2 = '".$value."'");
+				if (!$this->slash->database->execute()) {
+					$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+					return false;
+				}
 			}
 	}
 	

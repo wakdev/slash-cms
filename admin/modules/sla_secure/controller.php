@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /**
 * @todo		Use Cookies
 * @todo		Log connexion function
+* @todo		MVC
 */
 
 
@@ -44,8 +45,7 @@ include ("views/default/view.php");
 
 class sla_secure_controller extends slaController implements iController{
 
-	
-	
+	public $module_name = "sla_secure";
 	public $view;
 	
 	/**
@@ -90,6 +90,11 @@ class sla_secure_controller extends slaController implements iController{
 							
 							$_SESSION["user_language"] = $row["language"];
 							$this->slash->get_params["mod"] = "sla_panel";
+							
+							//Log connexion
+							$log_info = "user [".$row["login"]."] [".$_SERVER["REMOTE_ADDR"]."] connected.";
+							$this->slash->log($log_info,$this->module_name);
+							
 						}else{
 							$this->error = "inactive_user";
 						}
@@ -102,6 +107,10 @@ class sla_secure_controller extends slaController implements iController{
 			// Logout script
 			if ($this->slash->get_params["act"] == "logout") {
 				
+				//Log connexion
+				$log_info = "[".$_SERVER["REMOTE_ADDR"]."] disconnected.";
+				$this->slash->log($log_info,$this->module_name);
+
 				$_SESSION = array();
 				/*
 				if (isset($_COOKIE[session_name()])) {

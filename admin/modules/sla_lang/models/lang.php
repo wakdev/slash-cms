@@ -189,19 +189,7 @@ class lang extends slaModel implements iModel{
 	* @param $values:Array Object Values
 	*/
 	public function check_fields($values) {
-		/*
-		$mess = array();
-		echo "test";
-		//languages verification
-		$result = mysql_query("SELECT * FROM ".$this->slash->database_prefix."lang WHERE name='".$values["name"]."' AND id !='".$values["id"]."'",$this->slash->db_handle) or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());
-		$row = mysql_fetch_array($result, MYSQL_ASSOC);
-		
-		if ($row["shortname"] == 1) {
-			$mess[0]["message"] = $this->slash->trad_word("LANG_ERROR_EXIST");
-		}
-		
-		if (count($mess) > 0){ return $mess; } else { return null; }
-	*/
+		/* TODO */
 	}
 	
 

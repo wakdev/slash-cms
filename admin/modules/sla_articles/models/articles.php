@@ -39,19 +39,30 @@ class articles extends slaModel implements iModel{
 		/* Order */
 		$filter = "";
 		if ($_SESSION[$this->controller->module_name."_categorie1"] != -1) {
-			$filter = "WHERE categories LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_categorie1"])."%' ";
+			
+			$id_mod1 = $this->controller->module_id;
+			$id_mod2 = $this->slash->sl_module_id("sla_categories");
+			
+			$filter = "JOIN ".$this->slash->db_prefix."joins 
+						WHERE id_mod1='".$id_mod1."' 
+								AND id_mod2='".$id_mod2."' 
+								AND id2='".$_SESSION[$this->controller->module_name."_categorie1"]."' 
+								AND id=id1 ";
+			
 		}
 		
 		if ($_SESSION[$this->controller->module_name."_search"] != "#") {
 			if ($filter == ""){
-				$filter = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
+				$filter = "WHERE title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' 
+							OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}else{
-				$filter .= "AND title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
+				$filter .= "AND title LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' 
+							OR content LIKE '%".$this->slash->database->escape($_SESSION[$this->controller->module_name."_search"])."%' ";
 			}
 		}
 			
 		$this->slash->database->setQuery("
-			SELECT id,title,content,categories,id_user,date,enabled 
+			SELECT id,title,content,null,id_user,created_date,enabled 
 			FROM ".$this->slash->db_prefix."articles ".$filter."
 			ORDER BY ".$_SESSION[$this->controller->module_name."_orderby"]." ".$_SESSION[$this->controller->module_name."_sort"]);
 		if (!$this->slash->database->execute()) {
@@ -59,7 +70,7 @@ class articles extends slaModel implements iModel{
 		}
 		
 		$objects = array();
-		$obj_ids = array("id","title","content","categories","id_user","date","enabled");
+		$obj_ids = array("id","title","content","null","id_user","created_date","enabled");
 		$obj_titles = array("ID",
 						$this->slash->trad_word("TITLE"),
 						$this->slash->trad_word("CONTENT"),
@@ -83,11 +94,11 @@ class articles extends slaModel implements iModel{
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
-			$row_user = $this->slash->database->fetch("MYSQL_ASSOC");
+			$row_user = $this->slash->database->fetch("ASSOC");
 			$row[4] = $row_user["name"];
 			
 			/* CATEGORIE */
-			$row[3] = $this->controller->categories->get_categories_titles($row[3]);
+			$row[3] = $this->controller->categories->get_categories_titles($row["id"]);
 			
 			array_push($objects,$row);
 		}
@@ -102,8 +113,8 @@ class articles extends slaModel implements iModel{
 	
 
 	/**
-	 * Load categorie
-	 * @param $id Categorie ID
+	 * Load item
+	 * @param $id item ID
 	 */
 	public function load_item($id) {
 		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->db_prefix."articles WHERE id=".$id);
@@ -125,10 +136,13 @@ class articles extends slaModel implements iModel{
 				$this->delete_attachment("../medias/attachments/sl_articles",$value);
 			}
 			
+			$this->unlink_categories($value);
+			
 			$this->slash->database->setQuery("DELETE FROM ".$this->slash->db_prefix."articles WHERE id=".$value);
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
+
 		}
 	}
 	
@@ -143,7 +157,6 @@ class articles extends slaModel implements iModel{
 			$this->slash->database->setQuery("
 					UPDATE ".$this->slash->db_prefix."articles set 
 					id_user='".$_SESSION["id_user"]."',
-					categories='".$values["categories"]."',
 					title='".$values["title"]."',
 					content='".$values["content"]."',
 					enabled='".$values["enabled"]."' 
@@ -153,20 +166,24 @@ class articles extends slaModel implements iModel{
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
 			
+			$this->set_categories($id,$values["categories"]);
+		
 			return $this->slash->trad_word("EDIT_SUCCESS");	
 			
 		} else {
 			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."articles
-					(id,id_user,categories,title,content,date,enabled) value
-					('','".$_SESSION["id_user"]."','".$values["categories"]."','".$values["title"]."','".$values["content"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");
+					(id,id_user,title,content,created_date,enabled) value
+					('','".$_SESSION["id_user"]."','".$values["title"]."','".$values["content"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
 					
 			$insert_id = $this->slash->database->lastInsertId();
-					
+
+			$this->set_categories($insert_id,$values["categories"]);
+			
 			$ret = $this->save_attachment("../medias/attachments/sl_articles",$insert_id);
 			
 			if (!$ret){
@@ -179,79 +196,7 @@ class articles extends slaModel implements iModel{
 		
 	}
 	
-	/**
-	 * Save attachment 
-	 */
-	public function save_attachment($destination,$id_element){
-		
-		$this->slash->database->setQuery("
-				SELECT * FROM ".$this->slash->db_prefix."attachments 
-				WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0' 
-				ORDER BY position");
-				
-		if (!$this->slash->database->execute()) {
-			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-		}
-		
-		
-		if ($this->slash->database->rowCount() > 0) {
-		
-			$sl_files_sv = new sl_files();
-			
-			if (!$sl_files_sv->make_dir($destination."/".$id_element)){
-				return false;
-			}
-			
-			
-			foreach ($this->slash->database->fetchAll("BOTH") as $row) {
-				if (!$sl_files_sv->move_files("../tmp/".$row["filename"],$destination."/".$id_element."/".$row["filename"])){
-					return false;
-				}
-			}
 
-			unset($row);
-						
-			
-			$this->slash->database->setQuery("
-					UPDATE ".$this->slash->db_prefix."attachments set 
-					id_element='".$id_element."',
-					state='1'
-					WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$this->controller->module_id."' and state='0'");
-					
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}
-		
-			return true;
-		}else{
-			return true;
-		}
-	}
-	
-	/**
-	* Delete attachment
-	*/
-	public function delete_attachment($destination,$id_element){
-	
-		$sl_files_dl = new sl_files();
-		
-		if ($sl_files_dl->remove_dir($destination."/".$id_element)) {
-			
-			$this->slash->database->setQuery("
-					DELETE FROM ".$this->slash->db_prefix."attachments 
-					WHERE id_module=".$this->controller->module_id." AND id_element='".$id_element."' and state=1");
-					
-			if (!$this->slash->database->execute()) {
-				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}						
-									
-			return true;
-		}else{
-			return false;
-		}
-				
-	}
-	
 	/**
 	 * Set is enabled
 	 * @param $id article ID
@@ -267,7 +212,6 @@ class articles extends slaModel implements iModel{
 	}
 	
 	
-	
 	/**
 	* Recovery fields value
 	*/
@@ -279,14 +223,8 @@ class articles extends slaModel implements iModel{
 		$obj["categories"] = $this->slash->sl_param($this->controller->module_name."_obj2","POST");
 		$obj["content"] = $this->slash->sl_param($this->controller->module_name."_obj3","POST");
 		$obj["enabled"] = $this->slash->sl_param($this->controller->module_name."_obj5","POST");
-		
-		if (is_array($obj["categories"])) {
-			$obj["categories"] = implode(",", $obj["categories"]);
-		}else{
-			$obj["categories"] = "";
-		}
-		
-		
+		if (!is_array($obj["categories"])) {$obj["categories"] = null;}
+
 		return $obj;
 		
 	}
@@ -299,7 +237,7 @@ class articles extends slaModel implements iModel{
 	public function check_fields($values) {
 		
 		$mess = array();
-		
+		$values=$this->slash->database->escapeArray($values);
 		/*
 		$result = mysql_query("SELECT * FROM ".$this->slash->database_prefix."categories WHERE title='".$values["title"]."' AND id !='".$values["id"]."'",$this->slash->db_handle) or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());
 		if (mysql_num_rows($result)>0) {
@@ -310,6 +248,87 @@ class articles extends slaModel implements iModel{
 		
 		if (count($mess) > 0){ return $mess; } else { return null; }
 	
+	}
+	
+	/**
+	 * Get categories
+	 * @param int $id Article ID
+	 */
+	public function linked_categories($id=null){
+		
+		$id_mod1 = $this->controller->module_id;
+		$id_mod2 = $this->slash->sl_module_id("sla_categories");
+		$id1 = $id;
+
+		$this->slash->database->setQuery("
+				SELECT id FROM sl_categories 
+				JOIN sl_joins 
+				WHERE id_mod1='".$id_mod1."' 
+				AND id_mod2='".$id_mod2."'  
+				AND id1='".$id."' 
+				AND id2=id");
+		
+		if (!$this->slash->database->execute()) {
+			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+			return false;
+		}
+		
+		$arr = array();
+		foreach ($this->slash->database->fetchAll("BOTH") as $row) {
+			$arr[] = $row["id"];
+		}
+		return $arr;
+	}
+	
+	/**
+	 * Set articles categories
+	 * @param int $id ID articles
+	 * @param array $ids_categories Categories IDS 
+	 */
+	private function set_categories($id,$ids_categories=null,$delete=false){
+		
+		$id_mod1 = $this->controller->module_id;
+		$id_mod2 = $this->slash->sl_module_id("sla_categories");
+		$id1 = $id;
+		
+		$this->unlink_categories($id1);
+		
+		//Add categories
+		if (count($ids_categories)>0 && $ids_categories!==null) {
+			foreach ($ids_categories as $id2){
+				$this->slash->database->setQuery("
+						INSERT INTO ".$this->slash->db_prefix."joins
+						(id_mod1,id_mod2,id1,id2) VALUES
+						('".$id_mod1."','".$id_mod2."','".$id1."','".$id2."')");
+				if (!$this->slash->database->execute()) {
+					$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Unlink categories
+	 * @param int $id
+	 * @return boolean success ?
+	 */
+	private function unlink_categories($id){
+		
+		$id_mod1 = $this->controller->module_id;
+		$id_mod2 = $this->slash->sl_module_id("sla_categories");
+		$id1 = $id;
+		
+		//Delete current categorie
+		$this->slash->database->setQuery("DELETE FROM ".$this->slash->db_prefix."joins WHERE id_mod1='".$id_mod1."' AND id_mod2='".$id_mod2."' AND id1 = '".$id1."'");
+		if (!$this->slash->database->execute()) {
+			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+			return false;
+		}
+		
+		return true;
 	}
 	
 }
