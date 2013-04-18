@@ -29,8 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class sl_form {
 
 	/**
-	* Start form
-	*/
+	 * Start form
+	 * @param string $module_name Module name
+	 * @param int $obj_id Obj ID
+	 * @param string $act Form action
+	 * @param string $get Add get params
+	 */
 	public static function start($module_name,$obj_id=0,$act="save",$get="") {
 		
 		echo "	<form name='".$module_name."_add_form' method='post' action='index.php?mod=".$module_name.$get."' enctype='multipart/form-data'>
@@ -39,20 +43,38 @@ class sl_form {
 	
 	}
 
+	/**
+	 * Show title
+	 * @param string $title Title
+	 */
 	public static function title($title) {
 		echo "<span class='sl_form_title'>".$title."</span>";
 	}
 	
+	/**
+	 * Show error
+	 * @param string $text Error text
+	 */
 	public static function error($text) {
 		echo "<span class='sl_form_error'>&nbsp;&nbsp;<img src='templates/system/images/assets/error.png' align='absmiddle'/>&nbsp;&nbsp;".$text."</span>";
 	}
 	
+	/**
+	 * New line
+	 * @param int $nb br number
+	 */
 	public static function br($nb) {
 		for ($i=0;$i<$nb;$i++){
 			echo "<br/>";
 		}
 	}
 	
+	/**
+	 * Show input field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function input($module_name,$field_id,$options=null) {
 	
 		/* default options */
@@ -63,6 +85,12 @@ class sl_form {
 		echo "<input id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' type='text' class='sl_form_input' size='".$options["size"]."' value=\"".htmlspecialchars($options["value"])."\" ".$options["js"].">";
 	}
 	
+	/**
+	 * Show hidden field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function hidden($module_name,$field_id,$options=null) {
 	
 		/* default options */
@@ -71,6 +99,12 @@ class sl_form {
 		echo "<input id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' type='hidden' value=\"".$options["value"]."\">";
 	}
 	
+	/**
+	 * Show password field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function password($module_name,$field_id,$options=null) {
 	
 		/* default options */
@@ -81,6 +115,12 @@ class sl_form {
 		echo "<input id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' type='password' class='sl_form_input' size='".$options["size"]."' value=\"".htmlspecialchars($options["value"])."\" ".$options["js"].">";
 	}
 	
+	/**
+	 * Show submit button
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function submit($module_name,$field_id=0,$options=null) {
 	
 		/* default options */
@@ -94,7 +134,12 @@ class sl_form {
 	}
 	
 	
-	
+	/**
+	 * Show textarea field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function textarea($module_name,$field_id,$options=null) {
 	
 		/* default options */
@@ -107,6 +152,12 @@ class sl_form {
 		
 	}
 	
+	/**
+	 * Show select field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function select($module_name,$field_id,$options=null) {
 		
 		if (!isset($options["js"])) {$options["js"]= "";} 		
@@ -128,6 +179,12 @@ class sl_form {
 	
 	}
 	
+	/**
+	 * Show select multiple field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function select_multiple($module_name,$field_id,$options=null) {
 	
 		if (!isset($options["js"])) {$options["js"]= "";}
@@ -148,7 +205,12 @@ class sl_form {
 	
 	}
 	
-	
+	/**
+	 * Show TinyMCE
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function tinymce($module_name,$field_id,$options=null) {
 	
 		if (!isset($options["value"])) {$options["value"]= "";} 
@@ -215,6 +277,13 @@ class sl_form {
 
 	}
 	
+	
+	/**
+	 * Show ckeditor
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function ckeditor($module_name,$field_id,$options=null) {
 	
 		if (!isset($options["value"])) {$options["value"]= "";} 
@@ -266,6 +335,12 @@ class sl_form {
 			
 	}
 	
+	/**
+	 * Show attachments
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function attachments ($module_name,$field_id,$options=null) {
 		
 		$slash = &$GLOBALS["slash"];
@@ -432,7 +507,12 @@ class sl_form {
 	
 	}
 	
-	
+	/**
+	 * Show date field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function date($module_name,$field_id,$options=null) {
 	
 	
@@ -460,7 +540,12 @@ class sl_form {
 	
 	}
 	
-	
+	/**
+	 * Show date bootstrap field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function dateBS($module_name,$field_id,$options=null) {
 	
 		echo "<div class='well'>";
@@ -478,8 +563,12 @@ class sl_form {
 	}
 	
 	    
-	
-	
+	/**
+	 * Show colorpicker field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function colorpicker($module_name,$field_id,$options=null) {
 	
 		/* default options */
@@ -512,6 +601,12 @@ class sl_form {
 		
 	}
 	
+	/**
+	 * Show checkbox field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function checkbox($module_name,$field_id,$options=null) {
 	
 		/* default options */
@@ -523,6 +618,12 @@ class sl_form {
 		
 	}
 	
+	/**
+	 * Show radio field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
 	public static function radio($module_name,$field_id,$options=null) {
 		
 		if (!isset($options["value"])) {$options["value"]= "";}
@@ -545,8 +646,8 @@ class sl_form {
 	
 	
 	/**
-	* End Form
-	*/
+	 * End Form
+	 */
 	public static function end() {
 		echo "</form>";
 	}
