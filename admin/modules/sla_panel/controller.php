@@ -39,10 +39,6 @@ include ("views/default/view.php");
 
 class sla_panel_controller extends slaController implements iController{
 
-	
-	public $module_name = "sla_panel";
-	
-	
 	public $view;
 	
 	/**

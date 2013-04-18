@@ -40,8 +40,6 @@ include ("models/modules.php");
 
 class sla_modules_controller extends slaController implements iController{
 
-	
-	public $module_name = "sla_modules";
 	public $modules;
 	public $view;
 	

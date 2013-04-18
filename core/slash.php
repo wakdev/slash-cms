@@ -600,7 +600,7 @@ class Slash {
 				}
 				
 				include ($module_url);
-				$this->modules[$row["name"]] = new $module_class($this,$row["id"],$row["params"]);
+				$this->modules[$row["name"]] = new $module_class($this,$row["id"],$row["name"],$row["params"]);
 				$this->modules[$row["id"]] = $this->modules[$row["name"]];
 				$this->modules[$row["name"]]->initialize();
 
@@ -619,7 +619,7 @@ class Slash {
 					}
 					
 					include ($module_url);
-					$this->modules[$row["name"]] = new $module_class($this,$row["id"],$row["params"]);
+					$this->modules[$row["name"]] = new $module_class($this,$row["id"],$row["name"],$row["params"]);
 					$this->modules[$row["id"]] = $this->modules[$row["name"]];
 
 				}

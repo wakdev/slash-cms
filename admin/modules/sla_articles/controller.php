@@ -38,8 +38,6 @@ include ("models/categories.php");
 class sla_articles_controller extends slaController implements iController{
 
 	
-	public $module_name = "sla_articles";
-	
 	public $articles;
 	public $categories;
 	public $view;

@@ -38,8 +38,6 @@ include ("views/default/view.php");
 
 class sla_pages_controller extends slaController implements iController{
 
-	public $module_name = "sla_pages";
-	
 	public $pages;
 	public $view;
 	

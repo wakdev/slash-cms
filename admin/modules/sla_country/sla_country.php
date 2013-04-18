@@ -38,11 +38,13 @@ class sla_country extends sla_country_view implements iController{
 	* Contructor
 	* @param core_class_ref Core class reference
 	*/
-	function __construct(&$core_class_ref,$module_id) {
+	function __construct(&$core_class_ref,$module_id,$module_name,$params) {
        $this->slash = $core_class_ref;
        $this->module_id = $module_id;
+       $this->module_name = $module_name;
+       $this->params = $params;
 	   
-	    $this->load_params(); //Load params
+	   $this->load_params(); //Load params
 	}
 	
 	

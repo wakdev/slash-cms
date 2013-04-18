@@ -33,10 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 class sl_articles_controller extends slController implements iController{
-
-	
-	public $module_name = "sl_articles";
-	
 	
 	public $articles; //model
 	public $view; //view

@@ -40,9 +40,6 @@ include ("models/news.php");
 class sla_news_controller extends slaController implements iController{
 
 	
-	public $module_name = "sla_news";
-	
-	
 	public $news;
 	public $view;
 	

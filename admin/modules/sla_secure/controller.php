@@ -25,13 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /**
-* @todo		Use Cookies
-* @todo		Log connexion function
-* @todo		MVC
-*/
-
-
-/**
 * @file
 * @name sla_secure
 * @defgroup sla_secure sla_secure
@@ -45,7 +38,6 @@ include ("views/default/view.php");
 
 class sla_secure_controller extends slaController implements iController{
 
-	public $module_name = "sla_secure";
 	public $view;
 	
 	/**
