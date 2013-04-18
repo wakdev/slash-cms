@@ -29,7 +29,7 @@ class SLConfig {
 	* DATABASE PROPERTIES
 	*/
 		
-	public $db_type = "PDO"; // MySQL ou PDO
+	public $db_type = "MySQLi"; // MySQLi / MySQL / PDO
 	public $db_host = "localhost"; //Database host
 	public $db_name = "db_slashcms"; //Database name
 	public $db_user = "root"; //Database user

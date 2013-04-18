@@ -183,6 +183,12 @@ class Slash {
 				$this->database = MySQLConnector::getInstance();
 			}
 			
+			// MySQL
+			if ($this->properties["db_type"] == "MySQLi") {
+				include ("common/class/db/mysqli/connector.php");
+				$this->database = MySQLiConnector::getInstance();
+			}
+			
 			// PDO
 			if ($this->properties["db_type"] == "PDO") {
 				include ("common/class/db/pdo/connector.php");
