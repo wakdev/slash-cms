@@ -370,7 +370,7 @@ class Slash {
 	private function check_config() {
 		if(!file_exists(dirname(__FILE__)."/config/sl_config.php")){
 			return SL_CONFIG_NOT_EXIST;
-		}elseif(file_exists(dirname(__FILE__)."/../setup")){
+		}elseif(file_exists(dirname(__FILE__)."/../setup") && !file_exists(dirname(__FILE__)."/../.dev")){
 			return SETUP_NOT_DELETED;
 		}
 		return SL_CONFIG_OK;
