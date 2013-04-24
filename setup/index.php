@@ -1,9 +1,11 @@
 <?php
 /**
 * @package		SLASH-CMS
+* @subpackage	SLSETUP
+* @internal     Slash core system
 * @version		index.php - Version 13.04.24
-* @author		Julien Veuillet [http://www.wakdev.com]
-* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @author		Loïc Bajard
+* @copyright	Copyright(C) 2013 - Today. All rights reserved.
 * @license		GNU/GPL
 
 This program is free software : you can redistribute it and/or modify
@@ -20,16 +22,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-
-//include core
-
-// Check if sl_config exists and redirect to setup if necessary
-if(!file_exists("core/config/sl_config.php")){
-	header("Location:setup");
-	exit();
-}elseif(file_exists("setup"))die("Veuillez supprimer le r&eacute;pertoire setup!");
-
-include ("core/slash.php");
-$slash = new Slash ();
-$slash->show(); //show front office
+require_once("SlSetup.php");
+$SlSetup = new SlSetup();
 ?>
