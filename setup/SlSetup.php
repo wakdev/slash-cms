@@ -240,13 +240,6 @@ class SlSetup{
 				case 'install':
 					return 'install';
 					break;
-				case 'files':
-					return 'files';
-					break;
-				case 'end':
-					return 'end';
-					break;
-				
 				default:
 					return 'init';
 					break;
