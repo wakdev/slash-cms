@@ -108,7 +108,7 @@ class SlSetup{
 			$datas['bdd_user'] = "root";
 			$datas['bdd_pwd'] = "";
 			$datas['bdd_name'] = "slash-cms";
-			$datas['bdd_prefix'] = "sla_";
+			$datas['bdd_prefix'] = "sl_";
 			$datas['admin_name'] = "";
 			$datas['admin_user'] = "";
 			$datas['admin_pwd'] = "";
