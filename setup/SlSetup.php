@@ -4,7 +4,7 @@
 * @subpackage	SLSETUP
 * @internal     Slash core system
 * @version		SlSetup.php - Version 13.04.24
-* @author		Loïc Bajard
+* @author		Loic Bajard
 * @copyright	Copyright(C) 2013 - Today. All rights reserved.
 * @license		GNU/GPL
 
@@ -183,7 +183,7 @@ class SlSetup{
 		
 
 		if(!$fatals){
-			if(!copy($source,$dest)) $fatals[] = "Erreur lors de la création du fichier de configuration";
+			if(!copy($source,$dest)) $fatals[] = "Erreur lors de la cr&eacute;ation du fichier de configuration";
 			$config = file_get_contents($dest);
 			$config = str_replace("bdd_host",$_SESSION['bdd_host'],$config);
 			$config = str_replace("bdd_user",$_SESSION['bdd_user'],$config);
