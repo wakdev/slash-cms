@@ -107,7 +107,7 @@ class SlSetup{
 			$datas['bdd_port'] = "3386";
 			$datas['bdd_user'] = "root";
 			$datas['bdd_pwd'] = "";
-			$datas['bdd_name'] = "slash-cms";
+			$datas['bdd_name'] = "db_slashcms";
 			$datas['bdd_prefix'] = "sl_";
 			$datas['admin_name'] = "";
 			$datas['admin_user'] = "";

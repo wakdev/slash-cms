@@ -31,9 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 */
 
+
+
+
 //Global includes
 include ("common/constants/sl_constants.php"); //Defines
-include ("config/sl_config.php"); // configuration file.
 include ("languages/sl_lang.php"); // System Language
 
 class Slash {
@@ -160,6 +162,7 @@ class Slash {
 	* Loading Slash properties in SLConfig class
 	*/
 	private function load_properties() {
+		include ("config/sl_config.php"); // configuration file.
 		$sl_config = new SLConfig();
 		$class_vars = get_class_vars(get_class($sl_config));
 		
@@ -359,6 +362,19 @@ class Slash {
 		
 		
 	}
+	
+	/**
+	 * Check if sl_config exists and redirect to setup if necessary
+	 * @return int constant
+	 */
+	private function check_configuration() {
+		if(!file_exists(dirname(__FILE__)."/config/sl_config.php")){
+			return SL_CONFIG_NOT_EXIST;
+		}elseif(file_exists(dirname(__FILE__)."/../setup")){
+			return SETUP_NOT_DELETED;
+		}
+		return SL_CONFIG_OK;
+	}
 
 /*
 * ------------------
@@ -371,6 +387,11 @@ class Slash {
 	*/
 	public function show() {
 		$this->mode = "site";
+		
+		$ret_check = $this->check_configuration();
+		if($ret_check == SL_CONFIG_NOT_EXIST){header("Location:setup");exit();}
+		if($ret_check == SETUP_NOT_DELETED){die("Please delete the setup directory!");}
+		
 		$this->initialize();
 	}
 
@@ -379,6 +400,11 @@ class Slash {
 	*/
 	public function show_admin () {
 		$this->mode = "admin";
+		
+		$ret_check = $this->check_configuration();
+		if($ret_check == SL_CONFIG_NOT_EXIST){header("Location:../setup");exit();}
+		if($ret_check == SETUP_NOT_DELETED){die("Please delete the setup directory!");}
+		
 		$this->initialize_admin ();
 	}
 	

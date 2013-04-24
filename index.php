@@ -22,14 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //include core
-
-// Check if sl_config exists and redirect to setup if necessary
-if(!file_exists("core/config/sl_config.php")){
-	header("Location:setup");
-	exit();
-}elseif(file_exists("setup"))die("Veuillez supprimer le r&eacute;pertoire setup!");
-
 include ("core/slash.php");
-$slash = new Slash ();
+$slash = new Slash();
 $slash->show(); //show front office
 ?>
