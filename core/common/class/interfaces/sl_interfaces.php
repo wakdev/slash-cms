@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include ("includes/sl_interface.php"); // slash interface functions
 include ("includes/sl_form.php"); // form functions
 include ("includes/sl_tabs.php"); // Tabs
-
+include ("includes/sl_listing.php"); // listing
 
 
 ?>

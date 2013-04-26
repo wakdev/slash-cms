@@ -220,16 +220,12 @@ class news extends slaModel implements iModel{
 		$obj["timeout"] = $this->slash->sl_param($this->controller->module_name."_obj7","POST");
 		$obj["enabled"] = $this->slash->sl_param($this->controller->module_name."_obj8","POST");
 		
-		
-		$datein = explode("/",$obj["_datein"]);
-		$obj["datein"] = $datein[2]."-".$datein[1]."-".$datein[0];
-		
+		$obj["datein"] = date("Y-m-d H:i:s",strtotime($obj["_datein"] ." ". $obj["timein"]));
 		
 		if ($obj["permanent"] == 1) {
 			$obj["dateout"] = "0000-00-00 00:00:00";
 		}else{
-			$dateout = explode("/",$obj["_dateout"]);
-			$obj["dateout"] = $dateout[2]."-".$dateout[1]."-".$dateout[0];
+			$obj["dateout"] = date("Y-m-d H:i:s",strtotime($obj["_dateout"] ." ". $obj["timeout"]));
 		}
 		
 		return $obj;
