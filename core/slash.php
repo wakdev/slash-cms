@@ -76,7 +76,10 @@ class Slash {
 	* Overloading for Slash properties (configuration.php)
 	*/
 	public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+		
+		$unauthorized = array("db_host","db_name","db_user","db_password");
+		
+        if (array_key_exists($name, $this->properties) && !in_array($name,$unauthorized)) {
             return $this->properties[$name];
         }
 		
@@ -141,7 +144,12 @@ class Slash {
 	*/
 	private function connect () {
 
-		$ret = $this->database->connect($this->db_host,$this->db_name,$this->db_user,$this->db_password,$this->db_prefix);
+		$ret = $this->database->connect($this->properties["db_host"],
+										$this->properties["db_name"],
+										$this->properties["db_user"],
+										$this->properties["db_password"],
+										$this->properties["db_prefix"]);
+		
 		if (!$ret) {
 			$this->show_fatal_error("SELECT_DB_ERROR",$this->database->getError());
 		}
@@ -484,7 +492,7 @@ class Slash {
 			
 			$expired_date = date('Y-m-d H:i:s', strtotime($log_rot));
 			
-			$this->database->setQuery("SELECT * FROM ".$this->database_prefix."logs WHERE log_date<'".$expired_date."'");
+			$this->database->setQuery("SELECT * FROM ".$this->db_prefix."logs WHERE log_date<'".$expired_date."'");
 			if (!$this->database->execute()) {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}
