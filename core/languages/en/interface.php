@@ -115,6 +115,7 @@ define("INVALID_DATE", "Invalid date");
 define("PRINT", "Print");
 define("LANG_DATA_PRODUCT","Content language");
 define("LAST_USER","Last user");
+define("USER","User");
 
 //Messages
 define("SAVE_SUCCESS", "Save Success");

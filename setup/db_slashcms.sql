@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `admmenu` (
   PRIMARY KEY (`id`),
   KEY `enabled` (`enabled`),
   KEY `position` (`position`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
 
 --
 -- Contenu de la table `admmenu`
@@ -63,7 +63,8 @@ INSERT INTO `admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en
 (38, 'url_self', 2, 4, 'Gestion des Pays', 'Country management', 'country.png', 'index.php?mod=sla_country', 1),
 (39, 'url_self', 2, 5, 'Gestion des Langues', 'Languages management', 'lang.png', 'index.php?mod=sla_lang', 1),
 (47, 'url_self', 2, 6, 'Editer la configuration', 'Config', 'config.png', 'index.php?mod=sla_config', 1),
-(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1);
+(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1),
+(49, 'url_self', 2, 7, 'Gestion des logs', 'Logs configs', 'table_multiple.png', 'index.php?mod=sla_logs', 1);
 
 -- --------------------------------------------------------
 
@@ -316,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `initialize_order` int(11) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
 -- Contenu de la table `modules`
@@ -342,7 +343,8 @@ INSERT INTO `modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
 (56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
 (59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1),
-(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1);
+(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1),
+(60, 'admin', 'sla_logs', 'modules/sla_logs/', '', 0, 1);
 
 -- --------------------------------------------------------
 

@@ -115,6 +115,7 @@ define("INVALID_DATE", "La date est incorrecte");
 define("PRINT", "Imprimer");
 define("LANG_DATA_PRODUCT","Langue de contenu");
 define("LAST_USER","Dernier utilisateur");
+define("USER","Utilisateur");
 
 //Messages
 define("SAVE_SUCCESS", "Enregistrement r&eacute;ussi");
