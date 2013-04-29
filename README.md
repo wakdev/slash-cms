@@ -1,4 +1,4 @@
-Slash CMS
+![Slash CMS](http://www.slash-cms.com/templates/slashcms/images/slashcms.png)
 ================================================
 ------------------
 Website : http://www.slash-cms.com
