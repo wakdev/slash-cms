@@ -46,7 +46,7 @@ class sl_listing {
 	 * Render HTML
 	 */
 	public function render(){
-		
+		echo $this->_html;
 	}
 	
 	/**
