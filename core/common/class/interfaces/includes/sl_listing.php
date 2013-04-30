@@ -28,15 +28,95 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class sl_listing {
 	
+	private $id; //Listing ID
+	private $_html; //HTML
+	private $data; //Listing data
+	
 	
 	/**
-	 * Construct
+	 * Constructor
+	 * @param string $id Listing ID
 	 */
-	function __construct(){
+	function __construct($id=null){
 		//nothing
 	}
 	
 	
+	/**
+	 * Render HTML
+	 */
+	public function render(){
+		
+	}
+	
+	/**
+	 * Set listing ID
+	 * @param string $id Listing ID
+	 */
+	public function setID($id=null){
+		if ($id!==null){
+			$this->id = $id;	
+		}
+	}
+	
+	/**
+	 * Get listing ID
+	 */
+	public function getID(){
+		if (!empty($this->id)){
+			return $this->id;
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * Load items
+	 * @param array $data Listing data
+	 */
+	public function load($data=null){
+		
+	}
+	
+	
+	/**
+	 * Set listing params with Array
+	 * @param array $arr Params array
+	 */
+	public function setParamArray($arr=null){
+		
+	}
+	
+	/**
+	 * Set one param
+	 * @param string $name Name
+	 * @param string $value Value
+	 */
+	public function setParam($name=null,$value=null){
+		
+	}
+	
+	
+	/**
+	 * Get current listing filters
+	 */
+	public function getItemsFilters(){
+		
+	}
+	
+	/**
+	 * Get current listing limit
+	 */
+	public function getItemsLimit(){
+		
+	}
+	
+	/**
+	 * Clear Listing session
+	 */
+	public function clearSession(){
+		
+	}
 	
 	
 }
