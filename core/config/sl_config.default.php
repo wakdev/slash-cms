@@ -44,7 +44,7 @@ public $cache_path = "/cache/";
 
 public $site_path = "/"; //For exemple : "/slashcms/"
 
-public $error_level = SL_DEBUG; //SL_DEBUG (development) | SL_INFO | SL_ERROR (production)
+public $error_level = SL_ERROR; //SL_DEBUG (development) | SL_INFO | SL_ERROR (production)
 
 //Logs
 public $logs = true;

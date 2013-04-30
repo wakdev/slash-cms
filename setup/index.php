@@ -4,7 +4,7 @@
 * @subpackage	SLSETUP
 * @internal     Slash core system
 * @version		index.php - Version 13.04.24
-* @author		Loïc Bajard
+* @author		Loic Bajard
 * @copyright	Copyright(C) 2013 - Today. All rights reserved.
 * @license		GNU/GPL
 

@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `admmenu` (
   PRIMARY KEY (`id`),
   KEY `enabled` (`enabled`),
   KEY `position` (`position`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
 
 --
 -- Contenu de la table `admmenu`
@@ -63,7 +63,8 @@ INSERT INTO `admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en
 (38, 'url_self', 2, 4, 'Gestion des Pays', 'Country management', 'country.png', 'index.php?mod=sla_country', 1),
 (39, 'url_self', 2, 5, 'Gestion des Langues', 'Languages management', 'lang.png', 'index.php?mod=sla_lang', 1),
 (47, 'url_self', 2, 6, 'Editer la configuration', 'Config', 'config.png', 'index.php?mod=sla_config', 1),
-(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1);
+(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1),
+(49, 'url_self', 2, 7, 'Gestion des logs', 'Logs configs', 'table_multiple.png', 'index.php?mod=sla_logs', 1);
 
 -- --------------------------------------------------------
 
@@ -108,14 +109,8 @@ CREATE TABLE IF NOT EXISTS `attachments` (
   KEY `state` (`state`),
   KEY `id_element` (`id_element`),
   KEY `id_module` (`id_module`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `attachments`
---
-
-INSERT INTO `attachments` (`id`, `id_user`, `id_module`, `id_element`, `id_field`, `filename`, `position`, `state`) VALUES
-(13, 0, 0, 0, '', 'git.txt', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -301,9 +296,9 @@ CREATE TABLE IF NOT EXISTS `menu` (
 
 INSERT INTO `menu` (`id`, `menu_id`, `pri_type`, `sec_type`, `parent`, `position`, `title`, `action`, `home`, `enabled`) VALUES
 (1, 0, 1, 'horizontal', 0, 0, 'Principal', '#', 0, 1),
-(2, 1, 2, 'url_self', 0, 0, 'Présentation', 'index.php?mod=sl_pages&id=1', 1, 1),
-(3, 1, 2, 'url_self', 0, 1, 'Actualités', 'index.php?mod=sl_pages&id=2', 0, 1),
-(5, 1, 2, 'url_self', 0, 2, 'Téléchargement', 'index.php?mod=sl_pages&id=3', 0, 1),
+(2, 1, 2, 'url_self', 0, 0, 'Presentation', 'index.php?mod=sl_pages&id=1', 1, 1),
+(3, 1, 2, 'url_self', 0, 1, 'Actualites', 'index.php?mod=sl_pages&id=2', 0, 1),
+(5, 1, 2, 'url_self', 0, 2, 'Telechargement', 'index.php?mod=sl_pages&id=3', 0, 1),
 (6, 1, 2, 'url_self', 0, 4, 'Contact', 'index.php?mod=sl_pages&id=4', 0, 1),
 (15, 1, 2, 'url_self', 0, 3, 'Documentation', 'index.php?mod=sl_pages&id=5', 0, 1);
 
@@ -322,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `initialize_order` int(11) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
 -- Contenu de la table `modules`
@@ -348,7 +343,8 @@ INSERT INTO `modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
 (56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
 (59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1),
-(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1);
+(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1),
+(60, 'admin', 'sla_logs', 'modules/sla_logs/', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -398,9 +394,9 @@ CREATE TABLE IF NOT EXISTS `pages` (
 --
 
 INSERT INTO `pages` (`id`, `id_user`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, 'Présentation', '<p>\r\n  Slash CMS, est une application web open source qui va vous permettre de cr&eacute;er<br />\r\n  et g&eacute;rer votre site internet tr&egrave;s simplement.<br />\r\n <br />\r\n  Avec ce syst&egrave;me de gestion de contenu sur internet, vous allez pouvoir mettre a disposition des visiteurs toutes les informations dont vous avez besoin de communiquer.<br />\r\n  <br />\r\n  Allant de la simple page &agrave; la galerie photo, en passant par des news flash et bien d&#39;autres modules,<br />\r\n vous pourrez afficher toutes vos donn&eacute;es sur votre site, sans avoir la moindre connaissance technique.</p>\r\n', '2013-01-29 13:08:34', 1),
-(2, 1, 'Actualités', '<p>\r\n  A venir</p>\r\n', '2013-01-29 13:08:52', 1),
-(3, 1, 'Téléchargement', '<p>\r\n A venir.</p>\r\n', '2013-01-29 13:09:06', 1),
+(1, 1, 'Presentation', '<p>\r\n  Slash CMS, est une application web open source qui va vous permettre de cr&eacute;er<br />\r\n  et g&eacute;rer votre site internet tr&egrave;s simplement.<br />\r\n <br />\r\n  Avec ce syst&egrave;me de gestion de contenu sur internet, vous allez pouvoir mettre a disposition des visiteurs toutes les informations dont vous avez besoin de communiquer.<br />\r\n  <br />\r\n  Allant de la simple page &agrave; la galerie photo, en passant par des news flash et bien d&#39;autres modules,<br />\r\n vous pourrez afficher toutes vos donn&eacute;es sur votre site, sans avoir la moindre connaissance technique.</p>\r\n', '2013-01-29 13:08:34', 1),
+(2, 1, 'Actualites', '<p>\r\n  A venir</p>\r\n', '2013-01-29 13:08:52', 1),
+(3, 1, 'Telechargement', '<p>\r\n A venir.</p>\r\n', '2013-01-29 13:09:06', 1),
 (4, 1, 'Contact', '<p>\r\n  Vous pouvez me contacter a cette adresse : weneedyou [arobase] slash-cms.com</p>\r\n', '2013-01-29 13:09:23', 1),
 (5, 1, 'Documentation', '<p>\r\n  A venir.</p>\r\n', '2013-01-29 22:56:12', 1);
 

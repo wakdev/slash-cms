@@ -31,9 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 */
 
+
+
+
 //Global includes
 include ("common/constants/sl_constants.php"); //Defines
-include ("config/sl_config.php"); // configuration file.
 include ("languages/sl_lang.php"); // System Language
 
 class Slash {
@@ -74,7 +76,10 @@ class Slash {
 	* Overloading for Slash properties (configuration.php)
 	*/
 	public function __get($name) {
-        if (array_key_exists($name, $this->properties)) {
+		
+		$unauthorized = array("db_host","db_name","db_user","db_password");
+		
+        if (array_key_exists($name, $this->properties) && !in_array($name,$unauthorized)) {
             return $this->properties[$name];
         }
 		
@@ -139,7 +144,12 @@ class Slash {
 	*/
 	private function connect () {
 
-		$ret = $this->database->connect($this->db_host,$this->db_name,$this->db_user,$this->db_password,$this->db_prefix);
+		$ret = $this->database->connect($this->properties["db_host"],
+										$this->properties["db_name"],
+										$this->properties["db_user"],
+										$this->properties["db_password"],
+										$this->properties["db_prefix"]);
+		
 		if (!$ret) {
 			$this->show_fatal_error("SELECT_DB_ERROR",$this->database->getError());
 		}
@@ -160,6 +170,7 @@ class Slash {
 	* Loading Slash properties in SLConfig class
 	*/
 	private function load_properties() {
+		include ("config/sl_config.php"); // configuration file.
 		$sl_config = new SLConfig();
 		$class_vars = get_class_vars(get_class($sl_config));
 		
@@ -359,6 +370,19 @@ class Slash {
 		
 		
 	}
+	
+	/**
+	 * Check if sl_config exists and redirect to setup if necessary
+	 * @return int constant
+	 */
+	private function check_config() {
+		if(!file_exists(dirname(__FILE__)."/config/sl_config.php")){
+			return SL_CONFIG_NOT_EXIST;
+		}elseif(file_exists(dirname(__FILE__)."/../setup") && !file_exists(dirname(__FILE__)."/../.dev")){
+			return SETUP_NOT_DELETED;
+		}
+		return SL_CONFIG_OK;
+	}
 
 /*
 * ------------------
@@ -371,6 +395,11 @@ class Slash {
 	*/
 	public function show() {
 		$this->mode = "site";
+		
+		$ret_check = $this->check_config();
+		if($ret_check == SL_CONFIG_NOT_EXIST){header("Location:setup");exit();}
+		if($ret_check == SETUP_NOT_DELETED){die("Please delete the setup directory!");}
+		
 		$this->initialize();
 	}
 
@@ -379,6 +408,11 @@ class Slash {
 	*/
 	public function show_admin () {
 		$this->mode = "admin";
+		
+		$ret_check = $this->check_config();
+		if($ret_check == SL_CONFIG_NOT_EXIST){header("Location:../setup");exit();}
+		if($ret_check == SETUP_NOT_DELETED){die("Please delete the setup directory!");}
+		
 		$this->initialize_admin ();
 	}
 	
@@ -458,7 +492,7 @@ class Slash {
 			
 			$expired_date = date('Y-m-d H:i:s', strtotime($log_rot));
 			
-			$this->database->setQuery("SELECT * FROM ".$this->database_prefix."logs WHERE log_date<'".$expired_date."'");
+			$this->database->setQuery("SELECT * FROM ".$this->db_prefix."logs WHERE log_date<'".$expired_date."'");
 			if (!$this->database->execute()) {
 				$this->show_fatal_error("QUERY_ERROR",$this->database->getError());
 			}

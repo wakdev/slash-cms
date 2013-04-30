@@ -4,7 +4,7 @@
 * @subpackage	SLSETUP
 * @internal     Slash core system
 * @version		SlSetup.php - Version 13.04.24
-* @author		Loïc Bajard
+* @author		Loic Bajard
 * @copyright	Copyright(C) 2013 - Today. All rights reserved.
 * @license		GNU/GPL
 
@@ -107,8 +107,8 @@ class SlSetup{
 			$datas['bdd_port'] = "3386";
 			$datas['bdd_user'] = "root";
 			$datas['bdd_pwd'] = "";
-			$datas['bdd_name'] = "slash-cms";
-			$datas['bdd_prefix'] = "sla_";
+			$datas['bdd_name'] = "db_slashcms";
+			$datas['bdd_prefix'] = "sl_";
 			$datas['admin_name'] = "";
 			$datas['admin_user'] = "";
 			$datas['admin_pwd'] = "";
@@ -183,7 +183,7 @@ class SlSetup{
 		
 
 		if(!$fatals){
-			if(!copy($source,$dest)) $fatals[] = "Erreur lors de la création du fichier de configuration";
+			if(!copy($source,$dest)) $fatals[] = "Erreur lors de la cr&eacute;ation du fichier de configuration";
 			$config = file_get_contents($dest);
 			$config = str_replace("bdd_host",$_SESSION['bdd_host'],$config);
 			$config = str_replace("bdd_user",$_SESSION['bdd_user'],$config);
