@@ -23,10 +23,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-include ("includes/sl_interface.php"); // slash interface functions
-include ("includes/sl_form.php"); // form functions
-include ("includes/sl_tabs.php"); // Tabs
-include ("includes/sl_listing.php"); // listing
+/**
+ * Autoload interfaces class
+ * @param string $class
+ */
+function sl_interfaces_autoloader($class) {
+	$inc_url = "includes/".strtolower($class).".php";
+	if (file_exists(dirname(__FILE__)."/".$inc_url)){
+		include ($inc_url);
+	}
+}
 
+spl_autoload_register('sl_interfaces_autoloader');
 
 ?>

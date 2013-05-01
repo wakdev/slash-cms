@@ -31,14 +31,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 */
 
-include ("includes/html2text.php"); // HTML 2 text
-include ("includes/sl_files.php"); // files functions
-include ("includes/sl_images.php"); // images functions
-include ("includes/sl_text.php"); // text functions
-include ("includes/sl_seo.php"); // SEO functions
-include ("includes/sl_filters.php"); // filters functions
-include ("includes/sl_mail.php"); // slash interface functions
-include ("includes/sl_mobile.php"); // slash interface functions
+
+
+
+/**
+ * Autoload functions class
+ * @param string $class
+ */
+function sl_functions_autoloader($class) {
+	$inc_url = "includes/".strtolower($class).".php";
+	if (file_exists(dirname(__FILE__)."/".$inc_url)){
+		include ($inc_url);
+	}
+}
+
+spl_autoload_register('sl_functions_autoloader');
+
 
 /** 
 * @} 
