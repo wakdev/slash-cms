@@ -20,4 +20,6 @@ Email : contact@slash-cms.com
 
 Twitter : https://twitter.com/slashcms
 
-
+Ressources 
+-------------------
+http://data.slash-cms.com
