@@ -20,6 +20,13 @@ Email : contact@slash-cms.com
 
 Twitter : https://twitter.com/slashcms
 
-Ressources 
+Project resources 
 -------------------
 http://data.slash-cms.com
+
+Developers / Contributors
+-------------------
+Wak : https://github.com/wakdev/
+Lowki : https://github.com/lowki/
+LPotherat : https://github.com/lpotherat/
+RBCreation : https://github.com/rbcreation/
