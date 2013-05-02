@@ -203,6 +203,8 @@ class Slash {
 	private function load_db_connector() {
 		if (isset($this->properties["db_type"]) && $this->properties["db_type"] != "") {
 		
+			include ("common/class/db/generic/iconnector.php");
+			
 			// MySQL
 			if ($this->properties["db_type"] == "MySQL") {
 				include ("common/class/db/mysql/connector.php");

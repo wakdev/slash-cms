@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-class MySQLiConnector {
+class MySQLiConnector implements iConnector {
 	
 	private $db_host; //Database host
 	private $db_name; //Database name
