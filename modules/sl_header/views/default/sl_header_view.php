@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	SL_HEADER
 * @internal     Header module
-* @version		sl_header_view.php - Version 9.12.2
+* @version		sl_header_view.php - Version 13.5.2
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -62,6 +62,8 @@ class sl_header_view implements iView{
 	protected function scripts () {
 		
 		echo "<noscript>Slash use JavaScript. If you see this message, you should enable JavaScript on the preferences web browser ! </noscript> \n";	
+		sl_interface::script("./core/plugins/picturefill/matchmedia.js");
+		sl_interface::script("./core/plugins/picturefill/picturefill.js");
 		sl_interface::script("./core/plugins/jquery/jquery.js");
 
 		//echo "<script type='text/javascript' src='./core/plugins/jquery/jquery.bgiframe.js'></script> \n";
