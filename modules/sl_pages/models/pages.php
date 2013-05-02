@@ -53,7 +53,7 @@ class pages extends slModel implements iModel{
 		$dom = new simple_html_dom();
 		$dom->load($content);
 		foreach ($dom->find("img") as $img) {
-			$img->outertext = "<div data-picture data-alt=\"".$img->alt."\">\n
+			$img->outertext = "<div data-picture data-alt=\"".$img->alt."\" data-style=\"".$img->attr['style']."\" data-class=\"".$img->attr['class']."\">\n
 									<div data-src=\"responsive-".$img->src."/180\"></div>\n
 									<div data-src=\"responsive-".$img->src."/375\" data-media=\"(min-width: 400px)\"></div>\n
 									<div data-src=\"responsive-".$img->src."/480\" data-media=\"(min-width: 800px)\"></div>\n
