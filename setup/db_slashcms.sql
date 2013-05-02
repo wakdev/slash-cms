@@ -384,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `date` datetime NOT NULL,
-  `responsive_images` tinyint(1) NOT NULL,
+  `responsive_images` tinyint(1) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `enabled` (`enabled`)
