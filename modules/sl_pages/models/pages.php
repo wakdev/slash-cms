@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	SL_PAGES
 * @internal     Front page module
-* @version		pages.php - Version 12.02.13
+* @version		pages.php - Version 13.5.2
 * @author		Julien veuillet
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 
 */
+require "core/plugins/simple_html_dom/simple_html_dom.php";
 
 class pages extends slModel implements iModel{
 	
@@ -35,11 +36,12 @@ class pages extends slModel implements iModel{
 	public function load_page($id){
 	
 		if ($id) {
-			$this->slash->database->setQuery("SELECT * FROM sl_pages WHERE enabled=1 AND id=".intval($id));
+			$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."pages WHERE enabled=1 AND id=".intval($id));
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
 			$row = $this->slash->database->fetch("ASSOC");
+			if($row['responsive_images']) $row['content'] = $this->rewrite_img($row['content']);
 			return $row;
 		} else {
 			return NULL;
@@ -47,7 +49,20 @@ class pages extends slModel implements iModel{
 		
 	}
 	
-	
+	public function rewrite_img($content){
+		$dom = new simple_html_dom();
+		$dom->load($content);
+		foreach ($dom->find("img") as $img) {
+			$img->outertext = "<div data-picture data-alt=\"".$img->alt."\"".(isset($img->attr['style']) ? " data-style=\"".$img->attr['style']:"").(isset($img->attr['class']) ? " data-class=\"".$img->attr['class']:"").">\n
+									<div data-src=\"responsive-".$img->src."/180\"></div>\n
+									<div data-src=\"responsive-".$img->src."/375\" data-media=\"(min-width: 400px)\"></div>\n
+									<div data-src=\"responsive-".$img->src."/480\" data-media=\"(min-width: 800px)\"></div>\n
+									<div data-src=\"responsive-".$img->src."/768\" data-media=\"(min-width: 1000px)\"></div>\n
+									<noscript>".$img->outertext."</noscript>\n
+								</div>";
+		}
+		return $dom->outertext;
+	}
 	
 	/*
 	public function load_attachments($id,$id_module,$where){

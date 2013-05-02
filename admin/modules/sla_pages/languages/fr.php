@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	FR SLA_PAGES MODULE LANGUAGES
 * @internal     French pages module translate
-* @version		fr.php - Version 10.1.19
+* @version		fr.php - Version 13.5.2
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -26,4 +26,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Module SLA_PAGES
 define("SLA_PAGES_TITLE", "Gestion des pages");
 define("SLA_PAGES_DELETE_CONFIRM", "Supprimer les pages ci-dessous ?");
+define("SLA_PAGES_RESPONSIVE_IMAGES", "Adapter les images &agrave; l'&eacute;cran.");
 ?>
