@@ -77,7 +77,7 @@ class MySQLiConnector implements iConnector {
 			return false;
 		}
 		
-		return true;
+		return $this;
 	}
 	
 	/**
@@ -93,6 +93,7 @@ class MySQLiConnector implements iConnector {
 	 */
 	public function setQuery($sql){
 		$this->db_query = $sql;
+		return $this;
 	}
 	
 	/**
@@ -113,7 +114,7 @@ class MySQLiConnector implements iConnector {
 			return false;
 		}
 			
-		return true;
+		return $this;
 	}
 	
 	/**

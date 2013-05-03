@@ -103,7 +103,7 @@ class Slash {
 		$this->load_properties(); // load properties configuration
 		$this->load_db_connector();
 		$this->load_common(); // load interfaces and class
-		new gtreg();
+		
 		//database connection
 		$this->connect();
 		$this->load_config(); // load configuration

@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `admmenu`
 --
-
+DROP TABLE IF EXISTS `admmenu`;
 CREATE TABLE IF NOT EXISTS `admmenu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `admmenu` (
 --
 -- Contenu de la table `admmenu`
 --
-
+DROP TABLE IF EXISTS `articles`;
 INSERT INTO `admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en`, `icon`, `action`, `enabled`) VALUES
 (1, 'none', 0, 1, 'Site', 'Website', 'site.png', '#', 1),
 (2, 'none', 0, 3, 'Configuration', 'Config', 'config.png', '#', 1),
@@ -71,7 +71,7 @@ INSERT INTO `admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en
 --
 -- Structure de la table `articles`
 --
-
+DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
 --
 -- Structure de la table `attachments`
 --
-
+DROP TABLE IF EXISTS `attachments`;
 CREATE TABLE IF NOT EXISTS `attachments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `attachments` (
 --
 -- Structure de la table `categories`
 --
-
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
@@ -126,20 +126,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Contenu de la table `categories`
---
-
-INSERT INTO `categories` (`id`, `id_user`, `title`, `description`) VALUES
-(1, 1, 'Wiki', '<p>\r\n Articles du wiki</p>\r\n'),
-(2, 1, 'Projet', '<p>\r\n Articles du projet</p>\r\n');
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `config`
 --
-
+DROP TABLE IF EXISTS `config`;
 CREATE TABLE IF NOT EXISTS `config` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `config_name` varchar(50) NOT NULL,
@@ -168,7 +159,7 @@ INSERT INTO `config` (`id`, `config_name`, `config_value`) VALUES
 --
 -- Structure de la table `country`
 --
-
+DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
@@ -189,7 +180,7 @@ INSERT INTO `country` (`id`, `name`, `shortname`, `enabled`) VALUES
 --
 -- Structure de la table `joins`
 --
-
+DROP TABLE IF EXISTS `joins`;
 CREATE TABLE IF NOT EXISTS `joins` (
   `id_mod1` int(10) unsigned NOT NULL,
   `id_mod2` int(10) unsigned NOT NULL,
@@ -209,21 +200,14 @@ CREATE TABLE IF NOT EXISTS `joins` (
   KEY `id3` (`id3`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `joins`
---
 
-INSERT INTO `joins` (`id_mod1`, `id_mod2`, `id_mod3`, `id1`, `id2`, `id3`, `item_data`, `item_order`, `item_enabled`) VALUES
-(13, 7, 0, 3, 2, 0, '', 0, 0),
-(13, 7, 0, 3, 1, 0, '', 0, 0),
-(13, 7, 0, 4, 2, 0, '', 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `lang`
 --
-
+DROP TABLE IF EXISTS `lang`;
 CREATE TABLE IF NOT EXISTS `lang` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
@@ -254,6 +238,7 @@ INSERT INTO `lang` (`id`, `name`, `shortname`, `enabled`) VALUES
 -- Structure de la table `logs`
 --
 
+DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `log_type` varchar(45) NOT NULL,
@@ -270,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
 --
 -- Structure de la table `menu`
 --
-
+DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` int(11) unsigned NOT NULL,
@@ -290,24 +275,14 @@ CREATE TABLE IF NOT EXISTS `menu` (
   KEY `home` (`home`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
---
--- Contenu de la table `menu`
---
 
-INSERT INTO `menu` (`id`, `menu_id`, `pri_type`, `sec_type`, `parent`, `position`, `title`, `action`, `home`, `enabled`) VALUES
-(1, 0, 1, 'horizontal', 0, 0, 'Principal', '#', 0, 1),
-(2, 1, 2, 'url_self', 0, 0, 'Presentation', 'index.php?mod=sl_pages&id=1', 1, 1),
-(3, 1, 2, 'url_self', 0, 1, 'Actualites', 'index.php?mod=sl_pages&id=2', 0, 1),
-(5, 1, 2, 'url_self', 0, 2, 'Telechargement', 'index.php?mod=sl_pages&id=3', 0, 1),
-(6, 1, 2, 'url_self', 0, 4, 'Contact', 'index.php?mod=sl_pages&id=4', 0, 1),
-(15, 1, 2, 'url_self', 0, 3, 'Documentation', 'index.php?mod=sl_pages&id=5', 0, 1);
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `modules`
 --
-
+DROP TABLE IF EXISTS `modules`;
 CREATE TABLE IF NOT EXISTS `modules` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
@@ -324,34 +299,34 @@ CREATE TABLE IF NOT EXISTS `modules` (
 --
 
 INSERT INTO `modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`, `enabled`) VALUES
-(1, 'site', 'sl_header', 'modules/sl_header/', '', 1, 1),
-(2, 'site', 'sl_menu', 'modules/sl_menu/', '', 2, 1),
+(1, 'site', 'header', 'modules/header/', '', 1, 1),
+(2, 'site', 'menu', 'modules/menu/', '', 2, 1),
 (3, 'admin', 'sla_secure', 'modules/sla_secure/', '', 1, 1),
 (4, 'admin', 'sla_admmenu', 'modules/sla_admmenu/', '', 3, 1),
 (5, 'admin', 'sla_header', 'modules/sla_header/', '', 2, 1),
 (6, 'admin', 'sla_panel', 'modules/sla_panel/', '', 4, 1),
 (7, 'admin', 'sla_categories', 'modules/sla_categories/', '', 0, 1),
-(10, 'site', 'sl_error', 'modules/sl_error/', '', 3, 1),
+(10, 'site', 'error', 'modules/error/', '', 3, 1),
 (12, 'admin', 'sla_menu', 'modules/sla_menu/', '', 0, 1),
 (13, 'admin', 'sla_articles', 'modules/sla_articles/', 'param1=test&param2=test2', 0, 1),
 (14, 'admin', 'sla_users', 'modules/sla_users/', '', 0, 1),
 (22, 'admin', 'sla_modules', 'modules/sla_modules/', '', 0, 1),
 (27, 'admin', 'sla_news', 'modules/sla_news/', '', 0, 1),
-(41, 'site', 'sl_pages', 'modules/sl_pages/', '', 0, 1),
+(41, 'site', 'pages', 'modules/pages/', '', 0, 1),
 (42, 'admin', 'sla_pages', 'modules/sla_pages/', '', 0, 1),
 (44, 'admin', 'sla_country', 'modules/sla_country/', '', 0, 1),
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
-(56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
+(56, 'site', 'articles', 'modules/articles/', '', 0, 1),
 (59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1),
 (60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1),
-(60, 'admin', 'sla_logs', 'modules/sla_logs/', '', 0, 1);
+(61, 'admin', 'sla_logs', 'modules/sla_logs/', '', 0, 1);
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `news`
 --
-
+DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
@@ -364,49 +339,33 @@ CREATE TABLE IF NOT EXISTS `news` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Contenu de la table `news`
---
-
-INSERT INTO `news` (`id`, `id_user`, `datein`, `dateout`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, '2013-01-30 13:37:00', '0000-00-00 00:00:00', 'Mise en ligne du cms', '<p>\r\n J&#39;ai le plaisir de vous annoncer la mise en ligne</p>\r\n', '2013-01-29 13:18:21', 1),
-(2, 1, '2013-02-01 10:10:00', '2013-02-22 20:00:00', 'Aenean nisl odio', '<p>\r\n ornare eu suscipit sed, congue vestibulum tortor. Aliquam sit amet velit odio. In porttitor bibendum nibh, eu convallis leo tincidunt nec. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In vel leo dui, nec egestas lacus. Donec mi magna, fringilla vel ornare commodo, ultricies vel leo. Praesent tincidunt, orci non ornare ullamcorper, massa tortor tempor sem, sit amet bibendum libero erat eu eros.</p>\r\n', '2013-02-01 12:36:19', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `pages`
 --
-
+DROP TABLE IF EXISTS `pages`;
 CREATE TABLE IF NOT EXISTS `pages` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `date` datetime NOT NULL,
-  `responsive_images` tinyint(1) unsigned NOT NULL,
+  `responsive_images` tinyint(1) NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `enabled` (`enabled`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
---
--- Contenu de la table `pages`
---
 
-INSERT INTO `pages` (`id`, `id_user`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, 'Presentation', '<p>\r\n  Slash CMS, est une application web open source qui va vous permettre de cr&eacute;er<br />\r\n  et g&eacute;rer votre site internet tr&egrave;s simplement.<br />\r\n <br />\r\n  Avec ce syst&egrave;me de gestion de contenu sur internet, vous allez pouvoir mettre a disposition des visiteurs toutes les informations dont vous avez besoin de communiquer.<br />\r\n  <br />\r\n  Allant de la simple page &agrave; la galerie photo, en passant par des news flash et bien d&#39;autres modules,<br />\r\n vous pourrez afficher toutes vos donn&eacute;es sur votre site, sans avoir la moindre connaissance technique.</p>\r\n', '2013-01-29 13:08:34', 1),
-(2, 1, 'Actualites', '<p>\r\n  A venir</p>\r\n', '2013-01-29 13:08:52', 1),
-(3, 1, 'Telechargement', '<p>\r\n A venir.</p>\r\n', '2013-01-29 13:09:06', 1),
-(4, 1, 'Contact', '<p>\r\n  Vous pouvez me contacter a cette adresse : weneedyou [arobase] slash-cms.com</p>\r\n', '2013-01-29 13:09:23', 1),
-(5, 1, 'Documentation', '<p>\r\n  A venir.</p>\r\n', '2013-01-29 22:56:12', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `users`
 --
-
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,

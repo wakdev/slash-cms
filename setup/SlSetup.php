@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	SLSETUP
 * @internal     Slash core system
-* @version		SlSetup.php - Version 13.04.24
+* @version		SlSetup.php - Version 13.05.03
 * @author		Loic Bajard
 * @copyright	Copyright(C) 2013 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -68,6 +68,13 @@ class SlSetup{
 			}
 			$datas['bdd_prefix'] = filter_var($_POST['bdd_prefix'],FILTER_SANITIZE_STRING);
 
+			if(!empty($_POST['site_url'])){
+				$datas['site_url'] = filter_var($_POST['site_url'],FILTER_SANITIZE_URL);
+				if(!filter_var($datas['site_url'],FILTER_VALIDATE_URL)) $errors['site_url'] = "Adresse invalide";
+			}else{
+				$errors['site_url'] = "Ne peut pas &ecirc;tre vide!";
+			}
+
 			if(!empty($_POST['admin_name'])){
 				$datas['admin_name'] = filter_var($_POST['admin_name'],FILTER_SANITIZE_STRING);
 			}else{
@@ -100,6 +107,16 @@ class SlSetup{
 			}else{
 				$errors['admin_mail'] = "Ne peut pas &ecirc;tre vide!";
 			}
+			if(!empty($_POST['bdd_type'])){
+				$datas['bdd_type'] = filter_var($_POST['bdd_type'],FILTER_SANITIZE_STRING);
+			}else{
+				$errors['bdd_type'] = "Ne peut pas &ecirc;tre vide!";
+			}
+
+			$datas['demo_datas'] = $_POST['demo_datas'];
+			$datas['site_path'] = $_POST['site_path'];
+			$datas['cache_path'] = $_POST['cache_path'];
+			$datas['site_name'] = $_POST['site_name'];
 
 			$datas['init_state'] = 2;
 		}else{
@@ -109,17 +126,21 @@ class SlSetup{
 			$datas['bdd_pwd'] = "";
 			$datas['bdd_name'] = "db_slashcms";
 			$datas['bdd_prefix'] = "sl_";
+			$datas['bdd_type'] = "";
+			$datas['site_path'] = "/".str_replace(str_replace("/",DIRECTORY_SEPARATOR,$_SERVER['DOCUMENT_ROOT']), "", dirname(__DIR__));
+			$datas['cache_path'] = $datas['site_path']."/cache";
+			$datas['site_name'] = "My very cool website.";
+			$datas['site_url'] = "http://".$_SERVER['HTTP_HOST'];
 			$datas['admin_name'] = "";
 			$datas['admin_user'] = "";
 			$datas['admin_pwd'] = "";
 			$datas['admin_pwd_confirm'] = "";
 			$datas['admin_mail'] = "";
+			$datas['demo_datas'] = "on";
 			$datas['init_state'] = 1;
 		}
 		if(version_compare(phpversion(), "5.2.0") == -1 ) $fatals[] = "Version PHP minimum : 5.2.0";
 		if(!extension_loaded('gd')) $fatals[] = "Php GD requis";
-		if(!extension_loaded('mysqli')) $fatals[] = "Php MySQLi requis";
-		if(!extension_loaded('pdo')) $fatals [] = "Php PDO requis";
 
 		// No errors, redirect to bdd test
 		if(empty($errors) && empty($fatals) && $datas['init_state'] == 2){
@@ -141,17 +162,23 @@ class SlSetup{
 		$fatals = array();
 		$warnings = array();
 		session_start();
-		$db = mysqli_init();
 		$error_reporting = error_reporting();
-		// temporary disable error reporting
-		error_reporting(0);
-		if(!$db->real_connect($_SESSION['bdd_host'],$_SESSION['bdd_user'],$_SESSION['bdd_pwd'],$_SESSION['bdd_name'])) $fatals[] = "Erreur de connexion à la base de donn&eacute;es<br>". mysqli_connect_error();
-		if($db->query("SHOW TABLES")->num_rows != 0) $warnings[] = "La base <i>".$_SESSION['bdd_name']."</i> n'est pas vide.";
-		if(!is_writable("../cache")) $fatals[] = "Le r&eacute;pertoire cache n'est pas accessible en &eacute;criture";
-		if(!is_writable("../tmp")) $fatals[] = "Le r&eacute;pertoire cache n'est pas accessible en &eacute;criture";
-		if(!is_writable("../medias")) $fatals[] = "Le r&eacute;pertoire cache n'est pas accessible en &eacute;criture";
-		$db->close();
-		error_reporting($error_reporting);
+		
+		// Check database connector
+		if(!extension_loaded($_SESSION['bdd_type'])) $fatals[] = "Extension ".$_SESSION['bdd_type']. " requise.";
+		if(!$fatals){
+			$db = $this->getConnector();
+			// temporary disable error reporting
+			error_reporting(0);
+			if(!$db->connect($_SESSION['bdd_host'],$_SESSION['bdd_name'],$_SESSION['bdd_user'],$_SESSION['bdd_pwd'],$_SESSION['bdd_prefix'])) $fatals[] = "Erreur de connexion à la base de donn&eacute;es<br>". $db->getError();
+			$db->setQuery("SHOW TABLES");
+			if(!$db->setQuery("SHOW TABLES")->execute()) $fatals[] = "Erreur lors de l'ex&eacute;cution de la requ&ecirc;te<br>". $db->getError();
+			if($db->fetchAll() != null ) $warnings[] = "La base <i>".$_SESSION['bdd_name']."</i> n'est pas vide.";
+			if(!is_writable("../cache")) $fatals[] = "Le r&eacute;pertoire cache n'est pas accessible en &eacute;criture";
+			if(!is_writable("../tmp")) $fatals[] = "Le r&eacute;pertoire cache n'est pas accessible en &eacute;criture";
+			if(!is_writable("../medias")) $fatals[] = "Le r&eacute;pertoire cache n'est pas accessible en &eacute;criture";
+			error_reporting($error_reporting);
+		}
 		$this->view->loadCheckSettings($fatals,$warnings);
 	}
 
@@ -160,22 +187,35 @@ class SlSetup{
 		set_time_limit(0);
 		session_start();
 		// Load sql file
-		$queries = $this->SplitSQL("db_slashcms.sql",$_SESSION['bdd_prefix']);
-		$db = mysqli_init();
-		if(!$db->real_connect($_SESSION['bdd_host'],$_SESSION['bdd_user'],$_SESSION['bdd_pwd'],$_SESSION['bdd_name'])) $fatals[] = "Erreur de connexion à la base de donn&eacute;es<br>". mysqli_connect_error();
-		$db->autocommit(FALSE);
+		$queries = $this->SplitSQL("sql/slashcms.sql",$_SESSION['bdd_prefix']);
+		$db = $this->getConnector();
+		if(!$db->connect($_SESSION['bdd_host'],$_SESSION['bdd_name'],$_SESSION['bdd_user'],$_SESSION['bdd_pwd'],$_SESSION['bdd_prefix'])) $fatals[] = "Erreur de connexion à la base de donn&eacute;es<br>". $db->getError();
+		// $db->autocommit(FALSE);
 
 		// Create tables
 		foreach ($queries as $query) {
-			$db->query($query);
+			if(!$db->setQuery($query)->execute()) $fatals[] = "Erreur lors de l'ex&eacute;cution de la requ&ecirc;te<br>". $db->getError();
 		}
 		// Create initial admin
 		$sql_admin = "INSERT INTO `".$_SESSION['bdd_prefix']."users` (`id`, `name`, `login`, `password`, `mail`, `language`, `grade`, `allowed_module`, `enabled`) 
-					VALUES (1, '".$db->real_escape_string($_SESSION['admin_name'])."', '".$db->real_escape_string($_SESSION['admin_user'])."', '".$db->real_escape_string(sha1($_SESSION['admin_pwd']))."', '".$db->real_escape_string($_SESSION['admin_mail'])."', 'fr', 0, '', 1)";
-		if(!$db->query($sql_admin)) $fatals[] = $db->error;
-		if(empty($fatals)) if(!$db->commit()) $fatals[] = "Erreur lors de la cr&eacute;ation des tables<br>".$db_error;
-		else $db->rollback();
-		$db->close();
+					VALUES (1, ".$db->quote($_SESSION['admin_name']).", ".$db->quote($_SESSION['admin_user']).", ".$db->quote(sha1($_SESSION['admin_pwd'])).", ".$db->quote($_SESSION['admin_mail']).", 'fr', 0, '', 1)";
+		$db->setQuery($sql_admin)->execute();
+
+		// Install demo datas
+		if($_SESSION['demo_datas'] == "on"){
+			$queries = $this->SplitSQL("sql/demodatas.sql",$_SESSION['bdd_prefix']);
+			$db = $this->getConnector();
+			if(!$db->connect($_SESSION['bdd_host'],$_SESSION['bdd_name'],$_SESSION['bdd_user'],$_SESSION['bdd_pwd'],$_SESSION['bdd_prefix'])) $fatals[] = "Erreur de connexion à la base de donn&eacute;es<br>". $db->getError();
+			// $db->autocommit(FALSE);
+
+			// Create tables
+			foreach ($queries as $query) {
+				if(!$db->setQuery($query)->execute()) $fatals[] = "Erreur lors de l'ex&eacute;cution de la requ&ecirc;te<br>". $db->getError();
+			}
+
+		}
+		// if(empty($fatals)) if(!$db->commit()) $fatals[] = "Erreur lors de la cr&eacute;ation des tables<br>".$db_error;
+		// else $db->rollback();
 
 		//Create config file
 		$source = "../core/config/sl_config.default.php";
@@ -185,17 +225,44 @@ class SlSetup{
 		if(!$fatals){
 			if(!copy($source,$dest)) $fatals[] = "Erreur lors de la cr&eacute;ation du fichier de configuration";
 			$config = file_get_contents($dest);
-			$config = str_replace("bdd_host",$_SESSION['bdd_host'],$config);
-			$config = str_replace("bdd_user",$_SESSION['bdd_user'],$config);
-			$config = str_replace("bdd_pwd",$_SESSION['bdd_pwd'],$config);
-			$config = str_replace("bdd_name",$_SESSION['bdd_name'],$config);
-			$config = str_replace("bdd_prefix",$_SESSION['bdd_prefix'],$config);
-			$config = str_replace("bdd_port",$_SESSION['bdd_port'],$config);
+			$config = str_replace("_bdd_host",$_SESSION['bdd_host'],$config);
+			$config = str_replace("_bdd_user",$_SESSION['bdd_user'],$config);
+			$config = str_replace("_bdd_pwd",$_SESSION['bdd_pwd'],$config);
+			$config = str_replace("_bdd_name",$_SESSION['bdd_name'],$config);
+			$config = str_replace("_bdd_prefix",$_SESSION['bdd_prefix'],$config);
+			$config = str_replace("_bdd_port",$_SESSION['bdd_port'],$config);
+			if($_SESSION['bdd_type'] == "mysql") $bdd_type = "MySQL";
+			if($_SESSION['bdd_type'] == "mysqli") $bdd_type = "MySQLi";
+			if($_SESSION['bdd_type'] == "pdo_mysql") $bdd_type = "PDO";
+			$config = str_replace("_bdd_type",$bdd_type,$config);
+			$config = str_replace("_site_path",($_SESSION['site_path'] == "/"?"/":$_SESSION['site_path']."/"),$config);
+			$config = str_replace("_cache_path",$_SESSION['cache_path']."/",$config);
+			$config = str_replace("_site_name",$_SESSION['site_name'],$config);
+			$config = str_replace("_site_url",$_SESSION['site_url']."/",$config);
 			file_put_contents($dest, $config);
 		}
 
 		$this->view->loadInstall($fatals);
 	}
+
+	private function getConnector(){
+		switch ($_SESSION['bdd_type']) {
+			case 'mysql':
+				require_once("../core/common/class/db/mysql/connector.php");
+				return MySQLConnector::getInstance();
+				break;
+			case 'mysqli':
+				require_once("../core/common/class/db/mysqli/connector.php");
+				return MySQLiConnector::getInstance();
+				break;
+			case 'pdo_mysql':
+				require_once("../core/common/class/db/pdo/connector.php");
+				return PDOConnector::getInstance();
+				break;
+		}
+
+	}
+
 	private function SplitSQL($file,$table_prefix = "sl_", $delimiter = ';'){
 	    $ret = array();
 
@@ -208,7 +275,7 @@ class SlSetup{
 	            while (feof($file) === false){
 	                $query[] = fgets($file);
 	                if (preg_match('~' . preg_quote($delimiter, '~') . '\s*$~iS', end($query)) === 1){
-	                    $query = preg_replace("/(CREATE TABLE IF NOT EXISTS|INSERT INTO) `(.*)`/", "$1 `".$table_prefix."$2`", $query);
+	                    $query = preg_replace("/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `(.*)`/", "$1 `".$table_prefix."$2`", $query);
 	                    $query = trim(implode('', $query));
 	                    $ret[] = $query;
 	                }

@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	SLSETUP
 * @internal     Slash core system
-* @version		default.php - Version 13.04.24
+* @version		default.php - Version 13.05.03
 * @author		Loic Bajard
 * @copyright	Copyright(C) 2013 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -126,6 +126,56 @@ class DefaultView{
 			echo "</div>\n";
 			echo "</div>\n";
 
+			echo "<div class='control-group".(isset($errors['bdd_type']) ?" error":"")."'>\n";
+			echo "<label class='control-label' for='bdd_type'>Type du connecteur</label>\n";
+			echo "<div class='controls'>\n";
+			echo "<select name='bdd_type' required value='".$datas['bdd_type']."'>\n";
+			echo "<option value=''></option>\n";
+			echo "<option value='mysql'".($datas['bdd_type']=="mysql"?" selected":"").">MySQL</option>\n";
+			echo "<option value='mysqli'".($datas['bdd_type']=="mysqli"?" selected":"").">MySQLi</option>\n";
+			echo "<option value='pdo_mysql'".($datas['bdd_type']=="pdo_mysql"?" selected":"").">PDO MYSQL</option>\n";
+			echo "</select>\n";
+			if(isset($errors['bdd_type'])) echo "<span class='help-inline'>".$errors['bdd_type']."</span>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+
+			echo "</fieldset>\n";
+
+			echo "<fieldset>\n";
+			echo "<legend>Configuration de SLASH-CMS</legend>\n";
+
+			echo "<div class='control-group".(isset($errors['site_name']) ?" error":"")."'>\n";
+			echo "<label class='control-label' for='site_name'>Titre de votre site</label>\n";
+			echo "<div class='controls'>\n";
+			echo "<input type='text' name='site_name' placeholder='My very cool website' value='".$datas['site_name']."'>\n";
+			if(isset($errors['site_name'])) echo "<span class='help-inline'>".$errors['site_name']."</span>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+
+			echo "<div class='control-group".(isset($errors['site_url']) ?" error":"")."'>\n";
+			echo "<label class='control-label' for='site_url'>Url d'accès à votre site</label>\n";
+			echo "<div class='controls'>\n";
+			echo "<input type='url' name='site_url' placeholder='http://localhost/' value='".$datas['site_url']."'>\n";
+			if(isset($errors['site_url'])) echo "<span class='help-inline'>".$errors['site_url']."</span>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+
+			echo "<div class='control-group".(isset($errors['site_path']) ?" error":"")."'>\n";
+			echo "<label class='control-label' for='site_path'>Chemin d'acc&egrave;s &agrave; slash-cms. <small>(relatif depuis DocumentRoot)</small></label>\n";
+			echo "<div class='controls'>\n";
+			echo "<input type='text' name='site_path' placeholder='/' value='".$datas['site_path']."'>\n";
+			if(isset($errors['site_path'])) echo "<span class='help-inline'>".$errors['site_path']."</span>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+
+			echo "<div class='control-group".(isset($errors['cache_path']) ?" error":"")."'>\n";
+			echo "<label class='control-label' for='cache_path'>R&eacute;pertoire de cache. <small>(relatif depuis DocumentRoot)</small></label>\n";
+			echo "<div class='controls'>\n";
+			echo "<input type='text' name='cache_path' placeholder='/cache' value='".$datas['cache_path']."'>\n";
+			if(isset($errors['cache_path'])) echo "<span class='help-inline'>".$errors['cache_path']."</span>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+
 			echo "</fieldset>\n";
 
 
@@ -170,6 +220,13 @@ class DefaultView{
 			echo "<div class='controls'>\n";
 			echo "<input required type='email' name='admin_mail' placeholder='johndoe@example.com' value='".$datas['admin_mail']."'>\n";
 			if(isset($errors['admin_mail'])) echo "<span class='help-inline'>".$errors['admin_mail']."</span>\n";
+			echo "</div>\n";
+			echo "</div>\n";
+
+			echo "<div class='control-group".(isset($errors['demo_datas']) ?" error":"")."'>\n";
+			echo "<label class='control-label' for='demo_datas'>Installer les donn&eacute;es de d&eacute;monstration</label>\n";
+			echo "<div class='controls'>\n";
+			echo "<input type='checkbox' name='demo_datas'".($datas['demo_datas'] == "on" ?" checked":"").">\n";
 			echo "</div>\n";
 			echo "</div>\n";
 

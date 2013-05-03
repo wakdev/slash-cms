@@ -36,6 +36,7 @@ class PDOConnector implements iConnector {
 	private $_db_user;
 	private $_db_pass;
 	private $_db_prefix;
+	private $_db_autocommit;
 	
 	private static $instance;
 	
@@ -81,6 +82,8 @@ class PDOConnector implements iConnector {
 		try{
 			$this->_db_handle = new PDO('mysql:host='.$this->_db_host.';dbname='.$this->_db_name, $this->_db_user, $this->_db_pass);
 		}catch (Exception $e){
+			$this->_db_error = $e->getMessage();
+			var_dump($e);
 			return false;
 		}
 		
@@ -95,16 +98,19 @@ class PDOConnector implements iConnector {
 	/* SQL QUERY */
 	public function setQuery($sql) {
 		$this->_db_query = $sql;
+		return $this;
 	}
 	
 	/* SQL QUERY PREPARE */
 	public function setQueryPrepare($sql_prepare) {
 		$this->_db_query_prepare = $sql_prepare;
+		return $this;
 	}
 	
 	/* SQL QUERY EXECUTE */
 	public function setQueryExecute($sql_execute) {
 		$this->_db_query_execute = $sql_execute;
+		return $this;
 	}
 	
 	/* QUERY EXECUTE */
@@ -128,7 +134,7 @@ class PDOConnector implements iConnector {
 				$this->_db_error = "Query Error";
 				return false;
 			}else{
-				return true;
+				return $this;
 			}
 		}
 	}

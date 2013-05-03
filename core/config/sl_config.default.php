@@ -3,7 +3,7 @@
 * @package SLASH-CMS
 * @subpackage CONFIG
 * @internal Slash cms configuration file
-* @version sl_config.php - Version 12.3.1
+* @version sl_config.php - Version 13.05.02
 * @author Julien Veuillet [http://www.wakdev.com]
 * @copyright Copyright(C) 2009 - Today. All rights reserved.
 * @license GNU/GPL
@@ -29,20 +29,20 @@ class SLConfig {
 * DATABASE PROPERTIES
 */
 
-public $db_type = "MySQLi"; // MySQLi / MySQL / PDO
-public $db_host = "bdd_host"; //Database host
-public $db_port = "bdd_port"; //Database port
-public $db_name = "bdd_name"; //Database name
-public $db_user = "bdd_user"; //Database user
-public $db_password = "bdd_pwd"; //Database password
-public $db_prefix = "bdd_prefix"; //Database prefix
+public $db_type = "_bdd_type"; // MySQLi / MySQL / PDO
+public $db_host = "_bdd_host"; //Database host
+public $db_port = "_bdd_port"; //Database port
+public $db_name = "_bdd_name"; //Database name
+public $db_user = "_bdd_user"; //Database user
+public $db_password = "_bdd_pwd"; //Database password
+public $db_prefix = "_bdd_prefix"; //Database prefix
 
 
 // Cache path (relative from document root)
 public $use_cache = true;
-public $cache_path = "/cache/";
+public $cache_path = "_cache_path";
 
-public $site_path = "/"; //For exemple : "/slashcms/"
+public $site_path = "_site_path"; //For exemple : "/slashcms/"
 
 public $error_level = SL_ERROR; //SL_DEBUG (development) | SL_INFO | SL_ERROR (production)
 
@@ -51,8 +51,8 @@ public $logs = true;
 public $logs_rotation = "week"; //week, day, hour, month
 /*
 @todo => Move var in database
-var $site_name = "SLASH CMS";
-var $site_url = "http://www.wakdev.com/";
+var $site_name = "_site_name";
+var $site_url = "_site_url";
 var $default_title = "my title";
 var $default_description = "SLASH CMS";
 var $default_keywords = "SLASH CMS";
