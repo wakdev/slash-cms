@@ -89,7 +89,7 @@ class MySQLConnector {
 			return false;
 		}
 		
-		return true;
+		return $this;
 	}
 	
 	/**
@@ -105,6 +105,7 @@ class MySQLConnector {
 	 */
 	public function setQuery($sql){
 		$this->db_query = $sql;
+		return $this;
 	}
 	
 	/**
@@ -125,7 +126,7 @@ class MySQLConnector {
 			return false;
 		}
 			
-		return true;
+		return $this;
 	}
 	
 	/**
