@@ -116,6 +116,11 @@ define("PRINT", "Print");
 define("LANG_DATA_PRODUCT","Content language");
 define("LAST_USER","Last user");
 define("USER","User");
+define("NO_FILES","No files");
+
+define("DELETE_FILE_FAIL", "Delete file fail");
+define("DELETE_DIR_FAIL", "Delete directory fail");
+define("FILE_ALREADY_EXISTS", "The file already exists");
 
 //Messages
 define("SAVE_SUCCESS", "Save Success");
@@ -123,6 +128,7 @@ define("SAVE_FAIL", "Save Fail");
 define("EDIT_SUCCESS", "Edit Success");
 define("EDIT_FAIL", "Edit Fail");
 define("DELETE_SUCCESS", "Delete Success");
+define("DELETE_FAIL", "Delete Fail");
 define("ITEMABLE_SUCCESS", "Item enabled Success");
 define("ITEM_DISABLE_SUCCESS", "Item disabled Success");
 define("ITEM_UP_SUCCESS", "Up Success");

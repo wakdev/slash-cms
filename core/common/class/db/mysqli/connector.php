@@ -132,7 +132,7 @@ class MySQLiConnector implements iConnector {
 	 * @return number ID
 	 */
 	public function lastInsertId() {
-		return $this->mysqli->insert_id();
+		return $this->mysqli->insert_id;
 	}
 	
 	/**

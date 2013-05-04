@@ -72,6 +72,7 @@ class Slash {
 		spl_autoload_register(array($this, 'autoloader'));
 	}
 	
+	
 	/**
 	* Overloading for Slash properties (configuration.php)
 	*/
@@ -257,14 +258,11 @@ class Slash {
 			$url_language = "languages/".$this->config["slash_language"];
 		}
 		
-		if ($this->mode == "admin" && file_exists("../core/".$url_language."/interface.php") ) { 
+		
+		if (file_exists(dirname(__FILE__)."/".$url_language."/interface.php")) {
 			include ($url_language."/interface.php"); //include interface traduction
 		}
 		
-		if ($this->mode == "site" && file_exists("core/".$url_language."/interface.php") ) { 
-			include ($url_language."/interface.php"); //include interface traduction
-
-		}
 	}
 
 	/**
@@ -429,6 +427,32 @@ class Slash {
 		$this->initialize_admin ();
 	}
 	
+	/**
+	 * Standalone initialisation for Ajax widget or whatever...
+	 */
+	public function standalone_init() {
+		$this->mode = "standalone";
+	
+		session_start();
+		
+		$this->load_properties(); // load properties configuration
+		$this->load_db_connector();
+		$this->load_common(); // load interfaces and class
+		
+		//database connection
+		$this->connect();
+		$this->load_config(); // load configuration
+		$this->load_language(); // load language (core/languages/LANGUAGE SELECTED/)
+		$this->load_params(); // load get and post params (load all get and post params)
+		
+	}
+	
+	/**
+	 * Standalone close
+	 */
+	public function standalone_close() {
+		$this->disconnect();
+	}
 	
 	/**
 	* Show fatal errors and quit
