@@ -30,26 +30,21 @@ Notes :
 /**************************************************/
 /******** 		CONFIGURATION		********/
 /**************************************************/
-session_start();
-include ("../../common/constants/sl_constants.php");
-include ("../../config/sl_config.php");
-include ("../../common/class/functions/includes/sl_files.php");
-include ("../../common/class/functions/includes/sl_images.php");
-$config = new SLConfig();
+include ("../../slash.php");
+
+$slash = new Slash();
+$slash->standalone_init();
+
 $filestools = new sl_files();
 $imagestools = new sl_images();
-$host = $config->db_host; 
-$login = $config->db_user; 
-$password = $config->db_password; 
-$database_name = $config->db_name; 
-
-$database = mysql_connect($host, $login, $password) or die ("CONNEXION ERROR");	
-mysql_select_db($database_name, $database) or die ("DATABASE CONNEXION ERROR");
 
 //Check user
 if (isset($_SESSION["id_user"]) && $_SESSION["id_user"] != null) {
-	$result = mysql_query("SELECT * FROM ".$config->db_prefix."users WHERE id=".$_SESSION["id_user"],$database);
-	if (mysql_num_rows($result)==0) { exit; }
+	$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."users WHERE id=".$_SESSION["id_user"]);
+	if (!$slash->database->execute()) {
+		$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+	}
+	if ($slash->database->rowCount()==0) { exit; }
 }else{
 	exit;
 }
@@ -80,14 +75,14 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 	
 	// File already exists
 	if(file_exists($uploadfile)) {
-		echo "The file already exists";
+		echo $slash->trad_word("FILE_ALREADY_EXISTS");
 		exit();
 	}
 	
 	//Upload
 	if (move_uploaded_file($_FILES['sl_userfile']['tmp_name'], $uploadfile)) {
 		if (!chmod ($uploadfile, 0777)) {
-			echo "Error : CHMOD ".$uploadfile;
+			echo $slash->trad_word("FILE_TRANFERT_FAIL")." (CHMOD) : ".$uploadfile;
 			exit();
 		}
 		
@@ -96,25 +91,32 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 			$ret = $imagestools->create_image($uploadfile,$uploadfile,$sl_mod_img_max_width,$sl_mod_img_max_height);
 			if ($ret == 0) { 
 				unlink ($uploadfile);
-				echo "Error : IMG RESIZE ".$uploadfile; 
+				echo $slash->trad_word("FILE_TRANFERT_FAIL")." (IMAGE RESIZE) : ".$uploadfile; 
 				exit(); 
 			}
 		}
 		
 	} else {
-		echo "Error : MOVE UPLOAD FILE ".$uploadfile;
+		echo $slash->trad_word("FILE_TRANFERT_FAIL")." (MOVE UPLOADED FILE) : ".$uploadfile;
 		exit();
 	}
 	
 	/* Insert data */
-	$result_pos = mysql_query("SELECT * FROM sl_attachments WHERE id_user='".$_SESSION["id_user"]."' AND id_module='".$sl_mod_upload_id_module."' AND id_element='0' AND state='0' and id_field='".$sl_mod_field_id."' ",$database) 
-			or die ("QUERY ERROR : ".mysql_error());
-	$next_position = mysql_num_rows($result_pos) + 1;
+	$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_user='".$_SESSION["id_user"]."' AND id_module='".$sl_mod_upload_id_module."' AND id_element='0' AND state='0' and id_field='".$sl_mod_field_id."' "); 
+	if (!$slash->database->execute()) {
+		$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+	}
+			
+	$next_position = $slash->database->rowCount() + 1;
 	
-	$result = mysql_query("INSERT INTO sl_attachments
+	$slash->database->setQuery("INSERT INTO ".$slash->database_prefix."attachments
 						(id,id_user,id_module,id_element,id_field,filename,position,state) value
-						('','".$_SESSION["id_user"]."','".$sl_mod_upload_id_module."','0','".$sl_mod_field_id."','".$filename."','".$next_position."','0')",$database) 
-						or die ("QUERY ERROR : ".mysql_error());
+						('','".$_SESSION["id_user"]."','".$sl_mod_upload_id_module."','0','".$sl_mod_field_id."','".$filename."','".$next_position."','0')"); 
+	
+	if (!$slash->database->execute()) {
+		$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+	}
+						
 	echo "success";
 
 }else{ /*--- EDIT MODE ---*/
@@ -135,14 +137,14 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 	
 	// File already exists
 	if(file_exists($uploadfile)) {
-		echo "The file already exists";
+		echo $slash->trad_word("FILE_ALREADY_EXISTS");
 		exit();
 	}
 	
 	//Upload
 	if (move_uploaded_file($_FILES['sl_userfile']['tmp_name'], $uploadfile)) {
 		if (!chmod ($uploadfile, 0777)) {
-			echo "Error : CHMOD ".$uploadfile;
+			echo $slash->trad_word("FILE_TRANFERT_FAIL")." (CHMOD) : ".$uploadfile;
 			exit();
 		}
 		
@@ -154,31 +156,36 @@ if ($sl_mod_upload_id==0){ /*--- NEW MODE ---*/
 			$ret = $imagestools->create_image($uploadfile,$uploadfile,$sl_mod_img_max_width,$sl_mod_img_max_height);
 			if ($ret == 0) { 
 				unlink ($uploadfile);
-				echo "Error : IMG RESIZE ".$uploadfile; 
+				echo $slash->trad_word("FILE_TRANFERT_FAIL")." (IMAGE RESIZE) : ".$uploadfile; 
 				exit(); 
 			}
 		}
 		
 	} else {
-		echo "Error : MOVE UPLOAD FILE ".$uploadfile;
+		echo $slash->trad_word("FILE_TRANFERT_FAIL")." (MOVE UPLOADED FILE) : ".$uploadfile;
 		exit();
 	}
 	
 	/* Insert data */
-	$result_pos = mysql_query("SELECT * FROM sl_attachments WHERE id_element='".$sl_mod_upload_id."' AND id_module='".$sl_mod_upload_id_module."' AND state='1' and id_field='".$sl_mod_field_id."' ",$database) 
-			or die ("QUERY ERROR : ".mysql_error());
-	$next_position = mysql_num_rows($result_pos) + 1;
+	$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_element='".$sl_mod_upload_id."' AND id_module='".$sl_mod_upload_id_module."' AND state='1' and id_field='".$sl_mod_field_id."'"); 
+	if (!$slash->database->execute()) {
+		$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+	}
 	
-	$result = mysql_query("INSERT INTO sl_attachments
+	$next_position = $slash->database->rowCount() + 1;
+	
+	$slash->database->setQuery("INSERT INTO ".$slash->database_prefix."attachments
 						(id,id_user,id_module,id_element,id_field,filename,position,state) value
-						('','".$_SESSION["id_user"]."','".$sl_mod_upload_id_module."','".$sl_mod_upload_id."','".$sl_mod_field_id."','".$filename."','".$next_position."','1')",$database) 
-						or die ("QUERY ERROR : ".mysql_error());
+						('','".$_SESSION["id_user"]."','".$sl_mod_upload_id_module."','".$sl_mod_upload_id."','".$sl_mod_field_id."','".$filename."','".$next_position."','1')"); 
 	
-	echo "success";
+	if (!$slash->database->execute()) {
+		$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+	}					
 	
+	echo "success";	
 }
 
+//Close
+$slash->standalone_close();
+
 ?>
-
-
-

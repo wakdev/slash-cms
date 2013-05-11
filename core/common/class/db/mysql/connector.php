@@ -26,7 +26,7 @@ Notes :
 
 */
 
-class MySQLConnector {
+class MySQLConnector implements iConnector {
 	
 	private $db_host; //Database host
 	private $db_name; //Database name

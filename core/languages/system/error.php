@@ -28,5 +28,5 @@ define("SELECT_DB_ERROR", "Database connexion error");
 define("QUERY_ERROR", "SQL Query error");
 define("UNKNOWN_MODULE_ERROR", "Unknown module error");
 define("UNKNOWN_TEMPLATE_ERROR", "Unknown template error");
-
+define("LOAD_CLASS_ERROR", "Unable to load class");
 ?>

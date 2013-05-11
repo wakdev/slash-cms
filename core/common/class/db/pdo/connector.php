@@ -27,8 +27,7 @@ Notes :
 
 */
 
-class PDOConnector
-{
+class PDOConnector implements iConnector {
 	/*----------------------------------------------------------------------------------------------------
 	 > ATTRIBUTES
 	----------------------------------------------------------------------------------------------------*/
@@ -210,7 +209,7 @@ class PDOConnector
 	 * @return the quoted value
 	 * @todo add the $parameter_type to conform the PDO Connector at all.
 	 */
-	public function quote($value){
+	public function quote($value,$real_escape=false){
 		return $this->_db_handle->quote($value);
 	}
 	/**
@@ -218,7 +217,7 @@ class PDOConnector
 	 * @param string $value the value to escape
 	 * @return string the escaped string
 	 */
-	public function escape($value){
+	public function escape($value,$real_escape=false){
 		//quote the value with PDO::quote() function then
 		//remove enclosing quotes to conform "escape" protocol
 		return substr($this->_db_handle->quote($value),1,-1);
@@ -230,7 +229,7 @@ class PDOConnector
 	 * @param string $values the values to escape
 	 * @return string the escaped string
 	 */
-	public function escapeArray($values){
+	public function escapeArray($values,$real_escape=false){
 		$return = array();
 		foreach($values as $key=>$value){
 			if (is_string($value)){			

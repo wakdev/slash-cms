@@ -69,8 +69,9 @@ class Slash {
 	* Constructor
 	*/
 	function __construct(){
-		
+		spl_autoload_register(array($this, 'autoloader'));
 	}
+	
 	
 	/**
 	* Overloading for Slash properties (configuration.php)
@@ -134,6 +135,21 @@ class Slash {
 		$this->load_template($this->config["admin_template_url"]."template.php"); // load admin template
 		$this->disconnect();
 	}
+	
+	/**
+	 * Autoloader (try to load functions or interfaces class)
+	 * @param string $class
+	 */
+	private function autoloader($class){
+		$inc_url = "includes/".strtolower($class).".php";
+		if (file_exists(dirname(__FILE__)."/common/class/functions/".$inc_url)){
+			include ("common/class/functions/".$inc_url);
+		}elseif(file_exists(dirname(__FILE__)."/common/class/interfaces/".$inc_url)){
+			include ("common/class/interfaces/".$inc_url);
+		}else{
+			$this->show_fatal_error("LOAD_CLASS_ERROR",$class);
+		}
+	}
 
 	/**
 	* MySql Database connexion function
@@ -188,6 +204,8 @@ class Slash {
 	private function load_db_connector() {
 		if (isset($this->properties["db_type"]) && $this->properties["db_type"] != "") {
 		
+			include ("common/implements/db/iconnector.php");
+			
 			// MySQL
 			if ($this->properties["db_type"] == "MySQL") {
 				include ("common/class/db/mysql/connector.php");
@@ -240,14 +258,11 @@ class Slash {
 			$url_language = "languages/".$this->config["slash_language"];
 		}
 		
-		if ($this->mode == "admin" && file_exists("../core/".$url_language."/interface.php") ) { 
+		
+		if (file_exists(dirname(__FILE__)."/".$url_language."/interface.php")) {
 			include ($url_language."/interface.php"); //include interface traduction
 		}
 		
-		if ($this->mode == "site" && file_exists("core/".$url_language."/interface.php") ) { 
-			include ($url_language."/interface.php"); //include interface traduction
-
-		}
 	}
 
 	/**
@@ -351,10 +366,7 @@ class Slash {
 	* Load Module 
 	*/
 	private function load_class(){
-		
-		include ("common/class/functions/sl_functions.php"); // load functions
-		include ("common/class/interfaces/sl_interfaces.php"); // load interfaces
-		
+
 		if ($this->mode == "site") { 
 			include ("common/class/modules/sl_model.php"); // load abstract class
 			include ("common/class/modules/sl_view.php"); // load abstract class
@@ -367,8 +379,7 @@ class Slash {
 			include ("common/class/modules/sla_controller.php"); // load abstract class
 			
 		}
-		
-		
+
 	}
 	
 	/**
@@ -416,6 +427,32 @@ class Slash {
 		$this->initialize_admin ();
 	}
 	
+	/**
+	 * Standalone initialisation for Ajax widget or whatever...
+	 */
+	public function standalone_init() {
+		$this->mode = "standalone";
+	
+		session_start();
+		
+		$this->load_properties(); // load properties configuration
+		$this->load_db_connector();
+		$this->load_common(); // load interfaces and class
+		
+		//database connection
+		$this->connect();
+		$this->load_config(); // load configuration
+		$this->load_language(); // load language (core/languages/LANGUAGE SELECTED/)
+		$this->load_params(); // load get and post params (load all get and post params)
+		
+	}
+	
+	/**
+	 * Standalone close
+	 */
+	public function standalone_close() {
+		$this->disconnect();
+	}
 	
 	/**
 	* Show fatal errors and quit
@@ -425,9 +462,17 @@ class Slash {
 	public function show_fatal_error ($message=null,$code=null) {
 		
 		if ($this->error_level > 0) {
-			echo "<br /><table style='border: 1px solid #FF0000;' align='center'><tr><td>";
-			echo "<font color='#FF0000' size='2'>".constant($message)." - ERROR CODE : ".$code."</font>";
-			echo "</td></tr></table>";
+			$msg = constant($message);
+			if ($code!==null){$msg .= " - ERROR CODE : ".$code;}
+			echo "<div style='position:fixed;
+					z-index:9999;
+					right:20px; 
+					top:20px;
+					background:#FFF;
+					border:2px solid #FF0000;
+					padding:10px;
+					color:#FF0000;
+					font-size:18px;'>".$msg."</div>";
 		}
 		
 		exit;
