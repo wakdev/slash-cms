@@ -191,7 +191,9 @@ class SlSetup{
 		$db = $this->getConnector();
 		if(!$db->connect($_SESSION['bdd_host'],$_SESSION['bdd_name'],$_SESSION['bdd_user'],$_SESSION['bdd_pwd'],$_SESSION['bdd_prefix'])) $fatals[] = "Erreur de connexion à la base de donn&eacute;es<br>". $db->getError();
 		// $db->autocommit(FALSE);
-
+		$error_reporting = error_reporting();
+		// temporary disable error reporting
+		error_reporting(0);
 		// Create tables
 		foreach ($queries as $query) {
 			if(!$db->setQuery($query)->execute()) $fatals[] = "Erreur lors de l'ex&eacute;cution de la requ&ecirc;te<br>". $db->getError();
@@ -214,6 +216,7 @@ class SlSetup{
 			}
 
 		}
+		error_reporting($error_reporting);
 		// if(empty($fatals)) if(!$db->commit()) $fatals[] = "Erreur lors de la cr&eacute;ation des tables<br>".$db_error;
 		// else $db->rollback();
 
@@ -278,7 +281,7 @@ class SlSetup{
 	            while (feof($file) === false){
 	                $query[] = fgets($file);
 	                if (preg_match('~' . preg_quote($delimiter, '~') . '\s*$~iS', end($query)) === 1){
-	                    $query = preg_replace("/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `(.*)`/", "$1 `".$table_prefix."$2`", $query);
+	                	$query = str_replace("bdd_prefix_", $table_prefix, $query);
 	                    $query = trim(implode('', $query));
 	                    $ret[] = $query;
 	                }

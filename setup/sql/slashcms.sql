@@ -25,8 +25,8 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `admmenu`
 --
-DROP TABLE IF EXISTS `admmenu`;
-CREATE TABLE IF NOT EXISTS `admmenu` (
+DROP TABLE IF EXISTS `bdd_prefix_admmenu`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_admmenu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
   `parent` int(11) unsigned NOT NULL,
@@ -44,8 +44,7 @@ CREATE TABLE IF NOT EXISTS `admmenu` (
 --
 -- Contenu de la table `admmenu`
 --
-DROP TABLE IF EXISTS `articles`;
-INSERT INTO `admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en`, `icon`, `action`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en`, `icon`, `action`, `enabled`) VALUES
 (1, 'none', 0, 1, 'Site', 'Website', 'site.png', '#', 1),
 (2, 'none', 0, 3, 'Configuration', 'Config', 'config.png', '#', 1),
 (3, 'url_self', 1, 3, 'Gestion des articles', 'Articles', 'articles.png', 'index.php?mod=sla_articles', 1),
@@ -71,8 +70,8 @@ INSERT INTO `admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en
 --
 -- Structure de la table `articles`
 --
-DROP TABLE IF EXISTS `articles`;
-CREATE TABLE IF NOT EXISTS `articles` (
+DROP TABLE IF EXISTS `bdd_prefix_articles`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -94,8 +93,8 @@ CREATE TABLE IF NOT EXISTS `articles` (
 --
 -- Structure de la table `attachments`
 --
-DROP TABLE IF EXISTS `attachments`;
-CREATE TABLE IF NOT EXISTS `attachments` (
+DROP TABLE IF EXISTS `bdd_prefix_attachments`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_attachments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `id_module` int(11) unsigned NOT NULL,
@@ -117,8 +116,8 @@ CREATE TABLE IF NOT EXISTS `attachments` (
 --
 -- Structure de la table `categories`
 --
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE IF NOT EXISTS `categories` (
+DROP TABLE IF EXISTS `bdd_prefix_categories`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -130,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 -- Structure de la table `config`
 --
-DROP TABLE IF EXISTS `config`;
-CREATE TABLE IF NOT EXISTS `config` (
+DROP TABLE IF EXISTS `bdd_prefix_config`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_config` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `config_name` varchar(50) NOT NULL,
   `config_value` varchar(50) NOT NULL,
@@ -142,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `config` (
 -- Contenu de la table `config`
 --
 
-INSERT INTO `config` (`id`, `config_name`, `config_value`) VALUES
+INSERT INTO `bdd_prefix_config` (`id`, `config_name`, `config_value`) VALUES
 (1, 'site_name', 'slash cms'),
 (2, 'global_description', 'slash : le cms intuitif'),
 (3, 'global_keywords', 'cms, slash, slash-cms, siteweb'),
@@ -159,8 +158,8 @@ INSERT INTO `config` (`id`, `config_name`, `config_value`) VALUES
 --
 -- Structure de la table `country`
 --
-DROP TABLE IF EXISTS `country`;
-CREATE TABLE IF NOT EXISTS `country` (
+DROP TABLE IF EXISTS `bdd_prefix_country`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_country` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `shortname` varchar(8) NOT NULL,
@@ -172,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `country` (
 -- Contenu de la table `country`
 --
 
-INSERT INTO `country` (`id`, `name`, `shortname`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_country` (`id`, `name`, `shortname`, `enabled`) VALUES
 (1, 'France', 'Fr', 1);
 
 -- --------------------------------------------------------
@@ -180,8 +179,8 @@ INSERT INTO `country` (`id`, `name`, `shortname`, `enabled`) VALUES
 --
 -- Structure de la table `joins`
 --
-DROP TABLE IF EXISTS `joins`;
-CREATE TABLE IF NOT EXISTS `joins` (
+DROP TABLE IF EXISTS `bdd_prefix_joins`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_joins` (
   `id_mod1` int(10) unsigned NOT NULL,
   `id_mod2` int(10) unsigned NOT NULL,
   `id_mod3` int(10) unsigned NOT NULL,
@@ -207,8 +206,8 @@ CREATE TABLE IF NOT EXISTS `joins` (
 --
 -- Structure de la table `lang`
 --
-DROP TABLE IF EXISTS `lang`;
-CREATE TABLE IF NOT EXISTS `lang` (
+DROP TABLE IF EXISTS `bdd_prefix_lang`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_lang` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `shortname` varchar(8) NOT NULL,
@@ -220,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `lang` (
 -- Contenu de la table `lang`
 --
 
-INSERT INTO `lang` (`id`, `name`, `shortname`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_lang` (`id`, `name`, `shortname`, `enabled`) VALUES
 (2, 'Anglais', 'en', 0),
 (1, 'Fran&ccedil;ais', 'fr', 1),
 (4, 'Italien', 'it', 0),
@@ -238,8 +237,8 @@ INSERT INTO `lang` (`id`, `name`, `shortname`, `enabled`) VALUES
 -- Structure de la table `logs`
 --
 
-DROP TABLE IF EXISTS `logs`;
-CREATE TABLE IF NOT EXISTS `logs` (
+DROP TABLE IF EXISTS `bdd_prefix_logs`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `log_type` varchar(45) NOT NULL,
   `log_url` varchar(255) NOT NULL,
@@ -255,8 +254,8 @@ CREATE TABLE IF NOT EXISTS `logs` (
 --
 -- Structure de la table `menu`
 --
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE IF NOT EXISTS `menu` (
+DROP TABLE IF EXISTS `bdd_prefix_menu`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` int(11) unsigned NOT NULL,
   `pri_type` tinyint(4) unsigned NOT NULL,
@@ -282,8 +281,8 @@ CREATE TABLE IF NOT EXISTS `menu` (
 --
 -- Structure de la table `modules`
 --
-DROP TABLE IF EXISTS `modules`;
-CREATE TABLE IF NOT EXISTS `modules` (
+DROP TABLE IF EXISTS `bdd_prefix_modules`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_modules` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
@@ -298,25 +297,25 @@ CREATE TABLE IF NOT EXISTS `modules` (
 -- Contenu de la table `modules`
 --
 
-INSERT INTO `modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`, `enabled`) VALUES
-(1, 'site', 'header', 'modules/header/', '', 1, 1),
-(2, 'site', 'menu', 'modules/menu/', '', 2, 1),
+INSERT INTO `bdd_prefix_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`, `enabled`) VALUES
+(1, 'site', 'sl_header', 'modules/sl_header/', '', 1, 1),
+(2, 'site', 'sl_menu', 'modules/sl_menu/', '', 2, 1),
 (3, 'admin', 'sla_secure', 'modules/sla_secure/', '', 1, 1),
 (4, 'admin', 'sla_admmenu', 'modules/sla_admmenu/', '', 3, 1),
 (5, 'admin', 'sla_header', 'modules/sla_header/', '', 2, 1),
 (6, 'admin', 'sla_panel', 'modules/sla_panel/', '', 4, 1),
 (7, 'admin', 'sla_categories', 'modules/sla_categories/', '', 0, 1),
-(10, 'site', 'error', 'modules/error/', '', 3, 1),
+(10, 'site', 'sl_error', 'modules/sl_error/', '', 3, 1),
 (12, 'admin', 'sla_menu', 'modules/sla_menu/', '', 0, 1),
 (13, 'admin', 'sla_articles', 'modules/sla_articles/', 'param1=test&param2=test2', 0, 1),
 (14, 'admin', 'sla_users', 'modules/sla_users/', '', 0, 1),
 (22, 'admin', 'sla_modules', 'modules/sla_modules/', '', 0, 1),
 (27, 'admin', 'sla_news', 'modules/sla_news/', '', 0, 1),
-(41, 'site', 'pages', 'modules/pages/', '', 0, 1),
+(41, 'site', 'sl_pages', 'modules/sl_pages/', '', 0, 1),
 (42, 'admin', 'sla_pages', 'modules/sla_pages/', '', 0, 1),
 (44, 'admin', 'sla_country', 'modules/sla_country/', '', 0, 1),
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
-(56, 'site', 'articles', 'modules/articles/', '', 0, 1),
+(56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
 (59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1),
 (60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1),
 (61, 'admin', 'sla_logs', 'modules/sla_logs/', '', 0, 1);
@@ -326,8 +325,8 @@ INSERT INTO `modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`
 --
 -- Structure de la table `news`
 --
-DROP TABLE IF EXISTS `news`;
-CREATE TABLE IF NOT EXISTS `news` (
+DROP TABLE IF EXISTS `bdd_prefix_news`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `datein` datetime NOT NULL,
@@ -345,8 +344,8 @@ CREATE TABLE IF NOT EXISTS `news` (
 --
 -- Structure de la table `pages`
 --
-DROP TABLE IF EXISTS `pages`;
-CREATE TABLE IF NOT EXISTS `pages` (
+DROP TABLE IF EXISTS `bdd_prefix_pages`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_pages` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -365,8 +364,8 @@ CREATE TABLE IF NOT EXISTS `pages` (
 --
 -- Structure de la table `users`
 --
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `bdd_prefix_users`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,

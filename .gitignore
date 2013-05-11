@@ -4,3 +4,4 @@
 .buildpath
 sl_config.php
 .dev
+sftp-config.json
