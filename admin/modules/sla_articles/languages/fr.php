@@ -41,4 +41,5 @@ define("ARTICLES_PUBLISH_TIME", "Heure de publication");
 define("ARTICLES_UNPUBLISH_DATE", "Date de d&eacute;publication");
 define("ARTICLES_UNPUBLISH_TIME", "Heure de d&eacute;publication");
 define("ARTICLES_PERMANENT", "Article permanent");
+define("ARTICLES_RESPONSIVE_IMAGES", "Adapter les images &agrave; l'&eacute;cran.");
 ?>

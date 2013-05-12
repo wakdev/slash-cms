@@ -41,7 +41,9 @@ class articles extends slModel implements iModel{
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
 			$row = $this->slash->database->fetch("ASSOC");
+			if($row['responsive_images']) $row['content'] = sl_images::set_responsive($row['content']);
 			$row["attachments"] = $this->load_attachments($id);
+			var_dump($row);
 			return $row;
 		} else {
 			return NULL;
@@ -59,13 +61,11 @@ class articles extends slModel implements iModel{
 		$attachments = array();
 		
 		$i=0;
-		$result = mysql_query("select * from ".$this->slash->database_prefix."attachments where id_module = '".$id_module."' and id_element = '".$id."' and state = 1 ".$where." order by position asc ");
-		while($row = mysql_fetch_array($result))
-		{
-			$attachments[$i]["filename"] = $row["filename"];
-			$attachments[$i]["id_field"] = $row["id_field"];
-			$i++;
-		}
+		$this->slash->database->setQuery("select * from ".$this->slash->database_prefix."attachments where id_module = '".$id_module."' and id_element = '".$id."' and state = 1 ".$where." order by position asc ");
+		if (!$this->slash->database->execute()) {
+				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+			}
+		$attachments = $this->slash->database->fetchAll("ASSOC");
 		
 		return $attachments;
 	}

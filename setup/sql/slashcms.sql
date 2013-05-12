@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `bdd_prefix_articles` (
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
+  `responsive_images` tinyint(1) unsigned NOT NULL,
   `alias` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keywords` varchar(255) NOT NULL,

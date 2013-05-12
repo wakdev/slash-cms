@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 * @{
 
 */
-require "core/plugins/simple_html_dom/simple_html_dom.php";
 
 class pages extends slModel implements iModel{
 	
@@ -41,7 +40,7 @@ class pages extends slModel implements iModel{
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
 			$row = $this->slash->database->fetch("ASSOC");
-			if($row['responsive_images']) $row['content'] = $this->rewrite_img($row['content']);
+			if($row['responsive_images']) $row['content'] = sl_images::set_responsive($row['content']);
 			return $row;
 		} else {
 			return NULL;
@@ -49,20 +48,6 @@ class pages extends slModel implements iModel{
 		
 	}
 	
-	public function rewrite_img($content){
-		$dom = new simple_html_dom();
-		$dom->load($content);
-		foreach ($dom->find("img") as $img) {
-			$img->outertext = "<div data-picture data-alt=\"".$img->alt."\"".(isset($img->attr['style']) ? " data-style=\"".$img->attr['style']:"").(isset($img->attr['class']) ? " data-class=\"".$img->attr['class']:"").">\n
-									<div data-src=\"responsive-".$img->src."/180\"></div>\n
-									<div data-src=\"responsive-".$img->src."/375\" data-media=\"(min-width: 400px)\"></div>\n
-									<div data-src=\"responsive-".$img->src."/480\" data-media=\"(min-width: 800px)\"></div>\n
-									<div data-src=\"responsive-".$img->src."/768\" data-media=\"(min-width: 1000px)\"></div>\n
-									<noscript>".$img->outertext."</noscript>\n
-								</div>";
-		}
-		return $dom->outertext;
-	}
 	
 	/*
 	public function load_attachments($id,$id_module,$where){
