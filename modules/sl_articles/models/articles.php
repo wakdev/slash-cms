@@ -43,7 +43,6 @@ class articles extends slModel implements iModel{
 			$row = $this->slash->database->fetch("ASSOC");
 			if($row['responsive_images']) $row['content'] = sl_images::set_responsive($row['content']);
 			$row["attachments"] = $this->load_attachments($id);
-			var_dump($row);
 			return $row;
 		} else {
 			return NULL;
