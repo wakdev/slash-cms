@@ -25,4 +25,4 @@ RewriteRule article-([0-9]+).* index.php?mod=sl_articles&id=$1 [L]
 #php_value error_reporting 30719
 
 #Rewrite responsive images only to show_image script
-RewriteRule responsive-(.*\.(?:jpe?g|gif|png|JPE?G|GIF|PNG))(?:/(\d*\w*))?(?:/(\d*\w*))? core/common/class/functions/includes/show_image.php?url=$1&width=$2&height=$3
+RewriteRule (medias/(?:images|attachments)/.*\.(?:jpe?g|gif|png|JPE?G|GIF|PNG))(?:/(\d*\w*))?(?:/(\d*\w*))? core/common/class/functions/includes/show_image.php?url=$1&width=$2&height=$3

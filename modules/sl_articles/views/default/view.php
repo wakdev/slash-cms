@@ -56,12 +56,10 @@ class sl_articles_view extends slModel implements iView{
 		
 		echo "<div class='tp_page_top'></div><div class='tp_page'>".$row_article["content"]."</div><div class='tp_page_bottom'></div>";
 		
-		if (count($row_article["attachments"]) > 0) {
-			$url = "medias/attachments/sl_articles/".$row_article["id"]."/".$row_article["attachments"][0]["filename"];
+		foreach ($row_article["attachments"] as $attachment) {
+			$url = "medias/attachments/sl_articles/".$row_article["id"]."/".$attachment["filename"];
 			echo sl_images::show_image($url);
 		}
-	
-		
 	}
 
 		
