@@ -34,13 +34,13 @@ interface iConnector{
 	public function show_fatal_error ($message,$code); //Show fatal Error
 	public function lastInsertId(); //Last insert ID
 	public function rowCount(); //Row count
-	public function fetch($mode); //Fetch query
-	public function fetchAll($mode); //Fetch all
+	public function fetch($mode = "ASSOC"); //Fetch query
+	public function fetchAll($mode = "ASSOC"); //Fetch all
 	public function getError(); //Get sql error
 	public function getHandle(); //Get database handle
-	public function quote($value,$real_escape); //Quote value
-	public function escape($value,$real_escape); //Escape value
-	public function escapeArray($values,$real_escape); //Escape array
+	public function quote($value,$real_escape=false); //Quote value
+	public function escape($value,$real_escape=false); //Escape value
+	public function escapeArray($values,$real_escape=false); //Escape array
 	
 }
 
