@@ -180,11 +180,13 @@ class sl_images {
 											 array(800,480),
 											 array(1000,768));
 		foreach ($dom->find("img") as $img) {
+			$imgstring = $img->outertext;
 			$img->outertext = "<div data-picture data-alt=\"".$img->alt."\"".(isset($img->attr['style']) ? " data-style=\"".$img->attr['style']."\"":"").(isset($img->attr['class']) ? " data-class=\"".$img->attr['class']."\"":"").">\n";
 			foreach ($widths as $width) {
 				$img->outertext .= "<div data-src=\"".$img->src."/".$width[0]."\" data-media=\"(min-width: ".$width[1]."px)\"></div>\n";
+				$img->outertext .= "<div data-src=\"".$img->src."/".($width[0]*2)."\" data-media=\"(min-width: ".$width[1]."px) and (min-device-pixel-ratio: 2.0)\"></div>\n";
 			}
-			$img->outertext .= "<noscript>".$img->outertext."</noscript>\n
+			$img->outertext .= "<noscript>".$imgstring."</noscript>\n
 								</div>\n";
 		}
 		return $dom->outertext;
