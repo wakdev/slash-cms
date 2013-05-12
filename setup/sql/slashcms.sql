@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `bdd_prefix_admmenu` (
 --
 -- Contenu de la table `admmenu`
 --
-DROP TABLE IF EXISTS `bdd_prefix_articles`;
 INSERT INTO `bdd_prefix_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en`, `icon`, `action`, `enabled`) VALUES
 (1, 'none', 0, 1, 'Site', 'Website', 'site.png', '#', 1),
 (2, 'none', 0, 3, 'Configuration', 'Config', 'config.png', '#', 1),
