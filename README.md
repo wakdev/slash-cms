@@ -26,7 +26,7 @@ http://data.slash-cms.com
 
 Developers / Contributors
 -------------------
-Wak aka TrollMaster : https://github.com/wakdev/
+Wak : https://github.com/wakdev/
 
 Lowki : https://github.com/lowki/
 
