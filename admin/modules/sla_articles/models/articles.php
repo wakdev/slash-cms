@@ -159,6 +159,7 @@ class articles extends slaModel implements iModel{
 					id_user='".$_SESSION["id_user"]."',
 					title='".$values["title"]."',
 					content='".$values["content"]."',
+					responsive_images='".$values["responsive_images"]."',
 					enabled='".$values["enabled"]."' 
 					WHERE id='".$values["id"]."'");
 					
@@ -174,8 +175,8 @@ class articles extends slaModel implements iModel{
 			$values=$this->slash->database->escapeArray($values);
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."articles
-					(id,id_user,title,content,created_date,enabled) value
-					('','".$_SESSION["id_user"]."','".$values["title"]."','".$values["content"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");
+					(id,id_user,title,content,responsive_images,created_date,enabled) value
+					('','".$_SESSION["id_user"]."','".$values["title"]."','".$values["content"]."','".$values["responsive_images"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
@@ -223,6 +224,7 @@ class articles extends slaModel implements iModel{
 		$obj["categories"] = $this->slash->sl_param($this->controller->module_name."_obj2","POST");
 		$obj["content"] = $this->slash->sl_param($this->controller->module_name."_obj3","POST");
 		$obj["enabled"] = $this->slash->sl_param($this->controller->module_name."_obj5","POST");
+		$obj["responsive_images"] = $this->slash->sl_param($this->controller->module_name."_obj6","POST");
 		if (!is_array($obj["categories"])) {$obj["categories"] = null;}
 
 		return $obj;

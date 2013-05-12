@@ -190,6 +190,11 @@ class sla_articles_view extends slaView implements iView{
 			sl_form::br(2);
 			sl_form::ckeditor($mn,3,array("value"=>$values["content"]));
 			sl_form::br(2);
+
+			sl_form::title($this->slash->trad_word("ARTICLES_RESPONSIVE_IMAGES")." : ");
+			sl_form::checkbox($mn,6,array("value" => $values["responsive_images"]));
+			sl_form::br(2);
+
 			
 			sl_form::title($this->slash->trad_word("FILES_ATTACHMENTS")." : ");
 			sl_form::br(2);
