@@ -220,7 +220,11 @@ class PDOConnector implements iConnector {
 	public function escape($value,$real_escape=false){
 		//quote the value with PDO::quote() function then
 		//remove enclosing quotes to conform "escape" protocol
-		return substr($this->_db_handle->quote($value),1,-1);
+		if (!get_magic_quotes_gpc()) {
+			return substr($this->_db_handle->quote($value),1,-1);
+		}else{
+			return $value;
+		}
 	}
 	
 	/**

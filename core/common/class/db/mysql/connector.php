@@ -228,7 +228,11 @@ class MySQLConnector implements iConnector {
 	 * @return string the escaped string
 	 */
 	public function escape($value,$real_escape=false){
-		return $real_escape?mysql_real_escape_string($value,getHandle()):mysql_escape_string($value);
+		if (!get_magic_quotes_gpc()) {
+			return $real_escape?mysql_real_escape_string($value,getHandle()):mysql_escape_string($value);
+		}else{
+			return $value;
+		}
 	}
 	
 	/**

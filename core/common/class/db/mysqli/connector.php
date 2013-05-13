@@ -219,7 +219,11 @@ class MySQLiConnector implements iConnector {
 	 * @return string the escaped string
 	 */
 	public function escape($value,$real_escape=false){
-		return $this->mysqli->real_escape_string($value);
+		if (!get_magic_quotes_gpc()) {
+			return $this->mysqli->real_escape_string($value);
+		}else{
+			return $value;
+		}
 	}
 	
 	/**
