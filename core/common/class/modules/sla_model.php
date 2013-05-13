@@ -70,7 +70,7 @@ abstract class slaModel{
 	
 			$sl_files_sv = new sl_files();
 	
-			if (!$sl_files_sv->make_dir($destination."/".$id_element)){
+			if (!$sl_files_sv->make_dir($destination."/".$id_element,true)){
 				return false;
 			}
 	
