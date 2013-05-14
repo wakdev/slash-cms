@@ -217,7 +217,7 @@ class MySQLiConnector extends GenericConnector implements iConnector {
 	 * @return string the escaped string
 	 */
 	public function escape($value,$real_escape=false){
-		if ($this->magic_quotes) {
+		if (!$this->magic_quotes) {
 			return $this->mysqli->real_escape_string($value);
 		}else{
 			return $value;
