@@ -21,10 +21,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 */
 
-class MySQLiConnector implements iConnector {
+class MySQLiConnector extends GenericConnector implements iConnector {
 	
 	private $db_host; //Database host
 	private $db_name; //Database name
@@ -39,7 +38,6 @@ class MySQLiConnector implements iConnector {
 	private $db_result;
 	private $mysqli;
 	
-	private function __construct() {}
 	private function __clone() {}
 
 	/**
@@ -219,7 +217,7 @@ class MySQLiConnector implements iConnector {
 	 * @return string the escaped string
 	 */
 	public function escape($value,$real_escape=false){
-		if (!get_magic_quotes_gpc()) {
+		if ($this->magic_quotes) {
 			return $this->mysqli->real_escape_string($value);
 		}else{
 			return $value;

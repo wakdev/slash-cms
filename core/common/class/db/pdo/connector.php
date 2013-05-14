@@ -27,7 +27,7 @@ Notes :
 
 */
 
-class PDOConnector implements iConnector {
+class PDOConnector extends GenericConnector implements iConnector {
 	/*----------------------------------------------------------------------------------------------------
 	 > ATTRIBUTES
 	----------------------------------------------------------------------------------------------------*/
@@ -54,7 +54,6 @@ class PDOConnector implements iConnector {
 	/*----------------------------------------------------------------------------------------------------
 	 > OVERLOADING
 	----------------------------------------------------------------------------------------------------*/
-	private function __construct() {}
 	private function __clone() {}
 	
 	/**
@@ -220,7 +219,7 @@ class PDOConnector implements iConnector {
 	public function escape($value,$real_escape=false){
 		//quote the value with PDO::quote() function then
 		//remove enclosing quotes to conform "escape" protocol
-		if (!get_magic_quotes_gpc()) {
+		if ($this->magic_quotes) {
 			return substr($this->_db_handle->quote($value),1,-1);
 		}else{
 			return $value;

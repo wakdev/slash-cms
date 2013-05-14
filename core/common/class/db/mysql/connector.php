@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	DB MYSQL
 * @internal     MySQL Connector
-* @version		connector.php - Version 12.7.12
+* @version		connector.php
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -26,7 +26,7 @@ Notes :
 
 */
 
-class MySQLConnector implements iConnector {
+class MySQLConnector extends GenericConnector implements iConnector {
 	
 	private $db_host; //Database host
 	private $db_name; //Database name
@@ -44,7 +44,6 @@ class MySQLConnector implements iConnector {
 	private $db_result;
 	private $db_fetch;
 	
-	private function __construct() {}
 	private function __clone() {}
 
 	/**
@@ -228,8 +227,8 @@ class MySQLConnector implements iConnector {
 	 * @return string the escaped string
 	 */
 	public function escape($value,$real_escape=false){
-		if (!get_magic_quotes_gpc()) {
-			return $real_escape?mysql_real_escape_string($value,getHandle()):mysql_escape_string($value);
+		if ($this->magic_quotes) {
+			return mysql_real_escape_string($value,getHandle());
 		}else{
 			return $value;
 		}

@@ -251,6 +251,7 @@ class SlSetup{
 	private function getConnector(){
 		
 		require_once("../core/common/implements/db/iconnector.php");
+		require_once("../core/common/class/db/generic/connector.php");
 		
 		switch ($_SESSION['bdd_type']) {
 			case 'mysql':
