@@ -249,7 +249,7 @@ class SlSetup{
 			$htaccess = file_get_contents("../.htaccess");
 			$htaccess = str_replace("RewriteBase /", "RewriteBase ".$_SESSION['site_path'], $htaccess);
 			file_put_contents("../.htaccess", $htaccess);
-;		}
+		}
 
 		$this->view->loadInstall($fatals);
 	}
