@@ -226,6 +226,7 @@ class SlSetup{
 		
 
 		if(!$fatals){
+			// Create config file
 			if(!copy($source,$dest)) $fatals[] = "Erreur lors de la cr&eacute;ation du fichier de configuration";
 			$config = file_get_contents($dest);
 			$config = str_replace("_bdd_host",$_SESSION['bdd_host'],$config);
@@ -243,7 +244,12 @@ class SlSetup{
 			$config = str_replace("_site_name",$_SESSION['site_name'],$config);
 			$config = str_replace("_site_url",$_SESSION['site_url']."/",$config);
 			file_put_contents($dest, $config);
-		}
+
+			// Replace RewriteBase line in htaccess
+			$htaccess = file_get_contents("../.htaccess");
+			$htaccess = str_replace("RewriteBase /", "RewriteBase ".$_SESSION['site_path'], $htaccess);
+			file_put_contents("../.htaccess", $htaccess);
+;		}
 
 		$this->view->loadInstall($fatals);
 	}
