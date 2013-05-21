@@ -44,11 +44,13 @@ class sl_tabs {
 	 * @param unknown $title
 	 * @param string $custom_icon
 	 */
-	public function addTab($id,$title,$custom_icon=""){
+	public function addTab($id,$title,$custom_icon="",$custom_class=""){
 		$this->tabs[$id]["id"] = $id;
 		$this->tabs[$id]["title"] = $title;
 		$this->tabs[$id]["custom_icon"] = $custom_icon;
+		$this->tabs[$id]["custom_class"] = $custom_class;
 		$this->tabs[$id]["current"] = false;
+		
 	}
 	
 	/**
@@ -57,6 +59,9 @@ class sl_tabs {
 	 */
 	public function setCurrent($id){
 		if (isset($this->tabs[$id])){
+			foreach(array_keys($this->tabs) as $key){ 
+				$this->tabs[$key]["current"] = false;
+			}
 			$this->tabs[$id]["current"] = true;
 		}
 	}
@@ -68,9 +73,10 @@ class sl_tabs {
 	public function render(){
 		echo "<div id='slash-tabs' class='sl_adm_tabs'>";
 		foreach($this->tabs as $tab){
-			if ($tab["current"]==true) {$class = "class='sl_adm_tabs-active'";} else {$class = "class='sl_adm_tabs-inactive'";}
+			if ($tab["current"]==true) {$class = "sl_adm_tabs-active";} else {$class = "sl_adm_tabs-inactive";}
+			if (!empty($tab["custom_class"])){$class .= " ".$tab["custom_class"];}
 			if (isset($tab["custom_icon"])){$tab["title"] =  $tab["custom_icon"]."&nbsp;".$tab["title"];}
-			echo "<a href='#' onclick=\"javascript:show_tab('".$tab["id"]."',$(this)); return false;\" ".$class.">".$tab["title"]."</a>";
+			echo "<a href='#' onclick=\"javascript:show_tab('".$tab["id"]."',$(this)); return false;\" class='".$class."'>".$tab["title"]."</a>";
 		}
 		echo "</div>";
 	}

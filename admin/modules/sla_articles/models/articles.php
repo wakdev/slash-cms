@@ -117,12 +117,25 @@ class articles extends slaModel implements iModel{
 	 * @param $id item ID
 	 */
 	public function load_item($id) {
+		
+		$row = array();
+		
 		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->db_prefix."articles WHERE id=".$id);
 		if (!$this->slash->database->execute()) {
 			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 		}
+		
+		$row = $this->slash->database->fetch("ASSOC");
+		
+		$this->slash->database->setQuery("SELECT * FROM ".$this->slash->db_prefix."users WHERE id='".$row["id"]."'");
+		if (!$this->slash->database->execute()) {
+			$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+		}
+		$row_user = $this->slash->database->fetch("ASSOC");
+		
+		$row["username"] = $row_user["name"];
 
-		return $this->slash->database->fetch("ASSOC");
+		return $row;
 	}
 	
 	
@@ -159,7 +172,9 @@ class articles extends slaModel implements iModel{
 					id_user='".$_SESSION["id_user"]."',
 					title='".$values["title"]."',
 					content='".$values["content"]."',
-					responsive_images='".$values["responsive_images"]."',
+					responsive_images='".$values["responsive_images"]."', 
+					publish_date='".$values["publish_date"]."', 
+					unpublish_date='".$values["unpublish_date"]."', 
 					enabled='".$values["enabled"]."' 
 					WHERE id='".$values["id"]."'");
 					
@@ -173,10 +188,18 @@ class articles extends slaModel implements iModel{
 			
 		} else {
 			$values=$this->slash->database->escapeArray($values);
+			
 			$this->slash->database->setQuery("
 					INSERT INTO ".$this->slash->db_prefix."articles
-					(id,id_user,title,content,responsive_images,created_date,enabled) value
-					('','".$_SESSION["id_user"]."','".$values["title"]."','".$values["content"]."','".$values["responsive_images"]."','".date ("Y-m-d H:i:s", time())."','".$values["enabled"]."')");
+					(id,id_user,title,content,responsive_images,created_date,publish_date,unpublish_date,enabled) value
+					('','".$_SESSION["id_user"]."',
+						'".$values["title"]."',
+						'".$values["content"]."',
+						'".$values["responsive_images"]."',
+						'".date("Y-m-d H:i:s")."',
+						'".$values["publish_date"]."',
+						'".$values["unpublish_date"]."',
+						'".$values["enabled"]."')");
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
@@ -225,6 +248,23 @@ class articles extends slaModel implements iModel{
 		$obj["content"] = $this->slash->sl_param($this->controller->module_name."_obj3","POST");
 		$obj["enabled"] = $this->slash->sl_param($this->controller->module_name."_obj5","POST");
 		$obj["responsive_images"] = $this->slash->sl_param($this->controller->module_name."_obj6","POST");
+		
+		$obj["publish_date1"] = $this->slash->sl_param($this->controller->module_name."_obj8_date","POST");
+		$obj["publish_date2"] = $this->slash->sl_param($this->controller->module_name."_obj8_time","POST");
+		$obj["publish_date"] = $obj["publish_date1"]." ".trim($obj["publish_date2"]);
+		$obj["publish_date"] = date("Y-m-d H:i:s",strtotime($obj["publish_date"]));
+		
+		$obj["permanent"] = $this->slash->sl_param($this->controller->module_name."_obj9","POST");
+		
+		$obj["unpublish_date"] = 0;
+		
+		if ($obj["permanent"] == 0) {
+			$obj["unpublish_date1"] = $this->slash->sl_param($this->controller->module_name."_obj10_date","POST");
+			$obj["unpublish_date2"] = $this->slash->sl_param($this->controller->module_name."_obj10_time","POST");
+			$obj["unpublish_date"] = $obj["unpublish_date1"]." ".trim($obj["unpublish_date2"]);
+			$obj["unpublish_date"] = date("Y-m-d H:i:s",strtotime($obj["unpublish_date"]));
+		}
+			
 		if (!is_array($obj["categories"])) {$obj["categories"] = null;}
 
 		return $obj;
@@ -239,17 +279,26 @@ class articles extends slaModel implements iModel{
 	public function check_fields($values) {
 		
 		$mess = array();
-		$values=$this->slash->database->escapeArray($values);
-		/*
-		$result = mysql_query("SELECT * FROM ".$this->slash->database_prefix."categories WHERE title='".$values["title"]."' AND id !='".$values["id"]."'",$this->slash->db_handle) or $this->slash->show_fatal_error("QUERY_ERROR",mysql_error());
-		if (mysql_num_rows($result)>0) {
-			$mess[0]["message"] = $this->slash->trad_word("CATEGORIES_ERROR_EXIST");
+		$values = $this->slash->database->escapeArray($values);
+		
+		if (empty($values["title"])){
+			$mess[1]["message"] = $this->slash->trad_word("ERROR_FIELD_EMPTY");
 		}
-		*/
-		//$mess[1]["message"] =  $this->slash->trad_word("ERROR_TITLE_FIELD_EMPTY");
+		
+		$filters = new sl_filters();
+		if ($values["permanent"] == 0 && isset($values["unpublish_date"]) && isset($values["publish_date"])){
+			
+			if (!$filters->date_compare($values["publish_date"],$values["unpublish_date"])) {
+				$mess[8]["message"] = $this->slash->trad_word("ARTICLES_ERROR_PUBLISH_DATE_INF");
+			}
+			
+			if ($filters->date_compare($values["unpublish_date"],date("Y-m-d H:i:s"))) {
+				$mess[10]["message"] = $this->slash->trad_word("ARTICLES_ERROR_UNPUBLISH_DATE_INF_NOW");
+			}
+			
+		}
 		
 		if (count($mess) > 0){ return $mess; } else { return null; }
-	
 	}
 	
 	/**

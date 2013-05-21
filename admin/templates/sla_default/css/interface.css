@@ -434,3 +434,7 @@ table{
 .sl_adm_tabs-div-inactive{
 	display:none;
 }
+
+.sl_adm_tabs-on-error{
+	color:#DD0000;
+}

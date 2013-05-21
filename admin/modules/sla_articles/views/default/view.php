@@ -48,10 +48,12 @@ class sla_articles_view extends slaView implements iView{
 		sl_interface::script("../core/plugins/jquery_plugins/ajaxupload/js/ajaxupload.js");
 		sl_interface::script("../core/plugins/ckeditor/ckeditor.js");
 		sl_interface::script("../core/plugins/bootstrap_plugins/multiselect-master/js/bootstrap-multiselect.js");
+		sl_interface::script("../core/plugins/bootstrap_plugins/datepicker/js/bootstrap-datepicker.js"); //date picker fr
 
 		sl_interface::script("../core/plugins/tabs/js/slash-tabs.js");
 	
 		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/multiselect-master/css/bootstrap-multiselect.css");
+		sl_interface::stylesheet("../core/plugins/bootstrap_plugins/datepicker/css/datepicker.css","screen"); //Theme roller
 	}
 	
 	/**
@@ -138,35 +140,67 @@ class sla_articles_view extends slaView implements iView{
 	 * Show article form
 	 */
 	public function show_form ($id=0, $values=null, $errors=null) {
+		
+		sl_interface::create_message_zone($this->controller->message); //Message
 	
 		$mn = $this->controller->module_name;
+		$code = "";
+		$code_perm = "<script type='text/javascript'>
+							$(document).ready(function(){
+								document.".$this->controller->module_name."_add_form.".$mn."_obj9.checked = true;
+								$('#".$mn."_divP').hide();
+							});
+						</script>";
 		
 		sl_form::start($mn,$id);
 		
-		if ($id != 0) { $utitle = $this->slash->trad_word("EDIT");
-		} else { $utitle = $this->slash->trad_word("ADD");}
-		
+		if ($id != 0) { 
+			$utitle = $this->slash->trad_word("EDIT");
+			if (strtotime($values["unpublish_date"]) == 0) {
+				$values["permanent"] = 1;
+				$code = $code_perm;
+			}else{ $values["permanent"] = 0; }
+		} else { 
+			$utitle = $this->slash->trad_word("ADD");
+			$values["permanent"] = 1;	
+			$code = $code_perm;
+		}
 		
 		echo "<div class='sl_adm_form_top'>";
 			sl_interface::create_title($mn,$this->slash->trad_word("ARTICLES_TITLE"),$utitle);
 			sl_interface::create_buttons($mn,array("save","back"));
 		echo "</div>";
 		
-		
-		
+		//tabs
 		$myTabs = new sl_tabs();
-		$myTabs->addTab("main_general",$this->slash->trad_word("ARTICLES_TAB_GENERAL"),"<i class='icon-th-large'></i>");
-		$myTabs->addTab("main_config",$this->slash->trad_word("ARTICLES_TAB_CONFIG"),"<i class='icon-wrench'></i>");
-		$myTabs->addTab("main_ref",$this->slash->trad_word("ARTICLES_TAB_REF"),"<i class='icon-search'></i>");
+		
+		$err_class = "sl_adm_tabs-on-error";
+		$err_main_general = null;
+		$err_main_config = null;
+		$err_main_ref = null;
+		if (!empty($errors[1]["message"])) { $err_main_general = $err_class;} 
+		if (!empty($errors[8]["message"]) || !empty($errors[10]["message"])) {$err_main_config = $err_class;}
+		
+		$myTabs->addTab("main_general",$this->slash->trad_word("ARTICLES_TAB_GENERAL"),"<i class='icon-th-large'></i>",$err_main_general);
+		$myTabs->addTab("main_config",$this->slash->trad_word("ARTICLES_TAB_CONFIG"),"<i class='icon-wrench'></i>",$err_main_config);
+		$myTabs->addTab("main_ref",$this->slash->trad_word("ARTICLES_TAB_REF"),"<i class='icon-search'></i>",$err_main_ref);
+		
 		$myTabs->setCurrent("main_general");
+		
+		//have an error
+		if ($err_main_general !== null){ $myTabs->setCurrent("main_general"); }
+		if ($err_main_config !== null){ $myTabs->setCurrent("main_config"); }
+		if ($err_main_ref !== null){ $myTabs->setCurrent("main_ref"); }
+
 		$myTabs->render();
 		
 		//General
 		$myTabs->startTab("main_general");
 
 			sl_form::title($this->slash->trad_word("TITLE")." : ");
+			if (!isset($values["title"])){$values["title"] = null;}
 			sl_form::input($mn,1,array("value" => $values["title"]));
-			if ($errors[1]["message"]) { sl_form::error($errors[1]["message"]); }
+			if (!empty($errors[1]["message"])) { sl_form::br(1); sl_form::error($errors[1]["message"]); }
 			sl_form::br(2);
 			
 			/* Load categories */
@@ -183,15 +217,20 @@ class sla_articles_view extends slaView implements iView{
 						
 			sl_form::title($this->slash->trad_word("CATEGORIES")." : ");
 			sl_form::br(2);
-			sl_form::select_multiple($mn,2,array("selected" => $categories_selected, "values" => $row_cat_ids, "texts" => $row_cat_text, "class" => "multiselect" ));
+			sl_form::select_multiple($mn,2,array("selected" => $categories_selected, 
+													"values" => $row_cat_ids, 
+													"texts" => $row_cat_text, 
+													"class" => "multiselect" ));
 			sl_form::br(2);
 			
 			sl_form::title($this->slash->trad_word("DESCRIPTION")." : ");
 			sl_form::br(2);
+			if (!isset($values["content"])){$values["content"] = null;}
 			sl_form::ckeditor($mn,3,array("value"=>$values["content"]));
 			sl_form::br(2);
 
 			sl_form::title($this->slash->trad_word("ARTICLES_RESPONSIVE_IMAGES")." : ");
+			if (!isset($values["responsive_images"])){$values["responsive_images"] = 0;}
 			sl_form::checkbox($mn,6,array("value" => $values["responsive_images"]));
 			sl_form::br(2);
 
@@ -205,6 +244,7 @@ class sla_articles_view extends slaView implements iView{
 			sl_form::br(2);
 			
 			sl_form::title($this->slash->trad_word("ACTIVE")." : ");
+			if (!isset($values["enabled"])){$values["enabled"] = 1;}
 			sl_form::checkbox($mn,5,array("value" => $values["enabled"]));
 										
 
@@ -213,13 +253,44 @@ class sla_articles_view extends slaView implements iView{
 		//Configuration
 		$myTabs->startTab("main_config");
 			
-			echo "
-				    date de création <br/>
-				    date de publication<br/>
-				    date de fin de publication<br/>
-				    auteur";
+			$js_perm = "onclick=\"javascript:$('#".$mn."_divP').toggle();\"";
 			
+			if (!isset($values["username"])){
+				$row_user = $this->slash->get_admin_infos();
+				$values["username"] = $row_user["name"];
+			}
+			sl_form::title($this->slash->trad_word("AUTHOR")." : ".$values["username"]);
 			
+			sl_form::br(2);
+			if (!isset($values["created_date"])){$values["created_date"] = date("Y-m-d H:i:s");}
+			sl_form::title($this->slash->trad_word("ARTICLES_CREATED_DATE")." : ".date("d/m/Y H:i:s",strtotime($values["created_date"])));
+			
+			sl_form::br(2);
+			
+			sl_form::title($this->slash->trad_word("ARTICLES_PUBLISH_DATE")." : ");
+			if (!isset($values["publish_date"])){$values["publish_date"] = date("Y-m-d H:i:s");}
+			sl_form::datetimeBS($mn,8,array("value" => $values["publish_date"]));
+			if (!empty($errors[8]["message"])) { sl_form::br(1); sl_form::error($errors[8]["message"]); sl_form::br(1);}
+			
+			sl_form::br(1);
+			
+			sl_form::title($this->slash->trad_word("ARTICLES_PERMANENT")." : ");
+			if (!isset($values["permanent"])){$values["permanent"] = 1;}
+			sl_form::checkbox($mn,9,array("value" => $values["permanent"],"js"=>$js_perm));
+			
+			sl_form::br(2);
+			
+			echo "<div id='".$mn."_divP' style='padding:10px;border:1px #bbb solid; background-color:#DDD'>";
+				
+				sl_form::title($this->slash->trad_word("ARTICLES_UNPUBLISH_DATE")." : ");
+				if (!isset($values["unpublish_date"])){$values["unpublish_date"] = date("Y-m-d H:i:s",strtotime("+1 week"));}
+				sl_form::datetimeBS($mn,10,array("value" => $values["unpublish_date"]));
+				if (!empty($errors[10]["message"])) { sl_form::br(1); sl_form::error($errors[10]["message"]); sl_form::br(1); }
+				
+				sl_form::br(1);
+			
+			echo "</div>";
+
 		$myTabs->endTab();
 		
 		//Search optimization
@@ -236,6 +307,8 @@ class sla_articles_view extends slaView implements iView{
 		
 			
 		$myTabs->endTab();
+		
+		echo $code;
 		
 		sl_form::end();
 	

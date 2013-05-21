@@ -29,9 +29,9 @@ abstract class slaController{
 	public $params;
 	public $module_id;
 	public $module_name;
+	public $message;
 	
 	protected $mode;
-	protected $message;
 	protected $errors;
 	protected $datas;
 

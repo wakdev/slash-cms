@@ -548,7 +548,7 @@ class sl_form {
 	 */
 	public static function dateBS($module_name,$field_id,$options=null) {
 	
-		echo "<div class='well'>";
+		echo "<div class='sl_date'>";
 		echo "<div class='input-append date' id='".$module_name."_div".$field_id."' data-date='".$options["value"]."' data-date-format='dd-mm-yyyy'>";
 		echo "<input class='span2' id='".$module_name."_obj".$field_id."' name='".$module_name."_obj".$field_id."' size='16' type='text' value='".$options["value"]."'>";
 		echo "<span class='add-on'><i class='icon-th'></i></span>";
@@ -560,6 +560,42 @@ class sl_form {
 		echo "	});</script>";
 		
 		echo "</div>";
+	}
+	
+	/**
+	 * Show datetime bootstrap field
+	 * @param string $module_name Module name
+	 * @param string/int $field_id Field ID
+	 * @param array $options Field options
+	 */
+	public static function datetimeBS($module_name,$field_id,$options=null) {
+	
+		$created_date_timestamp = strtotime($options["value"]);
+			
+		if (!isset($options["value"]) || $created_date_timestamp == 0) {
+			$created_date = date("d-m-Y");
+			$created_time = date("H:i:s");
+		}else{
+			$created_date = date("d-m-Y",$created_date_timestamp);
+			$created_time = date("H:i:s",$created_date_timestamp);
+		}
+		
+		echo "<div class='sl_date'>
+				<div class='input-append date' id='".$module_name."_div".$field_id."_date' data-date='".$created_date."' data-date-format='dd-mm-yyyy'>
+						<input class='span2' id='".$module_name."_obj".$field_id."_date' name='".$module_name."_obj".$field_id."_date' size='16' type='text' value='".$created_date."'>
+								<span class='add-on'><i class='icon-th'></i></span>
+				</div>
+			</div>";
+		
+		echo "<div class='sl_time'>";
+			sl_form::input($module_name,$field_id."_time",array("value" => $created_time , "size"=>10));
+		echo "</div>";
+	
+		echo "	<script type='text/javascript'>
+					$(document).ready(function(){ 
+						$('#".$module_name."_div".$field_id."_date').datepicker();
+				});</script>";
+	
 	}
 	
 	    

@@ -218,7 +218,7 @@ class sla_news_view extends slaView implements iView{
 		
 		if (!isset($values["timein"])) {$values["timein"] = "";};
 		sl_form::title($this->slash->trad_word("NEWS_PUBLISH_TIME")." ( HH:MM ) : ");
-		sl_form::input($mn,4,array("value" => $values["timein"]));
+		sl_form::input($mn,4,array("value" => $values["timein"], "size"=>10));
 		if (isset($errors[4]["message"])) {
 			sl_form::error($errors[4]["message"]);
 		}
@@ -245,7 +245,7 @@ class sla_news_view extends slaView implements iView{
 			
 			if (!isset($values["timeout"])) {$values["timeout"] = "";};
 			sl_form::title($this->slash->trad_word("NEWS_UNPUBLISH_TIME")." ( HH:MM ) : ");
-			sl_form::input($mn,7,array("value" => $values["timeout"]));
+			sl_form::input($mn,7,array("value" => $values["timeout"], "size"=>10));
 			if (isset($errors[7]["message"])) {
 				sl_form::error($errors[7]["message"]);
 			}

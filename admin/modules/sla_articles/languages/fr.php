@@ -36,10 +36,14 @@ define("ARTICLES_TAB_REF", "R&eacute;f&eacute;rencement");
 
 define("ARTICLES_IN_PROGRESS", "En cours");
 define("ARTICLES_PAST", "Expir&eacute;es");
+define("ARTICLES_CREATED_DATE", "Date de cr&eacute;ation");
+define("ARTICLES_CREATED_TIME", "Heure de cr&eacute;ation");
 define("ARTICLES_PUBLISH_DATE", "Date de publication");
 define("ARTICLES_PUBLISH_TIME", "Heure de publication");
 define("ARTICLES_UNPUBLISH_DATE", "Date de d&eacute;publication");
 define("ARTICLES_UNPUBLISH_TIME", "Heure de d&eacute;publication");
 define("ARTICLES_PERMANENT", "Article permanent");
 define("ARTICLES_RESPONSIVE_IMAGES", "Adapter les images &agrave; l'&eacute;cran.");
+define("ARTICLES_ERROR_PUBLISH_DATE_INF", "La date de publication ne peux &ecirc;tre inf&eacute;rieur &agrave; la date de d&eacute;publication.");
+define("ARTICLES_ERROR_UNPUBLISH_DATE_INF_NOW", "La date d&eacute;publication ne peux &ecirc;tre inf&eacute;rieur &agrave; la date d'aujourd'hui.");
 ?>
