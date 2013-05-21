@@ -105,19 +105,13 @@ class sl_filters {
 		$url = parse_url($url); 
 		
 		if (isset($url["query"])) {
-		
-			$queryParts = explode('&', $url["query"]);
-	   
 			$params = array();
-			foreach ($queryParts as $param) {
-				$item = explode('=', $param);
-				$params[$item[0]] = $item[1];
-			}
-	   
+			parse_str($url["query"], $params);
 			return $params; 
 		}else{
 			return null;
 		}
+		
 	}
 	
 }
