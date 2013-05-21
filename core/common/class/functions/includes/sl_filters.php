@@ -68,17 +68,20 @@ class sl_filters {
 	/**
 	 * Compare date
 	 * @param $first:date First date
-	 * @param $first:date First date
+	 * @param $second:date Seconde date
 	 * @return True if date passed or return false
 	 */
 	public function date_compare($first,$second) {
-	
-		if (strtotime($first) <  strtotime($second) ) {
-			return true;
-		}else{
-			return false;
-		}
 		
+		try {
+			$date1 = new DateTime($first);
+			$date2 = new DateTime($second);
+			return ($date1 < $date2);
+		} catch (Exception $e) {
+			//@todo show warning and callback exception
+			return null;
+		}
+
 	}
 	
 	/**
@@ -86,13 +89,8 @@ class sl_filters {
 	* @param $mail:mail string
 	* @return True or false
 	*/
-	public function check_mail($mail) 
-	{ 
-		$syntaxe='#^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$#'; 
-		if(preg_match($syntaxe,$mail)) 
-			return true; 
-		else 
-			return false; 
+	public function check_mail($mail) { 
+		return filter_var($mail, FILTER_VALIDATE_EMAIL);
 	}
 	
 	/**

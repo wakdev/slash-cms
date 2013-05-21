@@ -149,13 +149,13 @@ class sla_users_view extends slaView implements iView{
 					if (!isset($values["_password"])){$values["_password"]="";}
 					sl_form::title($this->slash->trad_word("PASSWORD")." * : ");
 					sl_form::password($mn,3,array("value" => $values["_password"]));
-					if ($errors[3]["message"]) { sl_form::error($errors[3]["message"]); }
+					if (isset($errors[3]["message"])) { sl_form::error($errors[3]["message"]); }
 					sl_form::br(2);
 					
 					if (!isset($values["_password2"])){$values["_password2"]="";}
 					sl_form::title($this->slash->trad_word("PASSWORD")." * : ");
 					sl_form::password($mn,4,array("value" => $values["_password2"]));
-					if ($errors[4]["message"]) { sl_form::error($errors[4]["message"]); }
+					if (isset($errors[4]["message"])) { sl_form::error($errors[4]["message"]); }
 					sl_form::br(2);
 					
 					if (!isset($values["mail"])){$values["mail"]="";}

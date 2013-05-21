@@ -139,6 +139,7 @@ define("SELECTION_REQUIRE", "Please select one or more items");
 
 //Errors
 define("ERROR_FIELD_EMPTY", "Field is empty !");
+define("ERROR_FIELD_INCORRECT", "Field is faulty !");
 define("ERROR_TITLE_FIELD_EMPTY", "Field title is empty !");
 define("ERROR_PWD_SHORT","Password should be at least 3 caracters long");
 define("ERROR_FIELD_CHECK", "Some fields are incorrect !");

@@ -139,6 +139,7 @@ define("SELECTION_REQUIRE", "Merci de s&eacute;lectionner un ou plusieurs &eacut
 
 //Errors
 define("ERROR_FIELD_EMPTY", "Le champs est vide !");
+define("ERROR_FIELD_INCORRECT", "Le champs est incorrect !");
 define("ERROR_TITLE_FIELD_EMPTY", "Le champs Titre est vide !");
 define("ERROR_PWD_SHORT","Le mot de passe doit contenir au moin 3 caract&egrave;res");
 define("ERROR_FIELD_CHECK", "Certains champs sont incorrects !");
