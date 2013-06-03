@@ -55,7 +55,7 @@ class sla_secure_view extends slaView implements iView {
 					
 					<div class='sla_secure_zn_input login_text'>
 						
-						<input id='sla_secure_login' name='sla_secure_login' type='text' class='login_text' placeholder='".$this->slash->trad_word('SECURE_CONNEXION_LOGIN')."' >
+						<input id='sla_secure_login' name='sla_secure_login' type='text' class='login_text' placeholder='".$this->slash->trad_word('SECURE_CONNEXION_LOGIN')."' value='".$this->controller->slash->sl_param("sla_secure_login","POST")."'>
 					</div>
 					<div class='sla_secure_zn_input login_text'>
 						<input id='sla_secure_password' name='sla_secure_password' type='password' class='login_text'  placeholder='".$this->slash->trad_word('SECURE_CONNEXION_PASSWORD')."'>
