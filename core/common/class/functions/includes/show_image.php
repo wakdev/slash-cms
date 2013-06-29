@@ -1,4 +1,13 @@
 <?php
+/**
+* @package		SLASH-CMS
+* @subpackage	show_image
+* @version		show_image.php - Version 13.5.2
+* @author		Julien Veuillet [http://www.wakdev.com]
+* @copyright	Copyright(C) 2009 - Today. All rights reserved.
+* @license		GNU/GPL
+*/
+
 //Include config
 //Global includes
 include ("../../../../common/constants/sl_constants.php"); //Defines
@@ -236,6 +245,7 @@ $height;
 if (isset($_GET["url"]) && $_GET["url"] != ""){$url = $_GET["url"];}
 if (isset($_GET["width"]) && $_GET["width"] != ""){$width = $_GET["width"];} else { $width="auto"; }
 if (isset($_GET["height"]) && $_GET["height"] != ""){$height = $_GET["height"];} else { $height="auto"; }
+$url = (!file_exists($url))? "../../../../../".$url:$url; // Set path to relative if the file not found
 
 if (file_exists($url)) {
 

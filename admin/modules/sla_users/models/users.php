@@ -195,7 +195,6 @@ class users extends slaModel implements iModel {
 	public function save_item($id,$values){
 
 		if ($id != 0) {
-
 			$values=$this->slash->database->escapeArray($values);			
 			$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."users set 
 					name='".$values["name"]."',
@@ -209,7 +208,15 @@ class users extends slaModel implements iModel {
 					");
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
-			}	
+			}
+			
+			//Update password
+			if (!empty($values["_password"])) {
+				$this->slash->database->setQuery("UPDATE ".$this->slash->database_prefix."users set password='".sha1($values["_password"])."' WHERE id='".$values["id"]."'");
+				if (!$this->slash->database->execute()) {
+					$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
+				}
+			}
 					
 		} else {
 								
@@ -266,6 +273,7 @@ class users extends slaModel implements iModel {
 	public function check_fields($values) {
 		
 		$mess = array();
+		$filters = new sl_filters();
 		
 		//Login verification
 		$sql_values=$this->slash->database->escapeArray($values);
@@ -301,6 +309,11 @@ class users extends slaModel implements iModel {
 				$mess[4]["message"] = $this->slash->trad_word("ERROR_PWD_SHORT");
 			}
 		}
+		
+		if (!$filters->check_mail($values["mail"])){
+			$mess[5]["message"] = $this->slash->trad_word("ERROR_FIELD_INCORRECT");
+		}
+		
 		if (count($mess) > 0){ return $mess; } else { return null; }
 	
 	}

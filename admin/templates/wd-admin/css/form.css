@@ -58,3 +58,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	width:auto;
 }
 
+.sl_date, .sl_time {
+	display:inline;
+}
+
+.sl_time{
+	margin-left:10px;
+}
+
+.sl_date div{
+	display:inline;
+}

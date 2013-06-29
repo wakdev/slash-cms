@@ -34,9 +34,13 @@ define("ARTICLES_TAB_CONFIG", "Configuration");
 define("ARTICLES_TAB_REF", "Search optimization");
 define("ARTICLES_IN_PROGRESS", "In progress");
 define("ARTICLES_PAST", "Expire");
+define("ARTICLES_CREATED_DATE", "Created date");
+define("ARTICLES_CREATED_TIME", "Created time");
 define("ARTICLES_PUBLISH_DATE", "Publish date");
 define("ARTICLES_PUBLISH_TIME", "Publish time");
 define("ARTICLES_UNPUBLISH_DATE", "Unpublish date");
 define("ARTICLES_UNPUBLISH_TIME", "Unpublish time");
 define("ARTICLES_PERMANENT", "News permanent");
+define("ARTICLES_ERROR_PUBLISH_DATE_INF", "Date of publication can not be less than the date of unpublication.");
+define("ARTICLES_ERROR_UNPUBLISH_DATE_INF_NOW", "Unpublication date can not be less than today's date.");
 ?>

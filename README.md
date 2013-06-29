@@ -1,4 +1,4 @@
-Slash CMS
+![Slash CMS](http://data.slash-cms.com/logo/slashcms-160x160.png)
 ================================================
 ------------------
 Website : http://www.slash-cms.com
@@ -10,27 +10,9 @@ Installation guide
 
 1. Copy the files to your hosting server
 
-2. Import database from File: db_slashcms.sql
+2. Follow the setup process
 
-3. Set the configuration file: /core/config/sl_config.php
-
-4. Change permissions to 0775 of following folders and subfolder
-         
-          /cache
-          /medias
-          /tmp
-
-5. Connect to the administration with the following identifier:
-
-          User: admin
-          Password: admin
-
-    or the English version
-
-          User: admin-en
-          Password: admin
-
-6. Discover and share !
+3. Discover and share !
 
 Questions & Contact 
 -------------------
@@ -38,4 +20,17 @@ Email : contact@slash-cms.com
 
 Twitter : https://twitter.com/slashcms
 
+Project resources 
+-------------------
+http://data.slash-cms.com
+
+Developers / Contributors
+-------------------
+Wak : https://github.com/wakdev/
+
+Lowki : https://github.com/lowki/
+
+LPotherat : https://github.com/lpotherat/
+
+RBCreation : https://github.com/rbcreation/
 

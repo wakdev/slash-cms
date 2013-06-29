@@ -1,9 +1,9 @@
 <?php
 /**
 * @package		SLASH-CMS
-* @subpackage	SL_FUNCTIONS
-* @internal     Slash core functions
-* @version		sl_functions.php - Version 10.7.6
+* @subpackage	FR SLA_LOGS MODULE LANGUAGES
+* @internal     French logs module translate
+* @version		fr.php
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -23,25 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-/**
-* @file
-* @name sl_functions
-* @defgroup sl_functions functions
-* Slash functions
-* @{
-*/
+//Module SLA_LOGS
+define("SLA_LOGS_TITLE", "Gestion des logs");
+define("SLA_LOGS_DELETE_CONFIRM", "Supprimer les logs ?");
 
-include ("includes/html2text.php"); // HTML 2 text
-include ("includes/sl_files.php"); // files functions
-include ("includes/sl_images.php"); // images functions
-include ("includes/sl_text.php"); // text functions
-include ("includes/sl_seo.php"); // SEO functions
-include ("includes/sl_filters.php"); // filters functions
-include ("includes/sl_mail.php"); // slash interface functions
-include ("includes/sl_mobile.php"); // slash interface functions
-
-/** 
-* @} 
-*/
+define("SLA_LOGS_TYPE","Cat&eacute;gorie");
+define("SLA_LOGS_INFO","Information");
+define("SLA_LOGS_DATE","Date");
 
 ?>

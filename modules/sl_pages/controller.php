@@ -33,9 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 class sl_pages_controller extends slController implements iController{
-
-	
-	public $module_name = "sl_pages";
 	
 	
 	public $pages; //model
@@ -51,7 +48,14 @@ class sl_pages_controller extends slController implements iController{
 	   $this->pages = new pages($this);
 	   $this->view = new sl_pages_view($this);
 	   
-	   $this->data = $this->pages->load_page(intval($this->slash->sl_param("id","GET")));
+	   $id = $this->slash->sl_param("id","GET");
+	   $this->data = null;
+	   
+	   if (is_numeric($id)){
+	   		$this->data = $this->pages->load_page(intval($id));
+	   }
+	   
+	   
 		
 	   
 	}

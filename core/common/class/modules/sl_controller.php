@@ -28,9 +28,10 @@ abstract class slController{
 	public $slash; //Core Reference
 	public $params;
 	public $module_id;
+	public $module_name;
+	public $message;
 	
 	protected $mode;
-	protected $message;
 	protected $errors;
 	protected $datas;
 
@@ -38,9 +39,10 @@ abstract class slController{
 	* Contructor
 	* @param core_class_ref Core class reference
 	*/
-	function __construct(&$core_class_ref,$module_id,$module_params=null) {
+	function __construct(&$core_class_ref,$module_id,$module_name,$module_params=null) {
        $this->slash = $core_class_ref;
        $this->module_id = $module_id;
+       $this->module_name = $module_name;
        $this->setParams($module_params);
 	   $this->sl_construct();
 	}

@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	sla_pages
 * @internal     Admin pages module
-* @version		view.php - Version 11.5.30
+* @version		view.php - Version 13.5.2
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -137,7 +137,11 @@ class sla_pages_view extends slaView implements iView{
 			//sl_form::tinymce($mn,2,array("value"=>$values["content"], "css" => "../admin/templates/system/css/tinymce.css"));
 			sl_form::ckeditor($mn,2,array("value"=>$values["content"]));
 			sl_form::br(2);
-			
+
+			sl_form::title($this->slash->trad_word("SLA_PAGES_RESPONSIVE_IMAGES")." : ");
+			sl_form::checkbox($mn,4,array("value" => $values["responsive_images"]));
+			sl_form::br(2);
+
 			sl_form::title($this->slash->trad_word("ACTIVE")." : ");
 			sl_form::checkbox($mn,3,array("value" => $values["enabled"]));
 													

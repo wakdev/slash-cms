@@ -38,9 +38,6 @@ include ("views/default/view.php");
 include ("models/users.php");
 
 class sla_users_controller extends slaController implements iController{
-
-
-	public $module_name = "sla_users";
 	
 	public $users;
 	public $view;

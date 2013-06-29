@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	SL_PAGES
 * @internal     Front page module
-* @version		pages.php - Version 12.02.13
+* @version		pages.php - Version 13.5.2
 * @author		Julien veuillet
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -35,18 +35,18 @@ class pages extends slModel implements iModel{
 	public function load_page($id){
 	
 		if ($id) {
-			$this->slash->database->setQuery("SELECT * FROM sl_pages WHERE enabled=1 AND id=".intval($id));
+			$this->slash->database->setQuery("SELECT * FROM ".$this->slash->database_prefix."pages WHERE enabled=1 AND id=".intval($id));
 			if (!$this->slash->database->execute()) {
 				$this->slash->show_fatal_error("QUERY_ERROR",$this->slash->database->getError());
 			}
 			$row = $this->slash->database->fetch("ASSOC");
+			if($row['responsive_images']) $row['content'] = sl_images::set_responsive($row['content']);
 			return $row;
 		} else {
 			return NULL;
 		}
 		
 	}
-	
 	
 	
 	/*

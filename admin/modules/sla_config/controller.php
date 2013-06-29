@@ -36,9 +36,6 @@ include ("models/config.php");
 
 
 class sla_config_controller extends slaController implements iController{
-
-	
-	public $module_name = "sla_config";
 	
 	public $config;
 	public $view;

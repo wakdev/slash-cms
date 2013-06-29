@@ -34,10 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 include ("views/default/view.php");
 
 class sla_medias_controller extends slaController implements iController{
-
-	
-	public $module_name = "sla_medias";
-	
 	
 	public $view;
 	
@@ -46,8 +42,7 @@ class sla_medias_controller extends slaController implements iController{
 	
 	*/
 	function sla_construct() {
-       
-	    $this->view = new sla_medias_view($this);
+		$this->view = new sla_medias_view($this);
 	}
 	
 

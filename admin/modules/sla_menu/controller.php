@@ -41,9 +41,6 @@ include ("models/articles.php");
 
 class sla_menu_controller extends slaController implements iController{
 
-	
-	public $module_name = "sla_menu";
-	
 	public $menus;
 	public $pages;
 	public $articles;

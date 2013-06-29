@@ -205,7 +205,12 @@ class sla_news_view extends slaView implements iView{
 				"accept" => "gif|jpg|txt|pdf"));
 		sl_form::br(2);
 		
-		if (!isset($values["datein"])) {$values["datein"] = "";};
+		if (!isset($values["datein"]) || strtotime($values["datein"]) == 0) {
+			$values["datein"] = date("d-m-Y");
+		}else{
+			$values["datein"] = date("d-m-Y",strtotime($values["datein"]));
+		}
+		
 		sl_form::title($this->slash->trad_word("NEWS_PUBLISH_DATE")." : ");
 		sl_form::dateBS($mn,3,array("value" => $values["datein"]));
 		if (isset($errors[3]["message"])) { sl_form::error($errors[3]["message"]); }
@@ -213,7 +218,7 @@ class sla_news_view extends slaView implements iView{
 		
 		if (!isset($values["timein"])) {$values["timein"] = "";};
 		sl_form::title($this->slash->trad_word("NEWS_PUBLISH_TIME")." ( HH:MM ) : ");
-		sl_form::input($mn,4,array("value" => $values["timein"]));
+		sl_form::input($mn,4,array("value" => $values["timein"], "size"=>10));
 		if (isset($errors[4]["message"])) {
 			sl_form::error($errors[4]["message"]);
 		}
@@ -226,7 +231,11 @@ class sla_news_view extends slaView implements iView{
 		
 		echo "<div id='".$mn."_divP' style='padding:10px;border:1px #bbb solid; background-color:#DDD'>";
 		
-			if (!isset($values["dateout"])) {$values["dateout"] = "";};
+			if (!isset($values["dateout"]) || strtotime($values["dateout"]) == 0) {
+				$values["dateout"] = date("d-m-Y");
+			}else{
+				$values["dateout"] = date("d-m-Y",strtotime($values["dateout"]));
+			}
 			sl_form::title($this->slash->trad_word("NEWS_UNPUBLISH_DATE")." : ");
 			sl_form::dateBS($mn,6,array("value" => $values["dateout"],));
 			if (isset($errors[6]["message"])) {
@@ -236,7 +245,7 @@ class sla_news_view extends slaView implements iView{
 			
 			if (!isset($values["timeout"])) {$values["timeout"] = "";};
 			sl_form::title($this->slash->trad_word("NEWS_UNPUBLISH_TIME")." ( HH:MM ) : ");
-			sl_form::input($mn,7,array("value" => $values["timeout"]));
+			sl_form::input($mn,7,array("value" => $values["timeout"], "size"=>10));
 			if (isset($errors[7]["message"])) {
 				sl_form::error($errors[7]["message"]);
 			}

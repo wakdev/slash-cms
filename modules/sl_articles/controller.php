@@ -33,10 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 class sl_articles_controller extends slController implements iController{
-
-	
-	public $module_name = "sl_articles";
-	
 	
 	public $articles; //model
 	public $view; //view
@@ -91,11 +87,15 @@ class sl_articles_controller extends slController implements iController{
 	*/
 	public function load() {
 		
-		$row_article = $this->articles->load_article(intval($this->slash->sl_param("id","GET")));
-		if (isset($row_article["title"])){
-			$this->view->show_article($row_article);
-		}else{
-			$this->view->show_404();
+		$id = $this->slash->sl_param("id","GET");
+		
+		if (is_numeric($id)){
+			$row_article = $this->articles->load_article(intval($id));
+			if (isset($row_article["title"])){
+				$this->view->show_article($row_article);
+			}else{
+				$this->view->show_404();
+			}
 		}
 	}
 	

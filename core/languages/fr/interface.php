@@ -115,6 +115,12 @@ define("INVALID_DATE", "La date est incorrecte");
 define("PRINT", "Imprimer");
 define("LANG_DATA_PRODUCT","Langue de contenu");
 define("LAST_USER","Dernier utilisateur");
+define("USER","Utilisateur");
+define("NO_FILES","Aucun fichier");
+
+define("DELETE_FILE_FAIL", "Suppression du fichier &eacute;chou&eacute;e");
+define("DELETE_DIR_FAIL", "Suppression du r&eacute;pertoire &eacute;chou&eacute;e");
+define("FILE_ALREADY_EXISTS", "Le fichier existe d&eacute;j&agrave;");
 
 //Messages
 define("SAVE_SUCCESS", "Enregistrement r&eacute;ussi");
@@ -122,6 +128,7 @@ define("SAVE_FAIL", "Enregistrement &eacute;chou&eacute;");
 define("EDIT_SUCCESS", "Modification r&eacute;ussie");
 define("EDIT_FAIL", "Modification &eacute;chou&eacute;e");
 define("DELETE_SUCCESS", "Suppression r&eacute;ussie");
+define("DELETE_FAIL", "Suppression &eacute;chou&eacute;e");
 define("ITEM_ENABLE_SUCCESS", "Publication r&eacute;ussie");
 define("ITEM_DISABLE_SUCCESS", "D&eacute;publication r&eacute;ussie");
 define("ITEM_UP_SUCCESS", "Modification r&eacute;ussie");
@@ -130,12 +137,12 @@ define("SELECTION_REQUIRE", "Merci de s&eacute;lectionner un ou plusieurs &eacut
 
 
 
-
-
 //Errors
 define("ERROR_FIELD_EMPTY", "Le champs est vide !");
+define("ERROR_FIELD_INCORRECT", "Le champs est incorrect !");
 define("ERROR_TITLE_FIELD_EMPTY", "Le champs Titre est vide !");
 define("ERROR_PWD_SHORT","Le mot de passe doit contenir au moin 3 caract&egrave;res");
+define("ERROR_FIELD_CHECK", "Certains champs sont incorrects !");
 
 
 

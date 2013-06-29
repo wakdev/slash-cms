@@ -1,7 +1,7 @@
 <?php
 /**
 * @package		SLASH-CMS
-* @version		index.php - Version 11.5.18
+* @version		index.php - Version 13.04.24
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -23,6 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //include core
 include ("core/slash.php");
-$slash = new Slash ();
+$slash = new Slash();
 $slash->show(); //show front office
 ?>

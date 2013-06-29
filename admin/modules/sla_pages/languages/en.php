@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	EN PAGES MODULE LANGUAGES
 * @internal     English pages module translate
-* @version		en.php - Version 10.1.19
+* @version		en.php - Version 13.5.2
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -27,4 +27,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Module SLA_PAGES
 define("SLA_PAGES_TITLE", "pages config");
 define("SLA_PAGES_DELETE_CONFIRM", "Delete this page ?");
+define("SLA_PAGES_RESPONSIVE_IMAGES", "Adapt images to screen size.");
 ?>

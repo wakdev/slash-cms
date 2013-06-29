@@ -1,9 +1,9 @@
 <?php
 /**
 * @package		SLASH-CMS
-* @subpackage	SL_INTERFACES
-* @internal     Slash interface functions
-* @version		sl_interfaces.php
+* @subpackage	EN LOGS MODULE LANGUAGES
+* @internal     English logs module translate
+* @version		en.php
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -23,10 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-include ("includes/sl_interface.php"); // slash interface functions
-include ("includes/sl_form.php"); // form functions
-include ("includes/sl_tabs.php"); // Tabs
 
+define("SLA_LOGS_TITLE", "Logs config");
+define("SLA_LOGS_DELETE_CONFIRM", "Delete logs ?");
 
-
+define("SLA_LOGS_TYPE","Categorie");
+define("SLA_LOGS_INFO","Information");
+define("SLA_LOGS_DATE","Date");
 ?>

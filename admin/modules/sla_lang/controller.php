@@ -26,10 +26,6 @@ include ("models/lang.php");
 
 class sla_lang_controller extends slaController implements iController {
 
-	
-	public $module_name = "sla_lang";
-	
-	
 	public $view;
 	public $lang;
 		

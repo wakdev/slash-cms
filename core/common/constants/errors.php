@@ -22,10 +22,19 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
- */
 
+*/
+
+//Global level
 define("SL_ERROR", 0);
 define("SL_INFO", 1);
 define("SL_DEBUG", 2);
+
+
+//sl_config errors
+define("SL_CONFIG_NOT_EXIST", 0);
+define("SETUP_NOT_DELETED", 1);
+define("SL_CONFIG_OK", 2);
+
 
 ?>

@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_admmenu`
+-- Structure de la table `admmenu`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_admmenu` (
+DROP TABLE IF EXISTS `bdd_prefix_admmenu`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_admmenu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
   `parent` int(11) unsigned NOT NULL,
@@ -39,13 +39,12 @@ CREATE TABLE IF NOT EXISTS `sl_admmenu` (
   PRIMARY KEY (`id`),
   KEY `enabled` (`enabled`),
   KEY `position` (`position`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
 
 --
--- Contenu de la table `sl_admmenu`
+-- Contenu de la table `admmenu`
 --
-
-INSERT INTO `sl_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en`, `icon`, `action`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title_en`, `icon`, `action`, `enabled`) VALUES
 (1, 'none', 0, 1, 'Site', 'Website', 'site.png', '#', 1),
 (2, 'none', 0, 3, 'Configuration', 'Config', 'config.png', '#', 1),
 (3, 'url_self', 1, 3, 'Gestion des articles', 'Articles', 'articles.png', 'index.php?mod=sla_articles', 1),
@@ -63,19 +62,21 @@ INSERT INTO `sl_admmenu` (`id`, `type`, `parent`, `position`, `title_fr`, `title
 (38, 'url_self', 2, 4, 'Gestion des Pays', 'Country management', 'country.png', 'index.php?mod=sla_country', 1),
 (39, 'url_self', 2, 5, 'Gestion des Langues', 'Languages management', 'lang.png', 'index.php?mod=sla_lang', 1),
 (47, 'url_self', 2, 6, 'Editer la configuration', 'Config', 'config.png', 'index.php?mod=sla_config', 1),
-(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1);
+(48, 'url_self', 10, 1, 'M&eacute;diath&egrave;que', 'Medias', 'media.png', 'index.php?mod=sla_medias', 1),
+(49, 'url_self', 2, 7, 'Gestion des logs', 'Logs configs', 'table_multiple.png', 'index.php?mod=sla_logs', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_articles`
+-- Structure de la table `articles`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_articles` (
+DROP TABLE IF EXISTS `bdd_prefix_articles`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_articles` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
+  `responsive_images` tinyint(1) unsigned NOT NULL,
   `alias` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   `meta_keywords` varchar(255) NOT NULL,
@@ -91,10 +92,10 @@ CREATE TABLE IF NOT EXISTS `sl_articles` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_attachments`
+-- Structure de la table `attachments`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_attachments` (
+DROP TABLE IF EXISTS `bdd_prefix_attachments`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_attachments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `id_module` int(11) unsigned NOT NULL,
@@ -108,22 +109,16 @@ CREATE TABLE IF NOT EXISTS `sl_attachments` (
   KEY `state` (`state`),
   KEY `id_element` (`id_element`),
   KEY `id_module` (`id_module`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `sl_attachments`
---
-
-INSERT INTO `sl_attachments` (`id`, `id_user`, `id_module`, `id_element`, `id_field`, `filename`, `position`, `state`) VALUES
-(13, 0, 0, 0, '', 'git.txt', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_categories`
+-- Structure de la table `categories`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_categories` (
+DROP TABLE IF EXISTS `bdd_prefix_categories`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -131,21 +126,12 @@ CREATE TABLE IF NOT EXISTS `sl_categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Contenu de la table `sl_categories`
---
-
-INSERT INTO `sl_categories` (`id`, `id_user`, `title`, `description`) VALUES
-(1, 1, 'Wiki', '<p>\r\n	Articles du wiki</p>\r\n'),
-(2, 1, 'Projet', '<p>\r\n	Articles du projet</p>\r\n');
-
--- --------------------------------------------------------
 
 --
--- Structure de la table `sl_config`
+-- Structure de la table `config`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_config` (
+DROP TABLE IF EXISTS `bdd_prefix_config`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_config` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `config_name` varchar(50) NOT NULL,
   `config_value` varchar(50) NOT NULL,
@@ -153,10 +139,10 @@ CREATE TABLE IF NOT EXISTS `sl_config` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
--- Contenu de la table `sl_config`
+-- Contenu de la table `config`
 --
 
-INSERT INTO `sl_config` (`id`, `config_name`, `config_value`) VALUES
+INSERT INTO `bdd_prefix_config` (`id`, `config_name`, `config_value`) VALUES
 (1, 'site_name', 'slash cms'),
 (2, 'global_description', 'slash : le cms intuitif'),
 (3, 'global_keywords', 'cms, slash, slash-cms, siteweb'),
@@ -171,10 +157,10 @@ INSERT INTO `sl_config` (`id`, `config_name`, `config_value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_country`
+-- Structure de la table `country`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_country` (
+DROP TABLE IF EXISTS `bdd_prefix_country`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_country` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `shortname` varchar(8) NOT NULL,
@@ -183,19 +169,19 @@ CREATE TABLE IF NOT EXISTS `sl_country` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Contenu de la table `sl_country`
+-- Contenu de la table `country`
 --
 
-INSERT INTO `sl_country` (`id`, `name`, `shortname`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_country` (`id`, `name`, `shortname`, `enabled`) VALUES
 (1, 'France', 'Fr', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_joins`
+-- Structure de la table `joins`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_joins` (
+DROP TABLE IF EXISTS `bdd_prefix_joins`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_joins` (
   `id_mod1` int(10) unsigned NOT NULL,
   `id_mod2` int(10) unsigned NOT NULL,
   `id_mod3` int(10) unsigned NOT NULL,
@@ -214,22 +200,15 @@ CREATE TABLE IF NOT EXISTS `sl_joins` (
   KEY `id3` (`id3`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `sl_joins`
---
 
-INSERT INTO `sl_joins` (`id_mod1`, `id_mod2`, `id_mod3`, `id1`, `id2`, `id3`, `item_data`, `item_order`, `item_enabled`) VALUES
-(13, 7, 0, 3, 2, 0, '', 0, 0),
-(13, 7, 0, 3, 1, 0, '', 0, 0),
-(13, 7, 0, 4, 2, 0, '', 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_lang`
+-- Structure de la table `lang`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_lang` (
+DROP TABLE IF EXISTS `bdd_prefix_lang`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_lang` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `shortname` varchar(8) NOT NULL,
@@ -238,10 +217,10 @@ CREATE TABLE IF NOT EXISTS `sl_lang` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
--- Contenu de la table `sl_lang`
+-- Contenu de la table `lang`
 --
 
-INSERT INTO `sl_lang` (`id`, `name`, `shortname`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_lang` (`id`, `name`, `shortname`, `enabled`) VALUES
 (2, 'Anglais', 'en', 0),
 (1, 'Fran&ccedil;ais', 'fr', 1),
 (4, 'Italien', 'it', 0),
@@ -256,10 +235,11 @@ INSERT INTO `sl_lang` (`id`, `name`, `shortname`, `enabled`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_logs`
+-- Structure de la table `logs`
 --
 
-CREATE TABLE IF NOT EXISTS `sl_logs` (
+DROP TABLE IF EXISTS `bdd_prefix_logs`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `log_type` varchar(45) NOT NULL,
   `log_url` varchar(255) NOT NULL,
@@ -273,10 +253,10 @@ CREATE TABLE IF NOT EXISTS `sl_logs` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_menu`
+-- Structure de la table `menu`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_menu` (
+DROP TABLE IF EXISTS `bdd_prefix_menu`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `menu_id` int(11) unsigned NOT NULL,
   `pri_type` tinyint(4) unsigned NOT NULL,
@@ -295,25 +275,15 @@ CREATE TABLE IF NOT EXISTS `sl_menu` (
   KEY `home` (`home`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
---
--- Contenu de la table `sl_menu`
---
 
-INSERT INTO `sl_menu` (`id`, `menu_id`, `pri_type`, `sec_type`, `parent`, `position`, `title`, `action`, `home`, `enabled`) VALUES
-(1, 0, 1, 'horizontal', 0, 0, 'Principal', '#', 0, 1),
-(2, 1, 2, 'url_self', 0, 0, 'Présentation', 'index.php?mod=sl_pages&id=1', 1, 1),
-(3, 1, 2, 'url_self', 0, 1, 'Actualités', 'index.php?mod=sl_pages&id=2', 0, 1),
-(5, 1, 2, 'url_self', 0, 2, 'Téléchargement', 'index.php?mod=sl_pages&id=3', 0, 1),
-(6, 1, 2, 'url_self', 0, 4, 'Contact', 'index.php?mod=sl_pages&id=4', 0, 1),
-(15, 1, 2, 'url_self', 0, 3, 'Documentation', 'index.php?mod=sl_pages&id=5', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_modules`
+-- Structure de la table `modules`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_modules` (
+DROP TABLE IF EXISTS `bdd_prefix_modules`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_modules` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
@@ -322,13 +292,13 @@ CREATE TABLE IF NOT EXISTS `sl_modules` (
   `initialize_order` int(11) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
--- Contenu de la table `sl_modules`
+-- Contenu de la table `modules`
 --
 
-INSERT INTO `sl_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`, `enabled`) VALUES
+INSERT INTO `bdd_prefix_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_order`, `enabled`) VALUES
 (1, 'site', 'sl_header', 'modules/sl_header/', '', 1, 1),
 (2, 'site', 'sl_menu', 'modules/sl_menu/', '', 2, 1),
 (3, 'admin', 'sla_secure', 'modules/sla_secure/', '', 1, 1),
@@ -348,15 +318,16 @@ INSERT INTO `sl_modules` (`id`, `type`, `name`, `url`, `params`, `initialize_ord
 (46, 'admin', 'sla_lang', 'modules/sla_lang/', '', 0, 1),
 (56, 'site', 'sl_articles', 'modules/sl_articles/', '', 0, 1),
 (59, 'admin', 'sla_config', 'modules/sla_config/', '', 0, 1),
-(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1);
+(60, 'admin', 'sla_medias', 'modules/sla_medias/', '', 0, 1),
+(61, 'admin', 'sla_logs', 'modules/sla_logs/', '', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_news`
+-- Structure de la table `news`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_news` (
+DROP TABLE IF EXISTS `bdd_prefix_news`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_news` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `datein` datetime NOT NULL,
@@ -368,49 +339,34 @@ CREATE TABLE IF NOT EXISTS `sl_news` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
--- Contenu de la table `sl_news`
---
-
-INSERT INTO `sl_news` (`id`, `id_user`, `datein`, `dateout`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, '2013-01-30 13:37:00', '0000-00-00 00:00:00', 'Mise en ligne du cms', '<p>\r\n	J&#39;ai le plaisir de vous annoncer la mise en ligne</p>\r\n', '2013-01-29 13:18:21', 1),
-(2, 1, '2013-02-01 10:10:00', '2013-02-22 20:00:00', 'Aenean nisl odio', '<p>\r\n	ornare eu suscipit sed, congue vestibulum tortor. Aliquam sit amet velit odio. In porttitor bibendum nibh, eu convallis leo tincidunt nec. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In vel leo dui, nec egestas lacus. Donec mi magna, fringilla vel ornare commodo, ultricies vel leo. Praesent tincidunt, orci non ornare ullamcorper, massa tortor tempor sem, sit amet bibendum libero erat eu eros.</p>\r\n', '2013-02-01 12:36:19', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_pages`
+-- Structure de la table `pages`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_pages` (
+DROP TABLE IF EXISTS `bdd_prefix_pages`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_pages` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` int(11) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `date` datetime NOT NULL,
+  `responsive_images` tinyint(1) unsigned NOT NULL,
   `enabled` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `enabled` (`enabled`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
---
--- Contenu de la table `sl_pages`
---
 
-INSERT INTO `sl_pages` (`id`, `id_user`, `title`, `content`, `date`, `enabled`) VALUES
-(1, 1, 'Présentation', '<p>\r\n	Slash CMS, est une application web open source qui va vous permettre de cr&eacute;er<br />\r\n	et g&eacute;rer votre site internet tr&egrave;s simplement.<br />\r\n	<br />\r\n	Avec ce syst&egrave;me de gestion de contenu sur internet, vous allez pouvoir mettre a disposition des visiteurs toutes les informations dont vous avez besoin de communiquer.<br />\r\n	<br />\r\n	Allant de la simple page &agrave; la galerie photo, en passant par des news flash et bien d&#39;autres modules,<br />\r\n	vous pourrez afficher toutes vos donn&eacute;es sur votre site, sans avoir la moindre connaissance technique.</p>\r\n', '2013-01-29 13:08:34', 1),
-(2, 1, 'Actualités', '<p>\r\n	A venir</p>\r\n', '2013-01-29 13:08:52', 1),
-(3, 1, 'Téléchargement', '<p>\r\n	A venir.</p>\r\n', '2013-01-29 13:09:06', 1),
-(4, 1, 'Contact', '<p>\r\n	Vous pouvez me contacter a cette adresse : weneedyou [arobase] slash-cms.com</p>\r\n', '2013-01-29 13:09:23', 1),
-(5, 1, 'Documentation', '<p>\r\n	A venir.</p>\r\n', '2013-01-29 22:56:12', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sl_users`
+-- Structure de la table `users`
 --
-
-CREATE TABLE IF NOT EXISTS `sl_users` (
+DROP TABLE IF EXISTS `bdd_prefix_users`;
+CREATE TABLE IF NOT EXISTS `bdd_prefix_users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,
@@ -422,14 +378,6 @@ CREATE TABLE IF NOT EXISTS `sl_users` (
   `enabled` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
-
---
--- Contenu de la table `sl_users`
---
-
-INSERT INTO `sl_users` (`id`, `name`, `login`, `password`, `mail`, `language`, `grade`, `allowed_module`, `enabled`) VALUES
-(1, 'John Doe', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'weneedyou@slash-cms.com', 'fr', 0, '', 1),
-(17, 'John Doe', 'admin-en', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'weneedyou@slash-cms.com', 'en', 0, '', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -115,6 +115,12 @@ define("INVALID_DATE", "Invalid date");
 define("PRINT", "Print");
 define("LANG_DATA_PRODUCT","Content language");
 define("LAST_USER","Last user");
+define("USER","User");
+define("NO_FILES","No files");
+
+define("DELETE_FILE_FAIL", "Delete file fail");
+define("DELETE_DIR_FAIL", "Delete directory fail");
+define("FILE_ALREADY_EXISTS", "The file already exists");
 
 //Messages
 define("SAVE_SUCCESS", "Save Success");
@@ -122,6 +128,7 @@ define("SAVE_FAIL", "Save Fail");
 define("EDIT_SUCCESS", "Edit Success");
 define("EDIT_FAIL", "Edit Fail");
 define("DELETE_SUCCESS", "Delete Success");
+define("DELETE_FAIL", "Delete Fail");
 define("ITEMABLE_SUCCESS", "Item enabled Success");
 define("ITEM_DISABLE_SUCCESS", "Item disabled Success");
 define("ITEM_UP_SUCCESS", "Up Success");
@@ -129,10 +136,12 @@ define("ITEM_DOWN_SUCCESS", "Down Success");
 define("SELECTION_REQUIRE", "Please select one or more items");
 
 
+
 //Errors
 define("ERROR_FIELD_EMPTY", "Field is empty !");
+define("ERROR_FIELD_INCORRECT", "Field is faulty !");
 define("ERROR_TITLE_FIELD_EMPTY", "Field title is empty !");
 define("ERROR_PWD_SHORT","Password should be at least 3 caracters long");
-
+define("ERROR_FIELD_CHECK", "Some fields are incorrect !");
 
 ?>

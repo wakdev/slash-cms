@@ -27,8 +27,7 @@ Notes :
 
 */
 
-class PDOConnector
-{
+class PDOConnector extends GenericConnector implements iConnector {
 	/*----------------------------------------------------------------------------------------------------
 	 > ATTRIBUTES
 	----------------------------------------------------------------------------------------------------*/
@@ -37,6 +36,7 @@ class PDOConnector
 	private $_db_user;
 	private $_db_pass;
 	private $_db_prefix;
+	private $_db_autocommit;
 	
 	private static $instance;
 	
@@ -54,7 +54,6 @@ class PDOConnector
 	/*----------------------------------------------------------------------------------------------------
 	 > OVERLOADING
 	----------------------------------------------------------------------------------------------------*/
-	private function __construct() {}
 	private function __clone() {}
 	
 	/**
@@ -82,6 +81,8 @@ class PDOConnector
 		try{
 			$this->_db_handle = new PDO('mysql:host='.$this->_db_host.';dbname='.$this->_db_name, $this->_db_user, $this->_db_pass);
 		}catch (Exception $e){
+			$this->_db_error = $e->getMessage();
+			var_dump($e);
 			return false;
 		}
 		
@@ -96,16 +97,19 @@ class PDOConnector
 	/* SQL QUERY */
 	public function setQuery($sql) {
 		$this->_db_query = $sql;
+		return $this;
 	}
 	
 	/* SQL QUERY PREPARE */
 	public function setQueryPrepare($sql_prepare) {
 		$this->_db_query_prepare = $sql_prepare;
+		return $this;
 	}
 	
 	/* SQL QUERY EXECUTE */
 	public function setQueryExecute($sql_execute) {
 		$this->_db_query_execute = $sql_execute;
+		return $this;
 	}
 	
 	/* QUERY EXECUTE */
@@ -129,7 +133,7 @@ class PDOConnector
 				$this->_db_error = "Query Error";
 				return false;
 			}else{
-				return true;
+				return $this;
 			}
 		}
 	}
@@ -204,7 +208,7 @@ class PDOConnector
 	 * @return the quoted value
 	 * @todo add the $parameter_type to conform the PDO Connector at all.
 	 */
-	public function quote($value){
+	public function quote($value,$real_escape=false){
 		return $this->_db_handle->quote($value);
 	}
 	/**
@@ -212,10 +216,14 @@ class PDOConnector
 	 * @param string $value the value to escape
 	 * @return string the escaped string
 	 */
-	public function escape($value){
+	public function escape($value,$real_escape=false){
 		//quote the value with PDO::quote() function then
 		//remove enclosing quotes to conform "escape" protocol
-		return substr($this->_db_handle->quote($value),1,-1);
+		if (!$this->magic_quotes) {
+			return substr($this->_db_handle->quote($value),1,-1);
+		}else{
+			return $value;
+		}
 	}
 	
 	/**
@@ -224,7 +232,7 @@ class PDOConnector
 	 * @param string $values the values to escape
 	 * @return string the escaped string
 	 */
-	public function escapeArray($values){
+	public function escapeArray($values,$real_escape=false){
 		$return = array();
 		foreach($values as $key=>$value){
 			if (is_string($value)){			

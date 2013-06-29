@@ -38,8 +38,6 @@ include ("models/categories.php");
 class sla_articles_controller extends slaController implements iController{
 
 	
-	public $module_name = "sla_articles";
-	
 	public $articles;
 	public $categories;
 	public $view;
@@ -156,6 +154,7 @@ class sla_articles_controller extends slaController implements iController{
 				$this->errors = $this->articles->check_fields($this->datas);
 				
 				if ($this->errors != null) {
+					$this->message = $this->slash->trad_word("ERROR_FIELD_CHECK");
 					$this->mode = "edit";
 				}else{
 					$this->message = $this->articles->save_item($this->datas["id"],$this->datas);

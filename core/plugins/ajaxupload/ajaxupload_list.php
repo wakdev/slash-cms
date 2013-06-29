@@ -3,7 +3,7 @@
 * @package		SLASH-CMS
 * @subpackage	AJAXUPLOAD_PLUGIN
 * @internal     Upload interface in ajax
-* @version		ajaxupload_list.php - Version 9.12.16
+* @version		ajaxupload_list.php
 * @author		Julien Veuillet [http://www.wakdev.com]
 * @copyright	Copyright(C) 2009 - Today. All rights reserved.
 * @license		GNU/GPL
@@ -23,26 +23,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-/**************************************************/
-/******** 		CONFIGURATION		********/
-/**************************************************/
-session_start();
-include ("../../common/constants/sl_constants.php");
-include ("../../config/sl_config.php");
-include ("../../common/class/functions/includes/sl_files.php");
-$config = new SLConfig();
+//Includes
+include ("../../slash.php");
+
+$slash = new Slash();
+$slash->standalone_init();
 $filestools = new sl_files();
-$host = $config->db_host; 
-$login = $config->db_user; 
-$password = $config->db_password; 
-$database_name = $config->db_name; 
-$database = mysql_connect($host, $login, $password) or die ("CONNEXION ERROR");	
-mysql_select_db($database_name, $database) or die ("DATABASE CONNEXION ERROR");
 
 //Check user
 if (isset($_SESSION["id_user"]) && $_SESSION["id_user"] != null) {
-	$result = mysql_query("SELECT * FROM ".$config->db_prefix."users WHERE id=".$_SESSION["id_user"],$database);
-	if (mysql_num_rows($result)==0) { exit; }
+	
+	$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."users WHERE id=".$_SESSION["id_user"]);
+	if (!$slash->database->execute()) {
+		$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+	}
+	
+	if($slash->database->rowCount()==0) { exit; }
+	
 }else{
 	exit;
 }
@@ -72,30 +69,14 @@ if (isset($_POST["sl_mod_upload_file"])) { $sl_mod_upload_file = $_POST["sl_mod_
 if (isset($_POST["sl_mod_upload_id_attachment"])) { $sl_mod_upload_id_attachment = $_POST["sl_mod_upload_id_attachment"]; }
 if (isset($_POST["sl_mod_upload_position_attachment"])) { $sl_mod_upload_position_attachment = $_POST["sl_mod_upload_position_attachment"]; }
 if (isset($_POST["sl_mod_upload_min"])) { $sl_mod_upload_min = $_POST["sl_mod_upload_min"]; } else { $sl_mod_upload_min = Null; }
-
 if (isset($_POST["sl_mod_img_resize"])) { $sl_mod_img_resize = $_POST["sl_mod_img_resize"]; } else { $sl_mod_img_resize = false; }
 if (isset($_POST["sl_mod_img_max_width"])) { $sl_mod_img_max_width = $_POST["sl_mod_img_max_width"]; } else { $sl_mod_img_max_width = "auto"; }
 if (isset($_POST["sl_mod_img_max_height"])) { $sl_mod_img_max_height = $_POST["sl_mod_img_max_height"]; } else {$sl_mod_img_max_height = "auto"; }
 
 
-
-/*
-$sl_mod_field_id = $_POST["sl_mod_field_id"];
-$sl_mod_upload_id = $_POST["sl_mod_upload_id"];
-$sl_mod_upload_id_module = $_POST["sl_mod_upload_id_module"];
-$sl_mod_upload_files_dir = $_POST["sl_mod_upload_files_dir"];
-$sl_mod_upload_action = $_POST["sl_mod_upload_action"];
-
-$sl_mod_upload_file = $_POST["sl_mod_upload_file"];
-$sl_mod_upload_id_attachment = $_POST["sl_mod_upload_id_attachment"];
-$sl_mod_upload_position_attachment = $_POST["sl_mod_upload_position_attachment"];
-*/
-
 /**************************************************/
 /******** 			   ACTIONS 	  		   ********/
 /**************************************************/
-
-//echo "ID MODULE : ".$sl_mod_upload_id_module." ET ID ELEMENT : ".$sl_mod_upload_id." ET ID FIELD : ".$sl_mod_field_id;
 
 switch ($sl_mod_upload_action) {	
 
@@ -103,29 +84,38 @@ switch ($sl_mod_upload_action) {
 	case "delete":
 		
 		$ret = unlink($sl_mod_upload_file);
-		if (!$ret){
-			echo "DELETE ERROR <br />";
+		if (!$ret){ echo $slash->trad_word("DELETE_FILE_FAIL")."<br />"; }
+		
+		$slash->database->setQuery("DELETE FROM ".$slash->database_prefix."attachments WHERE id_module=".$sl_mod_upload_id_module." AND id='".$sl_mod_upload_id_attachment."'");
+		if (!$slash->database->execute()) {
+			$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
 		}
 		
-		$result = mysql_query("DELETE FROM sl_attachments WHERE id_module=".$sl_mod_upload_id_module." AND id='".$sl_mod_upload_id_attachment."'",$database) 
-					or die ("QUERY ERROR : ".mysql_error());
-		
+			
 		if ($sl_mod_upload_id!=0) {
 		
-			$result = mysql_query("SELECT * FROM sl_attachments WHERE id_module='".$sl_mod_upload_id_module."' AND id_element='".$sl_mod_upload_id."' AND state='1' and id_field='".$sl_mod_field_id."' ORDER BY position ASC",$database) or die ("QUERY ERROR : ".mysql_error());
-			if (mysql_num_rows($result)==0) {
+			$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_module='".$sl_mod_upload_id_module."' AND id_element='".$sl_mod_upload_id."' AND state='1' and id_field='".$sl_mod_field_id."' ORDER BY position ASC");
+			if (!$slash->database->execute()) {
+				$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+			}
+			
+			if ($slash->database->rowCount()==0) {
 			
 				$path = "../../../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id."/";
 			
 				if(@ ! rmdir($path)) {
-					echo "DELETE ERROR <br />";
+					echo $slash->trad_word("DELETE_DIR_FAIL")."<br />";
 				}
 				
 			
 			}else{ //New position
 				$p = 1;
-				while ($row = mysql_fetch_array($result, MYSQL_BOTH)) {
-					mysql_query("UPDATE sl_attachments set position=".$p." WHERE id='".$row["id"]."'",$database) or die ("QUERY ERROR : ".mysql_error());
+				
+				foreach ($slash->database->fetchAll("BOTH") as $row) {
+					$slash->database->setQuery("UPDATE ".$slash->database_prefix."attachments set position=".$p." WHERE id='".$row["id"]."'");
+					if (!$slash->database->execute()) {
+						$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());
+					}
 					$p++;
 				}
 			}
@@ -147,26 +137,32 @@ switch ($sl_mod_upload_action) {
 		
 			if ($sl_mod_upload_id==0) {
 			
-				$result = mysql_query("SELECT * FROM sl_attachments WHERE id_module='".$sl_mod_upload_id_module."' AND id_user='".$_SESSION["id_user"]."' AND position='".$new_position."'",$database) or die ("QUERY ERROR : ".mysql_error());
+				$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_module='".$sl_mod_upload_id_module."' AND id_user='".$_SESSION["id_user"]."' AND position='".$new_position."'");
+				if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
 				
-				$num_rows = mysql_num_rows($result);
+				$num_rows = $slash->database->rowCount();
 				
 				if ($num_rows != 0) {
-					$row = mysql_fetch_array($result, MYSQL_ASSOC);
-					$result = mysql_query("UPDATE sl_attachments set position=".$sl_mod_upload_position_attachment." WHERE id_module='".$sl_mod_upload_id_module."' AND id_user='".$_SESSION["id_user"]."' AND position=".$new_position,$database) or die ("QUERY ERROR : ".mysql_error());
-					$result = mysql_query("UPDATE sl_attachments set position=".$new_position." WHERE id=".$sl_mod_upload_id_attachment,$database) or die ("QUERY ERROR : ".mysql_error());
+					$row = $slash->database->fetch("ASSOC");
+					$slash->database->setQuery("UPDATE ".$slash->database_prefix."attachments set position=".$sl_mod_upload_position_attachment." WHERE id_module='".$sl_mod_upload_id_module."' AND id_user='".$_SESSION["id_user"]."' AND position=".$new_position);
+					if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
+					$slash->database->setQuery("UPDATE ".$slash->database_prefix."attachments set position=".$new_position." WHERE id=".$sl_mod_upload_id_attachment);
+					if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
 				}
 				
 			}else{
 			
-				$result = mysql_query("SELECT * FROM sl_attachments WHERE id_module='".$sl_mod_upload_id_module."' and id_element='".$sl_mod_upload_id."' and position='".$new_position."'",$database) or die ("QUERY ERROR : ".mysql_error());
-
-				$num_rows = mysql_num_rows($result);
+				$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_module='".$sl_mod_upload_id_module."' and id_element='".$sl_mod_upload_id."' and position='".$new_position."'");
+				if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
+				
+				$num_rows = $slash->database->rowCount();
 				
 				if ($num_rows != 0) {
-					$row = mysql_fetch_array($result, MYSQL_ASSOC);
-					$result = mysql_query("UPDATE sl_attachments set position=".$sl_mod_upload_position_attachment." WHERE id_module='".$sl_mod_upload_id_module."' AND id_element='".$sl_mod_upload_id."' AND position=".$new_position,$database) or die ("QUERY ERROR : ".mysql_error());
-					$result = mysql_query("UPDATE sl_attachments set position=".$new_position." WHERE id=".$sl_mod_upload_id_attachment,$database) or die ("QUERY ERROR : ".mysql_error());
+					$row = $slash->database->fetch("ASSOC");
+					$slash->database->setQuery("UPDATE ".$slash->database_prefix."attachments set position=".$sl_mod_upload_position_attachment." WHERE id_module='".$sl_mod_upload_id_module."' AND id_element='".$sl_mod_upload_id."' AND position=".$new_position);
+					if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
+					$slash->database->setQuery("UPDATE ".$slash->database_prefix."attachments set position=".$new_position." WHERE id=".$sl_mod_upload_id_attachment);
+					if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
 				}
 			
 			}
@@ -189,14 +185,14 @@ switch ($sl_mod_upload_action) {
 /**************************************************/
 if ($sl_mod_upload_id == 0) {
 	/*--- NEW MODE ---*/
-	$result = mysql_query("SELECT * FROM sl_attachments WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$sl_mod_upload_id_module."' and state='0' and id_field='".$sl_mod_field_id."' ORDER BY position",$database) 
-				or die ("QUERY ERROR : ".mysql_error());
-	$numfields = mysql_num_rows($result);
+	$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_user='".$_SESSION["id_user"]."' and id_module='".$sl_mod_upload_id_module."' and state='0' and id_field='".$sl_mod_field_id."' ORDER BY position"); 
+	if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}	
+	$numfields = $slash->database->rowCount();
 	
 	if ($numfields > 0) {
 	
 			
-		while ($row = mysql_fetch_array($result, MYSQL_BOTH)) {
+		foreach ($slash->database->fetchAll("BOTH") as $row) {
 		
 			$path_admin = "../tmp/".$row["filename"];
 			$path = "../../../tmp/".$row["filename"];
@@ -260,7 +256,7 @@ if ($sl_mod_upload_id == 0) {
 			</td>
 			<td width="20" align="right">
 			<!-- DELETE BUTTON -->
-			<a href="#" class="upload_list_del_button" onclick="if(confirm('Delete <?php echo $row["filename"]; ?> ?')){ 
+			<a href="#" class="upload_list_del_button" onclick="if(confirm('<?php echo $slash->trad_word("DELETE"); ?> : <?php echo $row["filename"]; ?> ?')){ 
 			
 			upload_count_<?php echo $sl_mod_field_id; ?>--;
 			
@@ -285,21 +281,21 @@ if ($sl_mod_upload_id == 0) {
 		}
 	
 	}else{
-		echo "NO FILES";
+		echo $slash->trad_word("NO_FILES");
 	}
 					
 					
 }else{
 	/*--- EDIT MODE ---*/
-	$result = mysql_query("SELECT * FROM sl_attachments WHERE id_module='".$sl_mod_upload_id_module."' and id_element='".$sl_mod_upload_id."' and state='1' and id_field='".$sl_mod_field_id."' ORDER BY position",$database) 
-				or die ("QUERY ERROR : ".mysql_error());
-	$numfields = mysql_num_rows($result);
+	$slash->database->setQuery("SELECT * FROM ".$slash->database_prefix."attachments WHERE id_module='".$sl_mod_upload_id_module."' and id_element='".$sl_mod_upload_id."' and state='1' and id_field='".$sl_mod_field_id."' ORDER BY position"); 
+	if (!$slash->database->execute()) {$slash->show_fatal_error("QUERY_ERROR",$slash->database->getError());}
+	$numfields = $slash->database->rowCount();
 	
 	echo "<script type='text/javascript'>upload_count=".$numfields.";</script>";
 	
 	if ($numfields > 0) {
 			
-		while ($row = mysql_fetch_array($result, MYSQL_BOTH)) {
+		foreach ($slash->database->fetchAll("BOTH") as $row) {
 		
 			$path_admin = "../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id."/".$row["filename"];
 			$path = "../../../".$sl_mod_upload_files_dir."/".$sl_mod_upload_id."/".$row["filename"];
@@ -375,7 +371,7 @@ if ($sl_mod_upload_id == 0) {
 			if ($sl_mod_upload_min < $numfields) { // Minimum upload
 			?>
 			
-			<a href="#" class="upload_list_del_button" onclick="if(confirm('Delete <?php echo $row["filename"]; ?> ?')){
+			<a href="#" class="upload_list_del_button" onclick="if(confirm('<?php echo $slash->trad_word("DELETE"); ?> : <?php echo $row["filename"]; ?> ?')){
 			
 			upload_count_<?php echo $sl_mod_field_id; ?>--;
 			
@@ -407,11 +403,12 @@ if ($sl_mod_upload_id == 0) {
 
 		}
 	}else{
-		echo "NO FILES";
+		echo $slash->trad_word("NO_FILES");
 	}
 
 }
-	
+
+$slash->standalone_close();
 
 ?>
 

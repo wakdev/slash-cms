@@ -25,13 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /**
-* @todo		Use Cookies
-* @todo		Log connexion function
-* @todo		MVC
-*/
-
-
-/**
 * @file
 * @name sla_secure
 * @defgroup sla_secure sla_secure
@@ -45,7 +38,6 @@ include ("views/default/view.php");
 
 class sla_secure_controller extends slaController implements iController{
 
-	public $module_name = "sla_secure";
 	public $view;
 	
 	/**
@@ -64,11 +56,10 @@ class sla_secure_controller extends slaController implements iController{
 		
 		$this->error = "no_error";
 		
-		if (isset($this->slash->get_params["mod"]) 
-		&& $this->slash->get_params["mod"] == "sla_secure" ) {
+		if ($this->slash->sl_param("mod","GET") == "sla_secure" ) {
 			
 			// Login script
-			if ($this->slash->get_params["act"] == "login") {
+			if ($this->slash->sl_param("act","GET") == "login") {
 				
 				$this->error = "no_user";
 				
@@ -79,7 +70,8 @@ class sla_secure_controller extends slaController implements iController{
 				
 				foreach ($this->slash->database->fetchAll("BOTH") as $row) {
 					
-					if ($row["login"] == $this->slash->post_params["sla_secure_login"]  && $row["password"] == sha1($this->slash->post_params["sla_secure_password"]) ) {
+					if ($row["login"] == $this->slash->sl_param("sla_secure_login","POST")  
+							&& $row["password"] == sha1($this->slash->sl_param("sla_secure_password","POST")) ) {
 						if ($row["enabled"]!= 0) {
 							$_SESSION["id_user"] = $row["id"];
 							
@@ -105,7 +97,7 @@ class sla_secure_controller extends slaController implements iController{
 			
 			
 			// Logout script
-			if ($this->slash->get_params["act"] == "logout") {
+			if ($this->slash->sl_param("act","GET") == "logout") {
 				
 				//Log connexion
 				$log_info = "[".$_SERVER["REMOTE_ADDR"]."] disconnected.";
